@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
-class CromoPage extends StatelessWidget {
+class CromoPage extends StatefulWidget {
   final bool medo;
   final bool ansi;
   final bool triste;
   final bool stress;
   final bool raiva;
 
-  const CromoPage(
+  CromoPage(
       {Key key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
       : super(key: key);
 
+  @override
+  _CromoPageState createState() => _CromoPageState();
+}
+
+class _CromoPageState extends State<CromoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +92,9 @@ class CromoPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
               child: Card(
-                color: medo == true || stress == true || ansi == true
+                color: widget.medo == true ||
+                        widget.stress == true ||
+                        widget.ansi == true
                     ? Colors.blue
                     : Colors.grey,
                 shape: RoundedRectangleBorder(
@@ -123,7 +130,7 @@ class CromoPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
               child: Card(
-                color: triste == true ? Colors.red : Colors.grey,
+                color: widget.triste == true ? Colors.red : Colors.grey,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Padding(
@@ -157,10 +164,10 @@ class CromoPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
               child: Card(
-                color: medo == true ||
-                        raiva == true ||
-                        triste == true ||
-                        ansi == true
+                color: widget.medo == true ||
+                        widget.raiva == true ||
+                        widget.triste == true ||
+                        widget.ansi == true
                     ? Colors.yellow
                     : Colors.grey,
                 shape: RoundedRectangleBorder(
@@ -196,7 +203,7 @@ class CromoPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
               child: Card(
-                color: stress == true || raiva == true
+                color: widget.stress == true || widget.raiva == true
                     ? Colors.purple
                     : Colors.grey,
                 shape: RoundedRectangleBorder(
@@ -232,7 +239,9 @@ class CromoPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
               child: Card(
-                color: triste == true || ansi == true || raiva == true
+                color: widget.triste == true ||
+                        widget.ansi == true ||
+                        widget.raiva == true
                     ? Colors.green
                     : Colors.grey,
                 shape: RoundedRectangleBorder(
@@ -295,7 +304,7 @@ class CromoPage extends StatelessWidget {
   }
 
   _requestPopAzul(context) {
-    if (medo == true || stress == true || ansi == true) {
+    if (widget.medo == true || widget.stress == true || widget.ansi == true) {
       showDialog(
           context: context,
           builder: (context) {
@@ -323,7 +332,7 @@ class CromoPage extends StatelessWidget {
   }
 
   _requestPopVer(context) {
-    if (triste == true) {
+    if (widget.triste == true) {
       showDialog(
           context: context,
           builder: (context) {
@@ -351,7 +360,10 @@ class CromoPage extends StatelessWidget {
   }
 
   _requestPopAma(context) {
-    if (medo == true || raiva == true || triste == true || ansi == true) {
+    if (widget.medo == true ||
+        widget.raiva == true ||
+        widget.triste == true ||
+        widget.ansi == true) {
       showDialog(
           context: context,
           builder: (context) {
@@ -379,7 +391,7 @@ class CromoPage extends StatelessWidget {
   }
 
   _requestPopRx(context) {
-    if (stress == true || raiva == true) {
+    if (widget.stress == true || widget.raiva == true) {
       showDialog(
           context: context,
           builder: (context) {
@@ -407,7 +419,7 @@ class CromoPage extends StatelessWidget {
   }
 
   _requestPopVe(context) {
-    if (triste == true || ansi == true || raiva == true) {
+    if (widget.triste == true || widget.ansi == true || widget.raiva == true) {
       showDialog(
           context: context,
           builder: (context) {

@@ -1,15 +1,33 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-class MeditationPage extends StatelessWidget {
+class MeditationPage extends StatefulWidget {
   final bool medo;
   final bool ansi;
   final bool triste;
   final bool stress;
   final bool raiva;
 
-  const MeditationPage(
+  MeditationPage(
       {Key key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
       : super(key: key);
+
+  @override
+  _MeditationPageState createState() => _MeditationPageState();
+}
+
+class _MeditationPageState extends State<MeditationPage> {
+  bool playing = false;
+  IconData playBtn = Icons.play_arrow;
+
+  AudioPlayer _player;
+  AudioCache cache;
+
+  void initState() {
+    super.initState();
+    _player = AudioPlayer();
+    cache = AudioCache(fixedPlayer: _player);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +132,22 @@ class MeditationPage extends StatelessWidget {
                         child: IconButton(
                           iconSize: 50.0,
                           color: Colors.purple,
-                          onPressed: () {},
-                          icon: Icon(Icons.play_arrow),
+                          onPressed: () {
+                            if (!playing) {
+                              cache.play("Med1.mp3");
+                              setState(() {
+                                playBtn = Icons.pause;
+                                playing = true;
+                              });
+                            } else {
+                              _player.pause();
+                              setState(() {
+                                playBtn = Icons.play_arrow;
+                                playing = false;
+                              });
+                            }
+                          },
+                          icon: Icon(playBtn),
                         ),
                       )
                     ],
@@ -127,7 +159,7 @@ class MeditationPage extends StatelessWidget {
               },
             ),
           ),
-          //Card 3
+          /* //Card 3
           Padding(
             padding: EdgeInsets.all(10.0),
             child: GestureDetector(
@@ -174,7 +206,7 @@ class MeditationPage extends StatelessWidget {
                 _requestPop(context);
               },
             ),
-          ),
+          ), */
         ]));
   }
 
