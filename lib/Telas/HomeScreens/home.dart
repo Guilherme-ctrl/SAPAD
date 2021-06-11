@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  final bool music;
+  final bool cromo;
+  final bool medit;
+
+  const HomePage({Key key, this.music, this.cromo, this.medit})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,6 +22,11 @@ class _HomePageState extends State<HomePage> {
   bool _triste = false;
   bool _raiva = false;
   bool _stress = false;
+
+  void initState() {
+    super.initState();
+    print(widget.music);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +40,47 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       backgroundColor: Colors.black87,
+      drawer: Drawer(
+          child: Container(
+        color: Colors.black45,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey,
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: Container(
+                          width: 110.0,
+                          height: 110.0,
+                          child: Image(
+                            image: AssetImage('assets/Logo.png'),
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Configurações',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ConfigPage()));
+              },
+            ),
+          ],
+        ),
+      )),
       body: ListView(
         padding:
             EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
@@ -223,15 +275,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MeditationPage(
-                            medo: _med,
-                            ansi: _ansi,
-                            raiva: _raiva,
-                            stress: _stress,
-                            triste: _triste)));
+                if (widget.medit == true) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MeditationPage(
+                              medo: _med,
+                              ansi: _ansi,
+                              raiva: _raiva,
+                              stress: _stress,
+                              triste: _triste)));
+                }
               },
             ),
           ),
@@ -311,15 +365,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CromoPage(
-                            medo: _med,
-                            ansi: _ansi,
-                            raiva: _raiva,
-                            stress: _stress,
-                            triste: _triste)));
+                if (widget.cromo == true) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CromoPage(
+                              medo: _med,
+                              ansi: _ansi,
+                              raiva: _raiva,
+                              stress: _stress,
+                              triste: _triste)));
+                }
               },
             ),
           ),
@@ -400,15 +456,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MusicPage(
-                            medo: _med,
-                            ansi: _ansi,
-                            raiva: _raiva,
-                            stress: _stress,
-                            triste: _triste)));
+                if (widget.music == true) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MusicPage(
+                              medo: _med,
+                              ansi: _ansi,
+                              raiva: _raiva,
+                              stress: _stress,
+                              triste: _triste)));
+                }
               },
             ),
           ),

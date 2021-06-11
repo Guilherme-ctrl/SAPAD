@@ -36,7 +36,7 @@ dependencies:
   flutter_markdown: ^0.3.4
   material_design_icons_flutter: 4.0.5955
   audioplayers: ^0.19.0
-  audio_picker: ^1.0.0
+  sqflite: ^1.1.5
 
 dev_dependencies:
   flutter_test:
