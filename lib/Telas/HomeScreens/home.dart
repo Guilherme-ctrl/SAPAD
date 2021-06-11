@@ -23,11 +23,6 @@ class _HomePageState extends State<HomePage> {
   bool _raiva = false;
   bool _stress = false;
 
-  void initState() {
-    super.initState();
-    print(widget.music);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -275,17 +270,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                if (widget.medit == true) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MeditationPage(
-                              medo: _med,
-                              ansi: _ansi,
-                              raiva: _raiva,
-                              stress: _stress,
-                              triste: _triste)));
-                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MeditationPage(
+                            medo: _med,
+                            ansi: _ansi,
+                            raiva: _raiva,
+                            stress: _stress,
+                            triste: _triste)));
               },
             ),
           ),
@@ -365,17 +358,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                if (widget.cromo == true) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CromoPage(
-                              medo: _med,
-                              ansi: _ansi,
-                              raiva: _raiva,
-                              stress: _stress,
-                              triste: _triste)));
-                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CromoPage(
+                            medo: _med,
+                            ansi: _ansi,
+                            raiva: _raiva,
+                            stress: _stress,
+                            triste: _triste)));
               },
             ),
           ),
@@ -456,17 +447,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                if (widget.music == true) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MusicPage(
-                              medo: _med,
-                              ansi: _ansi,
-                              raiva: _raiva,
-                              stress: _stress,
-                              triste: _triste)));
-                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MusicPage(
+                            medo: _med,
+                            ansi: _ansi,
+                            raiva: _raiva,
+                            stress: _stress,
+                            triste: _triste)));
               },
             ),
           ),
