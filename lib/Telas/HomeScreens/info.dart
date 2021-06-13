@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({Key key}) : super(key: key);
@@ -147,6 +148,65 @@ class _InfoPageState extends State<InfoPage> {
                 },
               ),
             ),
+            //Card 4
+
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Container(
+                        child: Text(
+                          "Envie o seu FEEDBACK\nClicando Aqui!!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  const url = 'https://www.google.com';
+                  abrirUrl(url);
+                },
+              ),
+            ),
+            //Card 5
+
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Container(
+                        child: Text(
+                          "Encontrou Algum BUG?\nClique Aqui!!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  abrirGmail();
+                },
+              ),
+            ),
           ],
         ));
   }
@@ -202,5 +262,27 @@ class _InfoPageState extends State<InfoPage> {
             ],
           );
         });
+  }
+
+  abrirGmail() async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: 'pi.ifsc.gaspar@gmail.com',
+      query: 'subject=Reportar&body=Detalhe aqui qual bug você encontrou: ',
+    );
+    String url = params.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
+  abrirUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
@@ -28,11 +27,6 @@ class _HomePageState extends State<HomePage> {
   bool _medit = true;
   bool _checkBox = false;
   IconData _seta = Icons.keyboard_arrow_up;
-
-  void initState() {
-    super.initState();
-    print(_checkBox);
-  }
 
   @override
   Widget build(BuildContext context) {
