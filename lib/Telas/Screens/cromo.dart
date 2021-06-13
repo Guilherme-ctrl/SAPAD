@@ -88,189 +88,218 @@ class _CromoPageState extends State<CromoPage> {
             ),
           ),
           //Card 2
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: widget.medo == true ||
-                        widget.stress == true ||
-                        widget.ansi == true
-                    ? Colors.blue
-                    : Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Azul",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      )
-                    ],
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: widget.medo == true ||
+                          widget.stress == true ||
+                          widget.ansi == true
+                      ? Colors.blue
+                      : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Azul",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  _requestPopAzul(context);
+                },
               ),
-              onTap: () {
-                _requestPopAzul(context);
-              },
             ),
+            visible: widget.medo == true ||
+                    widget.stress == true ||
+                    widget.ansi == true
+                ? true
+                : false,
           ),
           //Card 3
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: widget.triste == true ? Colors.red : Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Vermelho",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      )
-                    ],
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Vermelho",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  _requestPopVer(context);
+                },
               ),
-              onTap: () {
-                _requestPopVer(context);
-              },
             ),
+            visible: widget.triste == true ? true : false,
           ),
           //Card 4
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: widget.medo == true ||
-                        widget.raiva == true ||
-                        widget.triste == true ||
-                        widget.ansi == true
-                    ? Colors.yellow
-                    : Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Amarelo",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      )
-                    ],
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: widget.medo == true ||
+                          widget.raiva == true ||
+                          widget.triste == true ||
+                          widget.ansi == true
+                      ? Colors.yellow
+                      : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Amarelo",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  _requestPopAma(context);
+                },
               ),
-              onTap: () {
-                _requestPopAma(context);
-              },
             ),
+            visible: widget.medo == true ||
+                    widget.raiva == true ||
+                    widget.triste == true ||
+                    widget.ansi == true
+                ? true
+                : false,
           ),
           //Card 5
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: widget.stress == true || widget.raiva == true
-                    ? Colors.purple
-                    : Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Roxo",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      )
-                    ],
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: widget.stress == true || widget.raiva == true
+                      ? Colors.purple
+                      : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Roxo",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  _requestPopRx(context);
+                },
               ),
-              onTap: () {
-                _requestPopRx(context);
-              },
             ),
+            visible:
+                widget.stress == true || widget.raiva == true ? true : false,
           ),
           //Card 6
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: widget.triste == true ||
-                        widget.ansi == true ||
-                        widget.raiva == true
-                    ? Colors.green
-                    : Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Verde",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      )
-                    ],
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                child: Card(
+                  color: widget.triste == true ||
+                          widget.ansi == true ||
+                          widget.raiva == true
+                      ? Colors.green
+                      : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Verde",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  _requestPopVe(context);
+                },
               ),
-              onTap: () {
-                _requestPopVe(context);
-              },
             ),
+            visible: widget.triste == true ||
+                    widget.ansi == true ||
+                    widget.raiva == true
+                ? true
+                : false,
           ),
         ],
       ),
@@ -304,145 +333,132 @@ class _CromoPageState extends State<CromoPage> {
   }
 
   _requestPopAzul(context) {
-    if (widget.medo == true || widget.stress == true || widget.ansi == true) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.purple[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            content: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Image(image: AssetImage('assets/Azul.jpg')),
               ),
-              content: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  child: Image(image: AssetImage('assets/Azul.jpg')),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"))
+            ],
+          );
+        });
   }
 
   _requestPopVer(context) {
-    if (widget.triste == true) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.purple[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            content: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Image(image: AssetImage('assets/Vermelho.jpg')),
               ),
-              content: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  child: Image(image: AssetImage('assets/Vermelho.jpg')),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"))
+            ],
+          );
+        });
   }
 
   _requestPopAma(context) {
-    if (widget.medo == true ||
-        widget.raiva == true ||
-        widget.triste == true ||
-        widget.ansi == true) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.purple[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            content: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Image(image: AssetImage('assets/Amarelo.jpg')),
               ),
-              content: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  child: Image(image: AssetImage('assets/Amarelo.jpg')),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"))
+            ],
+          );
+        });
   }
 
   _requestPopRx(context) {
-    if (widget.stress == true || widget.raiva == true) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.purple[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            content: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Image(image: AssetImage('assets/roxo.jpg')),
               ),
-              content: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  child: Image(image: AssetImage('assets/roxo.jpg')),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"))
+            ],
+          );
+        });
   }
 
   _requestPopVe(context) {
-    if (widget.triste == true || widget.ansi == true || widget.raiva == true) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.purple[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            content: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Image(image: AssetImage('assets/Verde.jpg')),
               ),
-              content: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  child: Image(image: AssetImage('assets/Verde.jpg')),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"))
+            ],
+          );
+        });
   }
 }
