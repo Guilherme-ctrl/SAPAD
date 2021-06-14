@@ -23,6 +23,11 @@ class CromoPage extends StatefulWidget {
 }
 
 class _CromoPageState extends State<CromoPage> {
+  void initState() {
+    super.initState();
+    print(widget.isMarket);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
