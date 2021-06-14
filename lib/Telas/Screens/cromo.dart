@@ -6,9 +6,16 @@ class CromoPage extends StatefulWidget {
   final bool triste;
   final bool stress;
   final bool raiva;
+  final bool isMarket;
 
-  CromoPage(
-      {Key key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
+  const CromoPage(
+      {Key key,
+      this.medo,
+      this.ansi,
+      this.triste,
+      this.stress,
+      this.raiva,
+      this.isMarket})
       : super(key: key);
 
   @override
@@ -16,6 +23,11 @@ class CromoPage extends StatefulWidget {
 }
 
 class _CromoPageState extends State<CromoPage> {
+  void initState() {
+    super.initState();
+    print(widget.isMarket);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +98,31 @@ class _CromoPageState extends State<CromoPage> {
                 _requestPopInfo(context);
               },
             ),
+          ),
+
+          //Card Alerta
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.only(top: 40.0),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(Icons.info_outline,
+                          size: 200.0, color: Colors.white60),
+                    ),
+                    Text(
+                      "Para ter acesso as terapias você precisa selecionar seu estado atual na pagina principal",
+                      style: TextStyle(color: Colors.white60, fontSize: 25.0),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            visible: widget.isMarket == true ? false : true,
           ),
           //Card 2
           Visibility(

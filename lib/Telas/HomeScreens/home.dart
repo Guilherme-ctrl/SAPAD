@@ -23,11 +23,13 @@ class _HomePageState extends State<HomePage> {
   bool _triste = false;
   bool _raiva = false;
   bool _stress = false;
+  bool _isMarked = false;
 
   bool _music = true;
   bool _cromo = true;
   bool _medit = true;
   bool _checkBox = true;
+
   IconData _seta = Icons.keyboard_arrow_up;
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
@@ -367,6 +369,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newmed) {
                             setState(() {
                               _med = _newmed;
+                              _isMarked = _newmed;
                             });
                           },
                         ),
@@ -384,6 +387,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newtriste) {
                             setState(() {
                               _triste = _newtriste;
+                              _isMarked = _newtriste;
                             });
                           },
                         ),
@@ -401,6 +405,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newansi) {
                             setState(() {
                               _ansi = _newansi;
+                              _isMarked = _newansi;
                             });
                           },
                         ),
@@ -418,6 +423,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newstress) {
                             setState(() {
                               _stress = _newstress;
+                              _isMarked = _newstress;
                             });
                           },
                         ),
@@ -435,6 +441,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newraiva) {
                             setState(() {
                               _raiva = _newraiva;
+                              _isMarked = _newraiva;
                             });
                           },
                         ),
@@ -624,11 +631,13 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => CromoPage(
-                                medo: _med,
-                                ansi: _ansi,
-                                raiva: _raiva,
-                                stress: _stress,
-                                triste: _triste)));
+                                  medo: _med,
+                                  ansi: _ansi,
+                                  raiva: _raiva,
+                                  stress: _stress,
+                                  triste: _triste,
+                                  isMarket: _isMarked,
+                                )));
                   }
                 },
               ),
