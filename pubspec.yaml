@@ -37,6 +37,7 @@ dependencies:
   material_design_icons_flutter: 4.0.5955
   audioplayers: ^0.19.0
   sqflite: ^1.1.5
+  carousel_slider: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,9 @@ flutter:
     - assets/roxo.jpg
     - assets/Verde.jpg
     - assets/TechMaker.jpg
+    - assets/cromoterapia.jpg
+    - assets/meditacao.jpg
+    - assets/musicoterapia.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

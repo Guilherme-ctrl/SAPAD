@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   /* final bool music;
@@ -25,20 +27,25 @@ class _HomePageState extends State<HomePage> {
   bool _music = true;
   bool _cromo = true;
   bool _medit = true;
-  bool _checkBox = false;
+  bool _checkBox = true;
   IconData _seta = Icons.keyboard_arrow_up;
+
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
+  int _currentIndex = 0;
+  List cardList = [Item1(), Item2(), Item3(), Item4()];
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black87,
-        title: Text(
-          "SAPAD",
-          style: TextStyle(fontSize: 20.0),
-        ),
-        centerTitle: true,
-      ),
+      key: _scaffoldState,
       backgroundColor: Colors.black87,
       drawer: Drawer(
           child: Container(
@@ -151,6 +158,34 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.zero,
+              child: GestureDetector(
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Container(
+                        child: Text(
+                          "Envie o seu FEEDBACK\nClicando Aqui!!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  const url = 'https://www.google.com';
+                  abrirUrl(url);
+                },
+              ),
+            ),
             /* ListTile(
               title: Text(
                 'Configurações',
@@ -168,6 +203,73 @@ class _HomePageState extends State<HomePage> {
         padding:
             EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
         children: [
+          //Drawer Button
+          Padding(
+            padding: EdgeInsets.only(top: 15.0),
+            child: IconButton(
+              alignment: Alignment.topLeft,
+              icon: Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () => _scaffoldState.currentState.openDrawer(),
+            ),
+          ),
+
+          //Carousel
+          Padding(
+            padding: EdgeInsets.only(top: 1.0),
+            child: Column(
+              children: <Widget>[
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    pauseAutoPlayOnTouch: true,
+                    aspectRatio: 2.0,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                  ),
+                  items: cardList.map((card) {
+                    return Builder(builder: (BuildContext context) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.30,
+                        width: MediaQuery.of(context).size.width,
+                        child: Card(
+                          color: Colors.transparent,
+                          child: card,
+                        ),
+                      );
+                    });
+                  }).toList(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: map<Widget>(cardList, (index, url) {
+                    return Container(
+                      width: 10.0,
+                      height: 10.0,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _currentIndex == index
+                            ? Colors.purple
+                            : Colors.grey,
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ),
+
           //Card 1
 
           Padding(
@@ -236,7 +338,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-
           //Card 2
 
           Visibility(
@@ -628,6 +729,110 @@ class _HomePageState extends State<HomePage> {
             ),
             visible: _music == true ? true : false,
           ),
+        ],
+      ),
+    );
+  }
+
+  abrirUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+
+class Item1 extends StatelessWidget {
+  const Item1({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black38,
+        border: Border.all(color: Colors.purple, width: 3),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            'assets/musicoterapia.jpg',
+            height: 180.0,
+            fit: BoxFit.cover,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Item2 extends StatelessWidget {
+  const Item2({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black38,
+        border: Border.all(color: Colors.purple, width: 3),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            'assets/cromoterapia.jpg',
+            height: 180.0,
+            fit: BoxFit.cover,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Item3 extends StatelessWidget {
+  const Item3({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black38,
+        border: Border.all(color: Colors.purple, width: 3),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            'assets/Logo.png',
+            height: 180.0,
+            fit: BoxFit.cover,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Item4 extends StatelessWidget {
+  const Item4({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black38,
+        border: Border.all(color: Colors.purple, width: 3),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            'assets/meditacao.jpg',
+            height: 180.0,
+            fit: BoxFit.cover,
+          )
         ],
       ),
     );
