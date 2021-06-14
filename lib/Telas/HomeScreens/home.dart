@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           //Carousel
-          /*  Padding(
+          Padding(
             padding: EdgeInsets.only(top: 1.0),
             child: Column(
               children: <Widget>[
@@ -270,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-          ), */
+          ),
 
           //Card 1
 
