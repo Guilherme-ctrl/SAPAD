@@ -282,23 +282,6 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 )
-                /* Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: map<Widget>(cardList, (index, url) {
-                    return Container(
-                      width: 10.0,
-                      height: 10.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _currentIndex == index
-                            ? Colors.purple
-                            : Colors.grey,
-                      ),
-                    );
-                  }),
-                ), */
               ],
             ),
           ),
