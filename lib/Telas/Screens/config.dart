@@ -1,121 +1,154 @@
 import 'package:flutter/material.dart';
 
-class FormPage extends StatefulWidget {
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
   @override
-  _FormPageState createState() => _FormPageState();
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new MyHomePage(),
+    );
+  }
 }
 
-class _FormPageState extends State<FormPage> {
-  GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
-  String nome, email, celular;
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int photoIndex = 0;
+
+  List<String> photos = [
+    'assets/burger1.jpg',
+    'assets/burger2.jpg',
+    'assets/burger3.jpg',
+    'assets/burger4.jpg'
+  ];
+
+  void _previousImage() {
+    setState(() {
+      photoIndex = photoIndex > 0 ? photoIndex - 1 : 0;
+    });
+  }
+
+  void _nextImage() {
+    setState(() {
+      photoIndex = photoIndex < photos.length - 1 ? photoIndex + 1 : photoIndex;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: new Scaffold(
+    return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Formulário com Validação'),
+          title: new Text('Carousel'),
+          centerTitle: true,
         ),
-        body: new SingleChildScrollView(
-          child: new Container(
-            margin: new EdgeInsets.all(15.0),
-            child: new Form(
-              key: _key,
-              autovalidate: _validate,
-              child: _formUI(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25.0),
+                        image: DecorationImage(
+                            image: AssetImage(photos[photoIndex]),
+                            fit: BoxFit.cover)),
+                    height: 400.0,
+                    width: 300.0,
+                  ),
+                  Positioned(
+                    top: 375.0,
+                    left: 25.0,
+                    right: 25.0,
+                    child: SelectedPhoto(
+                        numberOfDots: photos.length, photoIndex: photoIndex),
+                  )
+                ],
+              ),
             ),
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('Next'),
+                  onPressed: _nextImage,
+                  elevation: 5.0,
+                  color: Colors.green,
+                ),
+                SizedBox(width: 10.0),
+                RaisedButton(
+                  child: Text('Prev'),
+                  onPressed: _previousImage,
+                  elevation: 5.0,
+                  color: Colors.blue,
+                )
+              ],
+            )
+          ],
+        ));
+  }
+}
+
+class SelectedPhoto extends StatelessWidget {
+  final int numberOfDots;
+  final int photoIndex;
+
+  SelectedPhoto({this.numberOfDots, this.photoIndex});
+
+  Widget _inactivePhoto() {
+    return new Container(
+        child: new Padding(
+      padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+      child: Container(
+        height: 8.0,
+        width: 8.0,
+        decoration: BoxDecoration(
+            color: Colors.grey, borderRadius: BorderRadius.circular(4.0)),
+      ),
+    ));
+  }
+
+  Widget _activePhoto() {
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.only(left: 3.0, right: 3.0),
+        child: Container(
+          height: 10.0,
+          width: 10.0,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(5.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey, spreadRadius: 0.0, blurRadius: 2.0)
+              ]),
         ),
       ),
     );
   }
 
-  Widget _formUI() {
-    return new Column(
-      children: <Widget>[
-        new TextFormField(
-          decoration: new InputDecoration(hintText: 'Nome Completo'),
-          maxLength: 40,
-          validator: _validarNome,
-          onSaved: (String val) {
-            nome = val;
-          },
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Celular'),
-            keyboardType: TextInputType.phone,
-            maxLength: 10,
-            validator: _validarCelular,
-            onSaved: (String val) {
-              celular = val;
-            }),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Email'),
-            keyboardType: TextInputType.emailAddress,
-            maxLength: 40,
-            validator: _validarEmail,
-            onSaved: (String val) {
-              email = val;
-            }),
-        new SizedBox(height: 15.0),
-        new RaisedButton(
-          onPressed: _sendForm,
-          child: new Text('Enviar'),
-        )
-      ],
+  List<Widget> _buildDots() {
+    List<Widget> dots = [];
+
+    for (int i = 0; i < numberOfDots; ++i) {
+      dots.add(i == photoIndex ? _activePhoto() : _inactivePhoto());
+    }
+
+    return dots;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _buildDots(),
+      ),
     );
-  }
-
-  String _validarNome(String value) {
-    String patttern = r'(^[a-zA-Z ]*$)';
-    RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
-      return "Informe o nome";
-    } else if (!regExp.hasMatch(value)) {
-      return "O nome deve conter caracteres de a-z ou A-Z";
-    }
-    return null;
-  }
-
-  String _validarCelular(String value) {
-    String patttern = r'(^[0-9]*$)';
-    RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
-      return "Informe o celular";
-    } else if (value.length != 10) {
-      return "O celular deve ter 10 dígitos";
-    } else if (!regExp.hasMatch(value)) {
-      return "O número do celular so deve conter dígitos";
-    }
-    return null;
-  }
-
-  String _validarEmail(String value) {
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
-      return "Informe o Email";
-    } else if (!regExp.hasMatch(value)) {
-      return "Email inválido";
-    } else {
-      return null;
-    }
-  }
-
-  _sendForm() {
-    if (_key.currentState.validate()) {
-      // Sem erros na validação
-      _key.currentState.save();
-      print("Nome $nome");
-      print("Ceclular $celular");
-      print("Email $email");
-    } else {
-      // erro de validação
-      setState(() {
-        _validate = true;
-      });
-    }
   }
 }

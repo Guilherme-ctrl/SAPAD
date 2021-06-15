@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
   /* final bool music;
@@ -223,35 +226,63 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(top: 1.0),
             child: Column(
               children: <Widget>[
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200.0,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    pauseAutoPlayOnTouch: true,
-                    aspectRatio: 2.0,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
-                  ),
-                  items: cardList.map((card) {
-                    return Builder(builder: (BuildContext context) {
-                      return Container(
-                        height: MediaQuery.of(context).size.height * 0.30,
-                        width: MediaQuery.of(context).size.width,
-                        child: Card(
-                          color: Colors.transparent,
-                          child: card,
-                        ),
-                      );
-                    });
-                  }).toList(),
-                ),
-                Row(
+                Stack(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200.0,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        pauseAutoPlayOnTouch: true,
+                        aspectRatio: 2.0,
+                        enlargeCenterPage: false,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                      ),
+                      items: cardList.map((card) {
+                        return Builder(builder: (BuildContext context) {
+                          return Container(
+                              height: MediaQuery.of(context).size.height * 0.30,
+                              width: MediaQuery.of(context).size.width,
+                              child: Stack(
+                                children: [
+                                  Card(
+                                    color: Colors.transparent,
+                                    child: card,
+                                  ),
+                                ],
+                              ));
+                        });
+                      }).toList(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 150.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: map<Widget>(cardList, (index, url) {
+                          return Container(
+                            width: 10.0,
+                            height: 10.0,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 2.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentIndex == index
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                          );
+                        }),
+                      ),
+                    )
+                  ],
+                )
+                /* Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: map<Widget>(cardList, (index, url) {
                     return Container(
@@ -267,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   }),
-                ),
+                ), */
               ],
             ),
           ),
@@ -275,7 +306,7 @@ class _HomePageState extends State<HomePage> {
           //Card 1
 
           Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
+            padding: EdgeInsets.only(bottom: 5.0),
             child: GestureDetector(
               child: SizedBox(
                 height: 230.0,
@@ -296,30 +327,32 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                               child: Text(
                             "Clique e informe como você esta hoje!!",
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 5.0),
-                          child: Container(
-                              child: Text(
-                            "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
-                            ),
+                            style: GoogleFonts.merriweather(
+                                textStyle: TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                             textAlign: TextAlign.center,
                           )),
                         ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 1.0),
                           child: Container(
-                            child:
-                                Icon(_seta, size: 70.0, color: Colors.purple),
+                              child: Text(
+                            "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
+                            style: GoogleFonts.merriweather(
+                                textStyle: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            )),
+                            textAlign: TextAlign.center,
+                          )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 1.0),
+                          child: Container(
+                            child: Icon(_seta,
+                                size: 70.0, color: Colors.greenAccent),
                           ),
                         ),
                       ],
@@ -357,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 1.0, top: 5.0),
+                        padding: EdgeInsets.only(bottom: 1.0, top: 2.0),
                         child: CheckboxListTile(
                           title: Text(
                             'Medo',
@@ -429,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
+                        padding: EdgeInsets.zero,
                         child: CheckboxListTile(
                           title: Text(
                             'Com Raiva',
@@ -457,7 +490,7 @@ class _HomePageState extends State<HomePage> {
 
           Visibility(
             child: Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
+              padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
                   height: 100.0,
@@ -482,18 +515,17 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                   width: 70.0,
                                   height: 70.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image:
-                                              AssetImage("assets/Med1.png"))),
+                                  child: Icon(
+                                    MdiIcons.headSnowflakeOutline,
+                                    color: Colors.greenAccent,
+                                    size: 40.0,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 30.0),
+                            padding: EdgeInsets.only(left: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -502,31 +534,17 @@ class _HomePageState extends State<HomePage> {
                                       padding: EdgeInsets.all(10),
                                       child: Text(
                                         "Meditação",
-                                        style: TextStyle(
-                                          fontSize: 20.0,
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
                                           color: Colors.white,
-                                        ),
+                                        )),
                                         textAlign: TextAlign.center,
                                       )),
                                 )
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 100.0, bottom: 40.0, top: 2.0),
-                                child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.airline_seat_flat_angled_rounded,
-                                      color: Colors.purple,
-                                      size: 30.0,
-                                    )),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -553,7 +571,7 @@ class _HomePageState extends State<HomePage> {
 
           Visibility(
             child: Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
+              padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
                   height: 100.0,
@@ -573,20 +591,15 @@ class _HomePageState extends State<HomePage> {
                                 padding: EdgeInsets.only(
                                     bottom: 5, left: 5, right: 35, top: 10),
                                 child: Container(
-                                  width: 55.0,
-                                  height: 55.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              "assets/Cromoterapia.png"))),
-                                ),
+                                    width: 55.0,
+                                    height: 55.0,
+                                    child: Icon(Icons.palette,
+                                        color: Colors.greenAccent, size: 40.0)),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 30.0),
+                            padding: EdgeInsets.only(left: 15.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -595,31 +608,17 @@ class _HomePageState extends State<HomePage> {
                                       padding: EdgeInsets.all(10),
                                       child: Text(
                                         "Cromoterapia",
-                                        style: TextStyle(
-                                          fontSize: 20.0,
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
                                           color: Colors.white,
-                                        ),
+                                        )),
                                         textAlign: TextAlign.center,
                                       )),
                                 )
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(left: 90.0, bottom: 40.0),
-                                child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.color_lens,
-                                      color: Colors.purple,
-                                      size: 30.0,
-                                    )),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -648,7 +647,7 @@ class _HomePageState extends State<HomePage> {
 
           Visibility(
             child: Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
+              padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
                   width: 100.0,
@@ -670,52 +669,33 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                   width: 55.0,
                                   height: 55.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image:
-                                              AssetImage("assets/Guitar.png"))),
+                                  child: Icon(MdiIcons.guitarPick,
+                                      color: Colors.greenAccent, size: 40.0),
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 30.0),
+                            padding: EdgeInsets.only(left: 15.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
                                   child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 25.0, left: 15.0, bottom: 20.0),
+                                      padding: EdgeInsets.all(10.0),
                                       child: Text(
                                         "Musicoterapia",
-                                        style: TextStyle(
-                                          fontSize: 20.0,
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
                                           color: Colors.white,
-                                        ),
+                                        )),
                                         textAlign: TextAlign.center,
                                       )),
                                 )
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(left: 90.0, bottom: 40.0),
-                                child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.music_note,
-                                      color: Colors.purple,
-                                      size: 30.0,
-                                    )),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -760,15 +740,19 @@ class Item1 extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black38,
-        border: Border.all(color: Colors.purple, width: 3),
+        border: Border.all(color: Colors.transparent),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(
-            'assets/musicoterapia.jpg',
-            height: 180.0,
-            fit: BoxFit.cover,
+          Stack(
+            children: [
+              Image.asset(
+                'assets/musicoterapia.jpg',
+                height: 180.0,
+                fit: BoxFit.fill,
+              ),
+            ],
           )
         ],
       ),
@@ -784,7 +768,7 @@ class Item2 extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black38,
-        border: Border.all(color: Colors.purple, width: 3),
+        border: Border.all(color: Colors.transparent),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -808,7 +792,7 @@ class Item3 extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black38,
-        border: Border.all(color: Colors.purple, width: 3),
+        border: Border.all(color: Colors.transparent),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -832,7 +816,7 @@ class Item4 extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black38,
-        border: Border.all(color: Colors.purple, width: 3),
+        border: Border.all(color: Colors.transparent),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

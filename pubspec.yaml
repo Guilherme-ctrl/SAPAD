@@ -38,6 +38,8 @@ dependencies:
   audioplayers: ^0.19.0
   sqflite: ^1.1.5
   carousel_slider: ^2.2.1
+  google_fonts: ^2.1.0
+
 
 dev_dependencies:
   flutter_test:
