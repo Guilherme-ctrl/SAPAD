@@ -38,11 +38,10 @@ dependencies:
   audioplayers: ^0.19.0
   sqflite: ^1.1.5
   carousel_slider: ^2.2.1
-<<<<<<< HEAD
   google_fonts: ^2.1.0
+  charts_flutter: ^0.10.0
+  
 
-=======
->>>>>>> 6495df4fd3369649adea61d336d059267881d30c
 
 dev_dependencies:
   flutter_test:

@@ -58,26 +58,85 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.0)),
-                      child: Container(
-                          width: 110.0,
-                          height: 110.0,
-                          child: Image(
-                            image: AssetImage('assets/Logo.png'),
-                          )),
+            Container(
+              height: 302.0,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                ),
+                child: Column(
+                  children: [
+                    //Carousel
+                    Padding(
+                      padding: EdgeInsets.only(top: 1.0),
+                      child: Column(
+                        children: <Widget>[
+                          Stack(
+                            children: [
+                              CarouselSlider(
+                                options: CarouselOptions(
+                                  height: 200.0,
+                                  autoPlay: true,
+                                  autoPlayInterval: Duration(seconds: 3),
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 800),
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  pauseAutoPlayOnTouch: true,
+                                  aspectRatio: 2.0,
+                                  enlargeCenterPage: false,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _currentIndex = index;
+                                    });
+                                  },
+                                ),
+                                items: cardList.map((card) {
+                                  return Builder(
+                                      builder: (BuildContext context) {
+                                    return Container(
+                                        /* height:
+                                            MediaQuery.of(context).size.height *
+                                                0.30,
+                                        width:
+                                            MediaQuery.of(context).size.width, */
+                                        child: Stack(
+                                      children: [
+                                        Card(
+                                          color: Colors.transparent,
+                                          child: card,
+                                        ),
+                                      ],
+                                    ));
+                                  });
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.zero,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: map<Widget>(cardList, (index, url) {
+                                return Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _currentIndex == index
+                                        ? Colors.red
+                                        : Colors.black38,
+                                  ),
+                                );
+                              }),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -191,16 +250,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            /* ListTile(
-              title: Text(
-                'Configurações',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ConfigPage()));
-              },
-            ), */
           ],
         ),
       )),
@@ -221,71 +270,35 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          //Carousel
+          //Futuro Grafico
+
           Padding(
-            padding: EdgeInsets.only(top: 1.0),
-            child: Column(
-              children: <Widget>[
-                Stack(
+            padding: EdgeInsets.only(bottom: 5.0),
+            child: SizedBox(
+              height: 200.0,
+              width: 100.0,
+              child: Card(
+                color: _medit == true ? Colors.black54 : Colors.grey,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Column(
                   children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        height: 200.0,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        pauseAutoPlayOnTouch: true,
-                        aspectRatio: 2.0,
-                        enlargeCenterPage: false,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _currentIndex = index;
-                          });
-                        },
-                      ),
-                      items: cardList.map((card) {
-                        return Builder(builder: (BuildContext context) {
-                          return Container(
-                              height: MediaQuery.of(context).size.height * 0.30,
-                              width: MediaQuery.of(context).size.width,
-                              child: Stack(
-                                children: [
-                                  Card(
-                                    color: Colors.transparent,
-                                    child: card,
-                                  ),
-                                ],
-                              ));
-                        });
-                      }).toList(),
-                    ),
                     Padding(
-                      padding: EdgeInsets.only(top: 150.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: map<Widget>(cardList, (index, url) {
-                          return Container(
-                            width: 10.0,
-                            height: 10.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentIndex == index
-                                  ? Colors.red
-                                  : Colors.grey,
-                            ),
-                          );
-                        }),
-                      ),
-                    )
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Futuro Grafico",
+                          style: TextStyle(fontSize: 20.0, color: Colors.white),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.all(1.0),
+                        child: Icon(Icons.pie_chart_sharp,
+                            size: 150.0, color: Colors.white))
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
-
           //Card 1
 
           Padding(
@@ -295,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                 height: 230.0,
                 width: 100.0,
                 child: Card(
-                  color: Colors.black38,
+                  color: Colors.black54,
                   shadowColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
@@ -362,7 +375,7 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: EdgeInsets.only(bottom: 15.0),
               child: Card(
-                color: Colors.black38,
+                color: Colors.black54,
                 shadowColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
@@ -479,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                   height: 100.0,
                   width: 100.0,
                   child: Card(
-                    color: _medit == true ? Colors.black38 : Colors.grey,
+                    color: _medit == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -560,7 +573,7 @@ class _HomePageState extends State<HomePage> {
                   height: 100.0,
                   width: 100.0,
                   child: Card(
-                    color: _cromo == true ? Colors.black38 : Colors.grey,
+                    color: _cromo == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -636,7 +649,7 @@ class _HomePageState extends State<HomePage> {
                   width: 100.0,
                   height: 100.0,
                   child: Card(
-                    color: _music == true ? Colors.black38 : Colors.grey,
+                    color: _music == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -731,9 +744,9 @@ class Item1 extends StatelessWidget {
           Stack(
             children: [
               Image.asset(
-                'assets/musicoterapia.jpg',
+                'assets/meditacao.jpg',
                 height: 180.0,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ],
           )
@@ -757,7 +770,7 @@ class Item2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/cromoterapia.jpg',
+            'assets/meditacao.jpg',
             height: 180.0,
             fit: BoxFit.cover,
           )
@@ -781,7 +794,7 @@ class Item3 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/Logo.png',
+            'assets/meditacao.jpg',
             height: 180.0,
             fit: BoxFit.cover,
           )
@@ -813,4 +826,10 @@ class Item4 extends StatelessWidget {
       ),
     );
   }
+}
+
+class PieData {
+  String activity;
+  double time;
+  PieData(this.activity, this.time);
 }
