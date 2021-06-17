@@ -40,6 +40,7 @@ dependencies:
   carousel_slider: ^2.2.1
   google_fonts: ^2.1.0
   charts_flutter: ^0.10.0
+  shared_preferences: ^2.0.6
   
 
 

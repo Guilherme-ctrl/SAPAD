@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,17 +22,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    _readData();
+    super.initState();
+  }
+
   bool _med = false;
   bool _ansi = false;
   bool _triste = false;
   bool _raiva = false;
   bool _stress = false;
   bool _isMarked = false;
+  bool _lightMode = false;
 
   bool _music = true;
   bool _cromo = true;
   bool _medit = true;
-  bool _checkBox = true;
+  bool _checkBox = false;
 
   IconData _seta = Icons.keyboard_arrow_up;
 
@@ -51,10 +59,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      backgroundColor: Colors.black87,
+      backgroundColor: _lightMode == false ? Colors.black87 : Colors.white,
       drawer: Drawer(
           child: Container(
-        color: Colors.black45,
+        color: _lightMode == false ? Colors.black45 : Colors.white70,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -62,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               height: 302.0,
               child: DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: _lightMode == false ? Colors.grey : Colors.white10,
                 ),
                 child: Column(
                   children: [
@@ -94,11 +102,6 @@ class _HomePageState extends State<HomePage> {
                                   return Builder(
                                       builder: (BuildContext context) {
                                     return Container(
-                                        /* height:
-                                            MediaQuery.of(context).size.height *
-                                                0.30,
-                                        width:
-                                            MediaQuery.of(context).size.width, */
                                         child: Stack(
                                       children: [
                                         Card(
@@ -112,6 +115,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                          //CheckBox Card
+
                           Padding(
                             padding: EdgeInsets.zero,
                             child: Row(
@@ -139,8 +144,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            //CheckBox Card
+
             Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
+              padding: EdgeInsets.only(bottom: 5.0),
               child: Card(
                 color: Colors.black38,
                 shadowColor: Colors.white,
@@ -177,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newmed) {
                             setState(() {
                               _medit = _newmed;
+                              _saveData();
                             });
                           },
                         ),
@@ -195,6 +203,7 @@ class _HomePageState extends State<HomePage> {
                             //_edited = true;
                             setState(() {
                               _cromo = _newcromo;
+                              _saveData();
                             });
                           },
                         ),
@@ -213,6 +222,7 @@ class _HomePageState extends State<HomePage> {
                             //_edited = true;
                             setState(() {
                               _music = _newmusic;
+                              _saveData();
                             });
                           },
                         ),
@@ -222,8 +232,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            //FeedBack Card
+
             Padding(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(bottom: 5),
               child: GestureDetector(
                 child: Card(
                   color: Colors.black38,
@@ -250,6 +262,54 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            //DarkMode Card
+
+            Padding(
+              padding: EdgeInsets.zero,
+              child: GestureDetector(
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Container(
+                          child: Row(
+                        children: [
+                          Text(
+                            'LigthMode',
+                            style: GoogleFonts.merriweather(
+                                textStyle: TextStyle(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
+                            textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 85.0),
+                            child: Switch(
+                                value: _lightMode,
+                                onChanged: (bool _newMode) {
+                                  setState(() {
+                                    _lightMode = _newMode;
+                                    _saveData();
+                                  });
+                                }),
+                          ),
+                        ],
+                      )),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  const url = 'https://www.google.com';
+                  abrirUrl(url);
+                },
+              ),
+            ),
           ],
         ),
       )),
@@ -264,7 +324,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.topLeft,
               icon: Icon(
                 Icons.menu,
-                color: Colors.white,
+                color: _lightMode == false ? Colors.white : Colors.black,
               ),
               onPressed: () => _scaffoldState.currentState.openDrawer(),
             ),
@@ -278,7 +338,7 @@ class _HomePageState extends State<HomePage> {
               height: 200.0,
               width: 100.0,
               child: Card(
-                color: _medit == true ? Colors.black54 : Colors.grey,
+                color: Colors.black54,
                 shadowColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
@@ -361,9 +421,11 @@ class _HomePageState extends State<HomePage> {
                   if (_checkBox == true) {
                     _seta = Icons.keyboard_arrow_down;
                     _checkBox = false;
+                    _saveData();
                   } else {
                     _seta = Icons.keyboard_arrow_up;
                     _checkBox = true;
+                    _saveData();
                   }
                 });
               },
@@ -399,6 +461,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _med = _newmed;
                               _isMarked = _newmed;
+                              _saveData();
                             });
                           },
                         ),
@@ -417,6 +480,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _triste = _newtriste;
                               _isMarked = _newtriste;
+                              _saveData();
                             });
                           },
                         ),
@@ -435,6 +499,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _ansi = _newansi;
                               _isMarked = _newansi;
+                              _saveData();
                             });
                           },
                         ),
@@ -453,6 +518,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _stress = _newstress;
                               _isMarked = _newstress;
+                              _saveData();
                             });
                           },
                         ),
@@ -471,6 +537,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _raiva = _newraiva;
                               _isMarked = _newraiva;
+                              _saveData();
                             });
                           },
                         ),
@@ -480,7 +547,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            visible: _checkBox == true ? true : false,
+            visible: _checkBox == false ? false : true,
           ),
           //Card 3
 
@@ -725,6 +792,38 @@ class _HomePageState extends State<HomePage> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  _saveData() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setBool('_med', _med);
+    _prefs.setBool('_ansi', _ansi);
+    _prefs.setBool('_stress', _stress);
+    _prefs.setBool('_raiva', _raiva);
+    _prefs.setBool('_triste', _triste);
+    _prefs.setBool('_cromo', _cromo);
+    _prefs.setBool('_medit', _medit);
+    _prefs.setBool('_music', _music);
+    _prefs.setBool('_isMarked', _isMarked);
+    _prefs.setBool('_checkBox', _checkBox);
+    _prefs.setBool('_lightMode', _lightMode);
+  }
+
+  _readData() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _med = _prefs.getBool('_med') ?? false;
+      _ansi = _prefs.getBool('_ansi') ?? false;
+      _stress = _prefs.getBool('_stress') ?? false;
+      _raiva = _prefs.getBool('_raiva') ?? false;
+      _triste = _prefs.getBool('_triste') ?? false;
+      _isMarked = _prefs.getBool('_isMarked') ?? false;
+      _checkBox = _prefs.getBool('_checkBox') ?? false;
+      _music = _prefs.getBool('_music') ?? true;
+      _medit = _prefs.getBool('_medit') ?? true;
+      _cromo = _prefs.getBool('_cromo') ?? true;
+      _lightMode = _prefs.getBool('_lightMode') ?? false;
+    });
   }
 }
 

@@ -1,21 +1,20 @@
 import 'dart:async';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String contactTable = "contactTable";
-final String idColumn = "idColumn";
-final String nameColumn = "nameColumn";
-final String emailColumn = "emailColumn";
-final String phoneColumn = "phoneColumn";
-final String imgColumn = "imgColumn";
+final String idColunm = "idColumn";
+final String nomeColunm = "nomeColunm";
+final String emailColunm = "emailColunm";
+final String telColunm = "telColunm";
+final String imgColunm = "imgColunm";
 
-class SettingHelper {
-  static final SettingHelper _instance = SettingHelper.internal();
+class ContactHelper {
+  static final ContactHelper _instance = ContactHelper.internal();
 
-  factory SettingHelper() => _instance;
+  factory ContactHelper() => _instance;
 
-  SettingHelper.internal();
+  ContactHelper.internal();
 
   Database _db;
 
@@ -30,55 +29,54 @@ class SettingHelper {
 
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "contactsnew.db");
+    final path = join(databasesPath, "contacts.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE $contactTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $emailColumn TEXT,"
-          "$phoneColumn TEXT, $imgColumn TEXT)");
+          "CREATE TABLE $contactTable ($idColunm INTEGER PRIMARY KEY, $nomeColunm TEXT, $emailColunm TEXT, $telColunm TEXT, $imgColunm TEXT)");
     });
   }
 
-  Future<Contact> saveContact(Contact contact) async {
+  Future<Contato> saveContato(Contato contato) async {
     Database dbContact = await db;
-    contact.id = await dbContact.insert(contactTable, contact.toMap());
-    return contact;
+    contato.id = await dbContact.insert(contactTable, contato.toMap());
+    return contato;
   }
 
-  Future<Contact> getContact(int id) async {
+  Future<Contato> getContato(int id) async {
     Database dbContact = await db;
     List<Map> maps = await dbContact.query(contactTable,
-        columns: [idColumn, nameColumn, emailColumn, phoneColumn, imgColumn],
-        where: "$idColumn = ?",
+        columns: [idColunm, nomeColunm, emailColunm, telColunm, imgColunm],
+        where: "$idColunm = ?",
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Contact.fromMap(maps.first);
+      return Contato.fromMap(maps.first);
     } else {
       return null;
     }
   }
 
-  Future<int> deleteContact(int id) async {
+  Future<int> deleteContato(int id) async {
     Database dbContact = await db;
     return await dbContact
-        .delete(contactTable, where: "$idColumn = ?", whereArgs: [id]);
+        .delete(contactTable, where: "$idColunm = ?", whereArgs: [id]);
   }
 
-  Future<int> updateContact(Contact contact) async {
+  Future<int> updateContact(Contato contato) async {
     Database dbContact = await db;
-    return await dbContact.update(contactTable, contact.toMap(),
-        where: "$idColumn = ?", whereArgs: [contact.id]);
+    return await dbContact.update(contactTable, contato.toMap(),
+        where: "$idColunm = ?", whereArgs: [contato.id]);
   }
 
-  Future<List> getAllContacts() async {
+  getAllContatos() async {
     Database dbContact = await db;
     List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
-    List<Contact> listContact = List();
+    List<Contato> listContato = List();
     for (Map m in listMap) {
-      listContact.add(Contact.fromMap(m));
+      listContato.add(Contato.fromMap(m));
     }
-    return listContact;
+    return listContato;
   }
 
   Future<int> getNumber() async {
@@ -93,38 +91,36 @@ class SettingHelper {
   }
 }
 
-class Contact {
+class Contato {
   int id;
-  String name;
+  String nome;
   String email;
-  String phone;
+  String tel;
   String img;
 
-  Contact();
-
-  Contact.fromMap(Map map) {
-    id = map[idColumn];
-    name = map[nameColumn];
-    email = map[emailColumn];
-    phone = map[phoneColumn];
-    img = map[imgColumn];
+  Contato.fromMap(Map map) {
+    id = map[idColunm];
+    nome = map[nomeColunm];
+    email = map[emailColunm];
+    tel = map[telColunm];
+    img = map[imgColunm];
   }
 
   Map toMap() {
     Map<String, dynamic> map = {
-      nameColumn: name,
-      emailColumn: email,
-      phoneColumn: phone,
-      imgColumn: img
+      nomeColunm: nome,
+      emailColunm: email,
+      telColunm: tel,
+      imgColunm: img,
     };
     if (id != null) {
-      map[idColumn] = id;
+      map[idColunm] = id;
     }
     return map;
   }
 
   @override
   String toString() {
-    return "Contact(id: $id, name: $name, email: $email, phone: $phone, img: $img)";
+    return "Contato(id: $id, nome: $nome, email: $email, tel: $tel, img: $img)";
   }
 }
