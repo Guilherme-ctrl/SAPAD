@@ -24,6 +24,7 @@ class _InfoPageState extends State<InfoPage> {
         body: ListView(
           children: [
             //Card 1
+
             Padding(
               padding: EdgeInsets.only(bottom: 15.0),
               child: Card(
@@ -54,6 +55,7 @@ class _InfoPageState extends State<InfoPage> {
               ),
             ),
             //Card 2
+
             Padding(
               padding: EdgeInsets.all(10.0),
               child: GestureDetector(

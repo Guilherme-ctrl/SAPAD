@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,13 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  /* final bool music;
-  final bool cromo;
-  final bool medit;
-
-  const HomePage({Key key, this.music, this.cromo, this.medit})
-      : super(key: key);
- */
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -351,9 +346,9 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontSize: 20.0, color: Colors.white),
                         )),
                     Padding(
-                        padding: EdgeInsets.all(1.0),
-                        child: Icon(Icons.pie_chart_sharp,
-                            size: 150.0, color: Colors.white))
+                      padding: EdgeInsets.all(1.0),
+                      child: Icon(MdiIcons.chartDonut, size: 70.0),
+                    )
                   ],
                 ),
               ),
@@ -461,6 +456,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _med = _newmed;
                               _isMarked = _newmed;
+
                               _saveData();
                             });
                           },
@@ -480,6 +476,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _triste = _newtriste;
                               _isMarked = _newtriste;
+
                               _saveData();
                             });
                           },
@@ -499,6 +496,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _ansi = _newansi;
                               _isMarked = _newansi;
+
                               _saveData();
                             });
                           },
@@ -518,6 +516,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _stress = _newstress;
                               _isMarked = _newstress;
+
                               _saveData();
                             });
                           },
@@ -536,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool _newraiva) {
                             setState(() {
                               _raiva = _newraiva;
-                              _isMarked = _newraiva;
+
                               _saveData();
                             });
                           },
