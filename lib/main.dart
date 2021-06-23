@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapad_v3/Telas/HomeScreens/chat.dart';
+import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
@@ -19,7 +19,7 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
-  final List<Widget> _telas = [InfoPage(), HomePage(), ChatPage()];
+  final List<Widget> _telas = [InfoPage(), HomePage(), StatsPage()];
   int _indiceAtual = 1;
 
   @override
