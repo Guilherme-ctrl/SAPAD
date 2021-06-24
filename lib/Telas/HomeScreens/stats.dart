@@ -60,7 +60,7 @@ class _StatsPageState extends State<StatsPage> {
           ),
           // Card 2
           Padding(
-            padding: EdgeInsets.only(bottom: 5.0),
+            padding: EdgeInsets.only(bottom: 5.0, top: 10.0),
             child: SizedBox(
               height: 200.0,
               width: 100.0,
