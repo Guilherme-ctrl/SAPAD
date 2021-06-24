@@ -58,6 +58,34 @@ class _StatsPageState extends State<StatsPage> {
               ),
             ),
           ),
+          // Card 2
+          Padding(
+            padding: EdgeInsets.only(bottom: 5.0),
+            child: SizedBox(
+              height: 200.0,
+              width: 100.0,
+              child: Card(
+                color: Colors.black54,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          "Futuro Grafico",
+                          style: TextStyle(fontSize: 20.0, color: Colors.white),
+                        )),
+                    Padding(
+                      padding: EdgeInsets.all(1.0),
+                      child: Icon(MdiIcons.chartDonut, size: 70.0),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ]
       )
     );
