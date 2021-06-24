@@ -55,6 +55,7 @@ class _ControlPageState extends State<ControlPage> {
     );
   }
 
+//
   void onTabTapped(int index) {
     setState(() {
       _indiceAtual = index;
