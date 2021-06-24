@@ -7,7 +7,7 @@ class StatsPage extends StatefulWidget {
   @override
   _StatsPageState createState() => _StatsPageState();
 }
-
+//botão de menu
 class _StatsPageState extends State<StatsPage> {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,8 @@ class _StatsPageState extends State<StatsPage> {
               onPressed: (){},
             ),
           ),
+
+          //CARD 1
             Padding(
             padding: EdgeInsets.only(bottom: 5.0),
             child: SizedBox(
