@@ -158,7 +158,7 @@ class _StatsPageState extends State<StatsPage> {
   @override
   Widget build(BuildContext context) {
     var tabBar = TabBar(
-      indicatorColor: Colors.black45,
+      indicatorColor: Colors.white,
       tabs: [
         Tab(
           icon: Icon(FontAwesomeIcons.solidChartBar),
@@ -174,7 +174,7 @@ class _StatsPageState extends State<StatsPage> {
         child: Scaffold(
           backgroundColor: Colors.black87,
           appBar: AppBar(
-            backgroundColor: Colors.black54,
+            backgroundColor: Colors.black26,
             //backgroundColor: Color(0xff308e1c),
             bottom: tabBar,
             title: Text('Estatísticas'),
