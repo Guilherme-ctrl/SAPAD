@@ -168,6 +168,7 @@ class _StatsPageState extends State<StatsPage> {
       ],
     );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
