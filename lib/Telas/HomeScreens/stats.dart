@@ -173,7 +173,7 @@ class _StatsPageState extends State<StatsPage> {
                 Tab(icon: Icon(FontAwesomeIcons.chartLine)),
               ],
             ),
-            title: Text('Flutter Charts'),
+            title: Text('Estatísticas'),
           ),
           body: TabBarView(
             children: [
@@ -184,7 +184,7 @@ class _StatsPageState extends State<StatsPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',
+                          'Meditação',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -209,7 +209,7 @@ class _StatsPageState extends State<StatsPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Time spent on daily tasks',
+                          'Cromoterapia',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -255,7 +255,7 @@ class _StatsPageState extends State<StatsPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Sales for the first 5 years',
+                          'Musicoterapia',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -266,7 +266,7 @@ class _StatsPageState extends State<StatsPage> {
                               animate: true,
                               animationDuration: Duration(seconds: 5),
                               behaviors: [
-                                new charts.ChartTitle('Years',
+                                new charts.ChartTitle('Tempo',
                                     behaviorPosition:
                                         charts.BehaviorPosition.bottom,
                                     titleOutsideJustification: charts
