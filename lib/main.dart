@@ -4,6 +4,7 @@ import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
+import 'package:sapad_v3/games/game_azul.dart';
 
 void main() {
   runApp(MaterialApp(
