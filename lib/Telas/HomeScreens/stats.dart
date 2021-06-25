@@ -74,7 +74,7 @@ class _StatsPageState extends State<StatsPage> {
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Colunas cedit, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff990099)),
+            charts.ColorUtil.fromDartColor(Color(0xFF1E88E5)),
       ),
     );
 
@@ -86,7 +86,7 @@ class _StatsPageState extends State<StatsPage> {
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Colunas cedit, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
+            charts.ColorUtil.fromDartColor(Color(0xFFF06292)),
       ),
     );
 
@@ -94,8 +94,6 @@ class _StatsPageState extends State<StatsPage> {
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
         measureFn: (Colunas colunas, _) => colunas.tempo,
-        colorFn: (Colunas colunas, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xFFFAFAFA)),
         id: 'Musicoterapia',
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
