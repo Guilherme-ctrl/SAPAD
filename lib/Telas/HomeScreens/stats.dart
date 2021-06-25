@@ -11,34 +11,33 @@ class StatsPage extends StatefulWidget {
 }
 
 class _StatsPageState extends State<StatsPage> {
-  List<charts.Series<Pollution, String>> _seriesData;
+  List<charts.Series<Colunas, String>> _seriesData;
   List<charts.Series<Task, String>> _seriesPieData;
   List<charts.Series<Sales, int>> _seriesLineData;
 
   _generateData() {
     var data1 = [
-      new Pollution(1980, 'USA', 30),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
+      new Colunas('Cromo', 80),
+      new Colunas('Medit', 40),
+      new Colunas('Music', 10),
     ];
     var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
+      new Colunas('Cromo', 70),
+      new Colunas('Medit', 100),
+      new Colunas('Music', 10),
     ];
     var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
+      new Colunas('Cromo', 30),
+      new Colunas('Medit', 40),
+      new Colunas('Music', 60),
     ];
 
     var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
+      new Task('Medo', 35.8, Color(0xff3366cc)),
+      new Task('Raiva', 8.3, Color(0xff89999c)),
+      new Task('Ansiedade', 10.8, Color(0xff109618)),
+      new Task('Tristeza', 15.6, Color(0xfffdbe19)),
+      new Task('Estresse', 19.2, Color(0xffff9900)),
     ];
 
     var linesalesdata = [
@@ -69,36 +68,38 @@ class _StatsPageState extends State<StatsPage> {
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
+        domainFn: (Colunas colunas, _) => colunas.emocao,
+        measureFn: (Colunas colunas, _) => colunas.tempo,
         id: 'Medit',
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Colunas cedit, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff990099)),
       ),
     );
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
+        domainFn: (Colunas colunas, _) => colunas.emocao,
+        measureFn: (Colunas colunas, _) => colunas.tempo,
         id: 'Cromo',
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Colunas cedit, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff109618)),
       ),
     );
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: 'Music',
+        domainFn: (Colunas colunas, _) => colunas.emocao,
+        measureFn: (Colunas colunas, _) => colunas.tempo,
+        colorFn: (Colunas colunas, _) =>
+            charts.ColorUtil.fromDartColor(Color(0xFFFAFAFA)),
+        id: 'Musicoterapia',
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Colunas colunas, _) =>
             charts.ColorUtil.fromDartColor(Color(0xffff9900)),
       ),
     );
@@ -109,7 +110,7 @@ class _StatsPageState extends State<StatsPage> {
         measureFn: (Task task, _) => task.taskvalue,
         colorFn: (Task task, _) =>
             charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
+        id: 'Meditação',
         data: piedata,
         labelAccessorFn: (Task row, _) => '${row.taskvalue}',
       ),
@@ -118,7 +119,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
+        id: 'Meditação',
         data: linesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -127,7 +128,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-        id: 'Air Pollution',
+        id: 'Meditação',
         data: linesalesdata1,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -136,7 +137,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
+        id: 'Meditação',
         data: linesalesdata2,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
@@ -148,7 +149,7 @@ class _StatsPageState extends State<StatsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _seriesData = List<charts.Series<Pollution, String>>();
+    _seriesData = List<charts.Series<Colunas, String>>();
     _seriesPieData = List<charts.Series<Task, String>>();
     _seriesLineData = List<charts.Series<Sales, int>>();
     _generateData();
@@ -156,23 +157,25 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var tabBar = TabBar(
+      indicatorColor: Colors.black45,
+      tabs: [
+        Tab(
+          icon: Icon(FontAwesomeIcons.solidChartBar),
+        ),
+        Tab(icon: Icon(FontAwesomeIcons.chartPie)),
+        Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+      ],
+    );
     return MaterialApp(
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+          backgroundColor: Colors.black87,
           appBar: AppBar(
-            backgroundColor: Color(0xff1976d2),
+            backgroundColor: Colors.black54,
             //backgroundColor: Color(0xff308e1c),
-            bottom: TabBar(
-              indicatorColor: Color(0xff9962D0),
-              tabs: [
-                Tab(
-                  icon: Icon(FontAwesomeIcons.solidChartBar),
-                ),
-                Tab(icon: Icon(FontAwesomeIcons.chartPie)),
-                Tab(icon: Icon(FontAwesomeIcons.chartLine)),
-              ],
-            ),
+            bottom: tabBar,
             title: Text('Estatísticas'),
           ),
           body: TabBarView(
@@ -184,17 +187,18 @@ class _StatsPageState extends State<StatsPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Meditação',
+                          'Gráficos gerais',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         Expanded(
                           child: charts.BarChart(
                             _seriesData,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
-                            //behaviors: [new charts.SeriesLegend()],
-                            animationDuration: Duration(seconds: 5),
+                            animationDuration: Duration(seconds: 2),
                           ),
                         ),
                       ],
@@ -211,7 +215,9 @@ class _StatsPageState extends State<StatsPage> {
                         Text(
                           'Cromoterapia',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: 10.0,
@@ -219,12 +225,12 @@ class _StatsPageState extends State<StatsPage> {
                         Expanded(
                           child: charts.PieChart(_seriesPieData,
                               animate: true,
-                              animationDuration: Duration(seconds: 5),
+                              animationDuration: Duration(seconds: 2),
                               behaviors: [
                                 new charts.DatumLegend(
                                   outsideJustification:
                                       charts.OutsideJustification.endDrawArea,
-                                  horizontalFirst: false,
+                                  horizontalFirst: true,
                                   desiredMaxRows: 2,
                                   cellPadding: new EdgeInsets.only(
                                       right: 4.0, bottom: 4.0),
@@ -232,7 +238,7 @@ class _StatsPageState extends State<StatsPage> {
                                       color: charts
                                           .MaterialPalette.purple.shadeDefault,
                                       fontFamily: 'Georgia',
-                                      fontSize: 11),
+                                      fontSize: 13),
                                 )
                               ],
                               defaultRenderer: new charts.ArcRendererConfig(
@@ -257,14 +263,16 @@ class _StatsPageState extends State<StatsPage> {
                         Text(
                           'Musicoterapia',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         Expanded(
                           child: charts.LineChart(_seriesLineData,
                               defaultRenderer: new charts.LineRendererConfig(
                                   includeArea: true, stacked: true),
                               animate: true,
-                              animationDuration: Duration(seconds: 5),
+                              animationDuration: Duration(seconds: 2),
                               behaviors: [
                                 new charts.ChartTitle('Tempo',
                                     behaviorPosition:
@@ -297,12 +305,11 @@ class _StatsPageState extends State<StatsPage> {
   }
 }
 
-class Pollution {
-  String place;
-  int year;
-  int quantity;
+class Colunas {
+  String emocao;
+  int tempo;
 
-  Pollution(this.year, this.place, this.quantity);
+  Colunas(this.emocao, this.tempo);
 }
 
 class Task {
