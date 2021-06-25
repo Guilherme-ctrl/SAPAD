@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
-                  const url = 'https://www.google.com';
+                  const url = 'https://tripetto.app/run/67SY85OQH2';
                   abrirUrl(url);
                 },
               ),
