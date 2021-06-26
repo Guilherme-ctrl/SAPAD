@@ -34,9 +34,9 @@ class _StatsPageState extends State<StatsPage> {
 
     var piedata = [
       new Task('Medo', 35.8, Color(0xff3366cc)),
-      new Task('Raiva', 8.3, Color(0xff89999c)),
-      new Task('Ansiedade', 10.8, Color(0xff109618)),
-      new Task('Tristeza', 15.6, Color(0xfffdbe19)),
+      new Task('Raiva', 8.3, Color(0xFFF06292)),
+      new Task('Ansiedade', 10.8, Color(0xFF512DA8)),
+      new Task('Tristeza', 15.6, Color(0xFFEED9CD)),
       new Task('Estresse', 19.2, Color(0xffff9900)),
     ];
 
