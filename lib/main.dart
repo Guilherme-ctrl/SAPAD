@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
+import 'package:sapad_v3/games/game_azul.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -44,9 +46,9 @@ class _ControlPageState extends State<ControlPage> {
             title: Text("Home"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat, size: 20.0),
-            activeIcon: Icon(Icons.chat_bubble, size: 30.0),
-            title: Text("Chat"),
+            icon: Icon(Icons.bar_chart, size: 20.0),
+            activeIcon: Icon(MdiIcons.chartBellCurveCumulative, size: 30.0),
+            title: Text("Estatísticas "),
           )
         ],
         onTap: onTabTapped,
@@ -54,6 +56,7 @@ class _ControlPageState extends State<ControlPage> {
     );
   }
 
+//
   void onTabTapped(int index) {
     setState(() {
       _indiceAtual = index;

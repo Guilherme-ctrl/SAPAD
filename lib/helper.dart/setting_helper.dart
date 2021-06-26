@@ -2,19 +2,20 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-final String contactTable = "contactTable";
+final String emoteTable = "emoteTable";
 final String idColunm = "idColumn";
-final String nomeColunm = "nomeColunm";
-final String emailColunm = "emailColunm";
-final String telColunm = "telColunm";
-final String imgColunm = "imgColunm";
+final String _medColunm = "_medColunm";
+final String _ansiColunm = "_ansiColunm";
+final String _tristeColunm = "_tristeColunm";
+final String _raivaColunm = "_raivaColunm";
+final String _stressColunm = "_stresColunm";
 
-class ContactHelper {
-  static final ContactHelper _instance = ContactHelper.internal();
+class EmoteHelper {
+  static final EmoteHelper _instance = EmoteHelper.internal();
 
-  factory ContactHelper() => _instance;
+  factory EmoteHelper() => _instance;
 
-  ContactHelper.internal();
+  EmoteHelper.internal();
 
   Database _db;
 
@@ -29,89 +30,99 @@ class ContactHelper {
 
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "contacts.db");
+    final path = join(databasesPath, "emotes.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE $contactTable ($idColunm INTEGER PRIMARY KEY, $nomeColunm TEXT, $emailColunm TEXT, $telColunm TEXT, $imgColunm TEXT)");
+          "CREATE TABLE $emoteTable ($idColunm INTEGER PRIMARY KEY, $_medColunm TEXT, $_ansiColunm TEXT, $_tristeColunm TEXT, $_raivaColunm TEXT)");
     });
   }
 
-  Future<Contato> saveContato(Contato contato) async {
-    Database dbContact = await db;
-    contato.id = await dbContact.insert(contactTable, contato.toMap());
-    return contato;
+  Future<Emote> saveEmote(Emote Emote) async {
+    Database dbEmote = await db;
+    Emote.id = await dbEmote.insert(emoteTable, Emote.toMap());
+    return Emote;
   }
 
-  Future<Contato> getContato(int id) async {
-    Database dbContact = await db;
-    List<Map> maps = await dbContact.query(contactTable,
-        columns: [idColunm, nomeColunm, emailColunm, telColunm, imgColunm],
+  Future<Emote> getEmote(int id) async {
+    Database dbemote = await db;
+    List<Map> maps = await dbemote.query(emoteTable,
+        columns: [
+          idColunm,
+          _medColunm,
+          _ansiColunm,
+          _tristeColunm,
+          _raivaColunm,
+          _stressColunm
+        ],
         where: "$idColunm = ?",
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Contato.fromMap(maps.first);
+      return Emote.fromMap(maps.first);
     } else {
       return null;
     }
   }
 
-  Future<int> deleteContato(int id) async {
-    Database dbContact = await db;
-    return await dbContact
-        .delete(contactTable, where: "$idColunm = ?", whereArgs: [id]);
+  Future<int> deleteEmote(int id) async {
+    Database dbemote = await db;
+    return await dbemote
+        .delete(emoteTable, where: "$idColunm = ?", whereArgs: [id]);
   }
 
-  Future<int> updateContact(Contato contato) async {
-    Database dbContact = await db;
-    return await dbContact.update(contactTable, contato.toMap(),
-        where: "$idColunm = ?", whereArgs: [contato.id]);
+  Future<int> updateemote(Emote Emote) async {
+    Database dbemote = await db;
+    return await dbemote.update(emoteTable, Emote.toMap(),
+        where: "$idColunm = ?", whereArgs: [Emote.id]);
   }
 
-  getAllContatos() async {
-    Database dbContact = await db;
-    List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
-    List<Contato> listContato = List();
+  getAllEmotes() async {
+    Database dbemote = await db;
+    List listMap = await dbemote.rawQuery("SELECT * FROM $emoteTable");
+    List<Emote> listEmote = List();
     for (Map m in listMap) {
-      listContato.add(Contato.fromMap(m));
+      listEmote.add(Emote.fromMap(m));
     }
-    return listContato;
+    return listEmote;
   }
 
   Future<int> getNumber() async {
-    Database dbContact = await db;
+    Database dbemote = await db;
     return Sqflite.firstIntValue(
-        await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
+        await dbemote.rawQuery("SELECT COUNT(*) FROM $emoteTable"));
   }
 
   Future close() async {
-    Database dbContact = await db;
-    dbContact.close();
+    Database dbemote = await db;
+    dbemote.close();
   }
 }
 
-class Contato {
+class Emote {
   int id;
-  String nome;
-  String email;
-  String tel;
-  String img;
+  bool _med = false;
+  bool _ansi = false;
+  bool _triste = false;
+  bool _raiva = false;
+  bool _stress = false;
 
-  Contato.fromMap(Map map) {
+  Emote.fromMap(Map map) {
     id = map[idColunm];
-    nome = map[nomeColunm];
-    email = map[emailColunm];
-    tel = map[telColunm];
-    img = map[imgColunm];
+    _med = map[_medColunm];
+    _ansi = map[_ansiColunm];
+    _triste = map[_tristeColunm];
+    _raiva = map[_raivaColunm];
+    _stress = map[_stressColunm];
   }
 
   Map toMap() {
     Map<String, dynamic> map = {
-      nomeColunm: nome,
-      emailColunm: email,
-      telColunm: tel,
-      imgColunm: img,
+      _medColunm: _med,
+      _ansiColunm: _ansi,
+      _tristeColunm: _triste,
+      _raivaColunm: _raiva,
+      _stressColunm: _stress
     };
     if (id != null) {
       map[idColunm] = id;
@@ -121,6 +132,6 @@ class Contato {
 
   @override
   String toString() {
-    return "Contato(id: $id, nome: $nome, email: $email, tel: $tel, img: $img)";
+    return "Emote(id: $id, _med: $_med, _ansi: $_ansi, _triste: $_triste, _raiva: $_raiva)";
   }
 }
