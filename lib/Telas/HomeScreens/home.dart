@@ -7,6 +7,7 @@ import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
+import 'package:sapad_v3/helper.dart/setting_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -17,10 +18,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  EmoteHelper helper = EmoteHelper();
+
+  List<Emote> emote = List();
   @override
   void initState() {
     _readData();
     super.initState();
+    _getAllEmotes;
   }
 
   bool _med = false;
@@ -876,6 +882,7 @@ class Item3 extends StatelessWidget {
 class Item4 extends StatelessWidget {
   const Item4({Key key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -893,6 +900,14 @@ class Item4 extends StatelessWidget {
           )
         ],
       ),
-    );
+    ); 
+      
+}
+void _getAllEmote(){
+    helper.getAllEmote().then((list){
+      setState(() {
+        emote = list;
+      });
+    });
   }
 }
