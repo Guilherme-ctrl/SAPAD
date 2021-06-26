@@ -1,0 +1,9 @@
+funcao{
+medo = false
+ansi = false
+}
+>>>>>>>>>cromoPage4
+
+home{
+	funcao = true; 
+}
