@@ -12,32 +12,32 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPageState extends State<StatsPage> {
   List<charts.Series<Colunas, String>> _seriesData;
-  List<charts.Series<Task, String>> _seriesPieData;
+  List<charts.Series<Emote, String>> _seriesPieData;
   List<charts.Series<Sales, int>> _seriesLineData;
 
   _generateData() {
     var data1 = [
-      new Colunas('Cromo', 80),
-      new Colunas('Medit', 40),
-      new Colunas('Music', 10),
+      new Colunas('Cromoterapia', 80),
+      new Colunas('Meditação', 40),
+      new Colunas('Musicoterapia', 10),
     ];
     var data2 = [
-      new Colunas('Cromo', 70),
-      new Colunas('Medit', 100),
-      new Colunas('Music', 10),
+      new Colunas('Cromoterapia', 70),
+      new Colunas('Meditação', 100),
+      new Colunas('Musicoterapia', 10),
     ];
     var data3 = [
-      new Colunas('Cromo', 30),
-      new Colunas('Medit', 40),
-      new Colunas('Music', 60),
+      new Colunas('Cromoterapia', 30),
+      new Colunas('Meditação', 40),
+      new Colunas('Musicoterapia', 60),
     ];
 
     var piedata = [
-      new Task('Medo', 35.8, Color(0xff3366cc)),
-      new Task('Raiva', 8.3, Color(0xFFF06292)),
-      new Task('Ansiedade', 10.8, Color(0xFF512DA8)),
-      new Task('Tristeza', 15.6, Color(0xFFEED9CD)),
-      new Task('Estresse', 19.2, Color(0xffff9900)),
+      new Emote('Medo', 35.8, Color(0xff3366cc)),
+      new Emote('Raiva', 8.3, Color(0xFFF06292)),
+      new Emote('Ansiedade', 10.8, Color(0xFF512DA8)),
+      new Emote('Tristeza', 15.6, Color(0xffEF9A9A)),
+      new Emote('Estresse', 29.5, Color(0xffff9900)),
     ];
 
     var linesalesdata = [
@@ -104,13 +104,13 @@ class _StatsPageState extends State<StatsPage> {
 
     _seriesPieData.add(
       charts.Series(
-        domainFn: (Task task, _) => task.task,
-        measureFn: (Task task, _) => task.taskvalue,
-        colorFn: (Task task, _) =>
-            charts.ColorUtil.fromDartColor(task.colorval),
+        domainFn: (Emote emote, _) => emote.emote,
+        measureFn: (Emote emote, _) => emote.emotevalue,
+        colorFn: (Emote emote, _) =>
+            charts.ColorUtil.fromDartColor(emote.colorval),
         id: 'Meditação',
         data: piedata,
-        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+        labelAccessorFn: (Emote row, _) => '${row.emotevalue}',
       ),
     );
 
@@ -148,7 +148,7 @@ class _StatsPageState extends State<StatsPage> {
     // TODO: implement initState
     super.initState();
     _seriesData = List<charts.Series<Colunas, String>>();
-    _seriesPieData = List<charts.Series<Task, String>>();
+    _seriesPieData = List<charts.Series<Emote, String>>();
     _seriesLineData = List<charts.Series<Sales, int>>();
     _generateData();
   }
@@ -311,12 +311,12 @@ class Colunas {
   Colunas(this.emocao, this.tempo);
 }
 
-class Task {
-  String task;
-  double taskvalue;
+class Emote {
+  String emote;
+  double emotevalue;
   Color colorval;
 
-  Task(this.task, this.taskvalue, this.colorval);
+  Emote(this.emote, this.emotevalue, this.colorval);
 }
 
 class Sales {

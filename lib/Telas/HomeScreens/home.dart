@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   EmoteHelper helper = EmoteHelper();
 
   List<Emote> emote = List();
@@ -26,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
-    _getAllEmotes;
+    _getAllEmote;
   }
 
   bool _med = false;
@@ -389,16 +388,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                setState(() {
+                setState(() async {
                   if (_checkBox == true) {
                     _seta = Icons.keyboard_arrow_down;
                     _checkBox = false;
                     _saveData();
+                    // await helper.saveEmote(recEmote);
                   } else {
                     _seta = Icons.keyboard_arrow_up;
                     _checkBox = true;
                     _saveData();
+                    //await helper.saveEmote(recEmote);
                   }
+                  _getAllEmote();
                 });
               },
             ),
@@ -801,6 +803,14 @@ class _HomePageState extends State<HomePage> {
       _lightMode = _prefs.getBool('_lightMode') ?? false;
     });
   }
+
+  void _getAllEmote() {
+    helper.getAllEmotes().then((list) {
+      setState(() {
+        emote = list;
+      });
+    });
+  }
 }
 
 class Item1 extends StatelessWidget {
@@ -882,7 +892,6 @@ class Item3 extends StatelessWidget {
 class Item4 extends StatelessWidget {
   const Item4({Key key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -900,14 +909,6 @@ class Item4 extends StatelessWidget {
           )
         ],
       ),
-    ); 
-      
-}
-void _getAllEmote(){
-    helper.getAllEmote().then((list){
-      setState(() {
-        emote = list;
-      });
-    });
+    );
   }
 }
