@@ -38,8 +38,9 @@ android {
         applicationId "com.example.sapad_v3"
         minSdkVersion 21
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionName flutterVersionNamel
     }
 
     buildTypes {

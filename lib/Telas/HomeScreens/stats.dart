@@ -41,29 +41,29 @@ class _StatsPageState extends State<StatsPage> {
     ];
 
     var linelinhasdata = [
-      new Linhas(0, 45),
-      new Linhas(1, 56),
-      new Linhas(2, 55),
-      new Linhas(3, 60),
-      new Linhas(4, 61),
-      new Linhas(5, 70),
+      new Linhas(1, 45),
+      new Linhas(2, 56),
+      new Linhas(3, 55),
+      new Linhas(4, 60),
+      new Linhas(5, 61),
+      new Linhas(6, 70),
     ];
     var linelinhasdata1 = [
-      new Linhas(0, 35),
-      new Linhas(1, 46),
-      new Linhas(2, 45),
-      new Linhas(3, 50),
-      new Linhas(4, 51),
-      new Linhas(5, 60),
+      new Linhas(2, 35),
+      new Linhas(21, 46),
+      new Linhas(17, 45),
+      new Linhas(6, 50),
+      new Linhas(30, 51),
+      new Linhas(4, 60),
     ];
 
     var linelinhasdata2 = [
-      new Linhas(0, 20),
+      new Linhas(4, 20),
       new Linhas(1, 24),
-      new Linhas(2, 25),
-      new Linhas(3, 40),
-      new Linhas(4, 45),
-      new Linhas(5, 60),
+      new Linhas(9, 25),
+      new Linhas(8, 40),
+      new Linhas(28, 45),
+      new Linhas(2, 60),
     ];
 
     _seriesData.add(
@@ -273,7 +273,7 @@ class _StatsPageState extends State<StatsPage> {
                               animate: true,
                               animationDuration: Duration(seconds: 2),
                               behaviors: [
-                                new charts.ChartTitle('Tempo',
+                                new charts.ChartTitle('Tempo em minutos',
                                     behaviorPosition:
                                         charts.BehaviorPosition.bottom,
                                     titleOutsideJustification: charts

@@ -86,7 +86,7 @@ class _InfoPageState extends State<InfoPage> {
                               left: 10.0, top: 10.0, bottom: 10.0, right: 35),
                           child: Container(
                             child: Text(
-                              "Instituto Federal de Santa Catarina\nCampus Gaspar\nIFSC",
+                              "Instituto Federal de Santa Catarina\nIFSC\nCampus Gaspar",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 15.0),
