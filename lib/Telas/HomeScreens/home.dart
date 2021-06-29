@@ -804,14 +804,6 @@ class _HomePageState extends State<HomePage> {
       _lightMode = _prefs.getBool('_lightMode') ?? false;
     });
   }
-
-  void _getAllEmote() {
-    helper.getAllEmotes().then((list) {
-      setState(() {
-        emote = list;
-      });
-    });
-  }
 }
 
 class Item1 extends StatelessWidget {
