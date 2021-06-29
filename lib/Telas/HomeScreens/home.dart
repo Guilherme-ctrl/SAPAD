@@ -9,7 +9,6 @@ import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 import 'package:sapad_v3/helper.dart/setting_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   EmoteHelper helper = EmoteHelper();
 
   List<Emote> emote = List();
@@ -26,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
-    _getAllEmotes;
+    _getAllEmote;
   }
 
   bool _med = false;
@@ -762,13 +760,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  abrirUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  void _getAllEmote() {
+    helper.getAllEmotes().then((list) {
+      setState(() {
+        emote = list;
+      });
+    });
   }
+
+  abrirUrl(String url) async {}
 
   _saveData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -882,7 +882,6 @@ class Item3 extends StatelessWidget {
 class Item4 extends StatelessWidget {
   const Item4({Key key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -900,14 +899,6 @@ class Item4 extends StatelessWidget {
           )
         ],
       ),
-    ); 
-      
-}
-void _getAllEmote(){
-    helper.getAllEmote().then((list){
-      setState(() {
-        emote = list;
-      });
-    });
+    );
   }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "939065869508",
+    "project_id": "sapad-b0248",
+    "storage_bucket": "sapad-b0248.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939065869508:android:78005bfc8a4139963fb591",
+        "android_client_info": {
+          "package_name": "com.example.sapad_v3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939065869508-msolqsubhm32e2mpr6ninje1b0nm9e2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC39qviCrlKs7fCbh-R806aBfrlc8xLTY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939065869508-msolqsubhm32e2mpr6ninje1b0nm9e2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

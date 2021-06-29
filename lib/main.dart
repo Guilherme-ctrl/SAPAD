@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
@@ -6,7 +7,8 @@ import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/games/game_azul.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     home: ControlPage(),
     debugShowCheckedModeBanner: false,
@@ -21,6 +23,7 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   final List<Widget> _telas = [InfoPage(), HomePage(), StatsPage()];
   int _indiceAtual = 1;
 
