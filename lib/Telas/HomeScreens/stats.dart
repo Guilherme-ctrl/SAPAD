@@ -12,64 +12,64 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPageState extends State<StatsPage> {
   List<charts.Series<Colunas, String>> _seriesData;
-  List<charts.Series<Task, String>> _seriesPieData;
-  List<charts.Series<Sales, int>> _seriesLineData;
+  List<charts.Series<Emote, String>> _seriesPieData;
+  List<charts.Series<Linhas, int>> _seriesLineData;
 
   _generateData() {
     var data1 = [
-      new Colunas('Cromo', 80),
-      new Colunas('Medit', 40),
-      new Colunas('Music', 10),
+      new Colunas('Cromoterapia', 80),
+      new Colunas('Meditação', 40),
+      new Colunas('Musicoterapia', 10),
     ];
     var data2 = [
-      new Colunas('Cromo', 70),
-      new Colunas('Medit', 100),
-      new Colunas('Music', 10),
+      new Colunas('Cromoterapia', 70),
+      new Colunas('Meditação', 100),
+      new Colunas('Musicoterapia', 10),
     ];
     var data3 = [
-      new Colunas('Cromo', 30),
-      new Colunas('Medit', 40),
-      new Colunas('Music', 60),
+      new Colunas('Cromoterapia', 30),
+      new Colunas('Meditação', 40),
+      new Colunas('Musicoterapia', 60),
     ];
 
     var piedata = [
-      new Task('Medo', 35.8, Color(0xff3366cc)),
-      new Task('Raiva', 8.3, Color(0xFFF06292)),
-      new Task('Ansiedade', 10.8, Color(0xFF512DA8)),
-      new Task('Tristeza', 15.6, Color(0xFFEED9CD)),
-      new Task('Estresse', 19.2, Color(0xffff9900)),
+      new Emote('Medo', 35.8, Color(0xff3366cc)),
+      new Emote('Raiva', 8.3, Color(0xFFF06292)),
+      new Emote('Ansiedade', 10.8, Color(0xFF512DA8)),
+      new Emote('Tristeza', 15.6, Color(0xffEF9A9A)),
+      new Emote('Estresse', 29.5, Color(0xffff9900)),
     ];
 
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
+    var linelinhasdata = [
+      new Linhas(0, 45),
+      new Linhas(1, 56),
+      new Linhas(2, 55),
+      new Linhas(3, 60),
+      new Linhas(4, 61),
+      new Linhas(5, 70),
     ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
+    var linelinhasdata1 = [
+      new Linhas(0, 35),
+      new Linhas(1, 46),
+      new Linhas(2, 45),
+      new Linhas(3, 50),
+      new Linhas(4, 51),
+      new Linhas(5, 60),
     ];
 
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
+    var linelinhasdata2 = [
+      new Linhas(0, 20),
+      new Linhas(1, 24),
+      new Linhas(2, 25),
+      new Linhas(3, 40),
+      new Linhas(4, 45),
+      new Linhas(5, 60),
     ];
 
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Medit',
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -81,7 +81,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Cromo',
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -93,7 +93,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Musicoterapia',
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -104,13 +104,13 @@ class _StatsPageState extends State<StatsPage> {
 
     _seriesPieData.add(
       charts.Series(
-        domainFn: (Task task, _) => task.task,
-        measureFn: (Task task, _) => task.taskvalue,
-        colorFn: (Task task, _) =>
-            charts.ColorUtil.fromDartColor(task.colorval),
+        domainFn: (Emote emote, _) => emote.emote,
+        measureFn: (Emote emote, _) => emote.emotevalue,
+        colorFn: (Emote emote, _) =>
+            charts.ColorUtil.fromDartColor(emote.colorval),
         id: 'Meditação',
         data: piedata,
-        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+        labelAccessorFn: (Emote row, _) => '${row.emotevalue}',
       ),
     );
 
@@ -118,27 +118,27 @@ class _StatsPageState extends State<StatsPage> {
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
         id: 'Meditação',
-        data: linesalesdata,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
         id: 'Meditação',
-        data: linesalesdata1,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata1,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
         id: 'Meditação',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata2,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
   }
@@ -148,8 +148,8 @@ class _StatsPageState extends State<StatsPage> {
     // TODO: implement initState
     super.initState();
     _seriesData = List<charts.Series<Colunas, String>>();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _seriesLineData = List<charts.Series<Sales, int>>();
+    _seriesPieData = List<charts.Series<Emote, String>>();
+    _seriesLineData = List<charts.Series<Linhas, int>>();
     _generateData();
   }
 
@@ -278,17 +278,11 @@ class _StatsPageState extends State<StatsPage> {
                                         charts.BehaviorPosition.bottom,
                                     titleOutsideJustification: charts
                                         .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
+                                new charts.ChartTitle('Quantidade',
                                     behaviorPosition:
                                         charts.BehaviorPosition.start,
                                     titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
+                                        .OutsideJustification.middleDrawArea)
                               ]),
                         ),
                       ],
@@ -306,22 +300,22 @@ class _StatsPageState extends State<StatsPage> {
 
 class Colunas {
   String emocao;
-  int tempo;
+  int quant;
 
-  Colunas(this.emocao, this.tempo);
+  Colunas(this.emocao, this.quant);
 }
 
-class Task {
-  String task;
-  double taskvalue;
+class Emote {
+  String emote;
+  double emotevalue;
   Color colorval;
 
-  Task(this.task, this.taskvalue, this.colorval);
+  Emote(this.emote, this.emotevalue, this.colorval);
 }
 
-class Sales {
-  int yearval;
-  int salesval;
+class Linhas {
+  int tempoval;
+  int quantval;
 
-  Sales(this.yearval, this.salesval);
+  Linhas(this.tempoval, this.quantval);
 }

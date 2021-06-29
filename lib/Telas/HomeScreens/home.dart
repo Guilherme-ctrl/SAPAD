@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -387,16 +387,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                setState(() {
+                setState(() async {
                   if (_checkBox == true) {
                     _seta = Icons.keyboard_arrow_down;
                     _checkBox = false;
                     _saveData();
+                    // await helper.saveEmote(recEmote);
                   } else {
                     _seta = Icons.keyboard_arrow_up;
                     _checkBox = true;
                     _saveData();
+                    //await helper.saveEmote(recEmote);
                   }
+                  _getAllEmote();
                 });
               },
             ),
@@ -799,6 +802,14 @@ class _HomePageState extends State<HomePage> {
       _medit = _prefs.getBool('_medit') ?? true;
       _cromo = _prefs.getBool('_cromo') ?? true;
       _lightMode = _prefs.getBool('_lightMode') ?? false;
+    });
+  }
+
+  void _getAllEmote() {
+    helper.getAllEmotes().then((list) {
+      setState(() {
+        emote = list;
+      });
     });
   }
 }
