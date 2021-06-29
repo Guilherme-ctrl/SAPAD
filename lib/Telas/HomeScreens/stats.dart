@@ -69,7 +69,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Medit',
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -81,7 +81,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Cromo',
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -93,7 +93,7 @@ class _StatsPageState extends State<StatsPage> {
     _seriesData.add(
       charts.Series(
         domainFn: (Colunas colunas, _) => colunas.emocao,
-        measureFn: (Colunas colunas, _) => colunas.tempo,
+        measureFn: (Colunas colunas, _) => colunas.quant,
         id: 'Musicoterapia',
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
@@ -300,9 +300,9 @@ class _StatsPageState extends State<StatsPage> {
 
 class Colunas {
   String emocao;
-  int tempo;
+  int quant;
 
-  Colunas(this.emocao, this.tempo);
+  Colunas(this.emocao, this.quant);
 }
 
 class Emote {
