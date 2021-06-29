@@ -13,7 +13,7 @@ class StatsPage extends StatefulWidget {
 class _StatsPageState extends State<StatsPage> {
   List<charts.Series<Colunas, String>> _seriesData;
   List<charts.Series<Emote, String>> _seriesPieData;
-  List<charts.Series<Sales, int>> _seriesLineData;
+  List<charts.Series<Linhas, int>> _seriesLineData;
 
   _generateData() {
     var data1 = [
@@ -40,30 +40,30 @@ class _StatsPageState extends State<StatsPage> {
       new Emote('Estresse', 29.5, Color(0xffff9900)),
     ];
 
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
+    var linelinhasdata = [
+      new Linhas(0, 45),
+      new Linhas(1, 56),
+      new Linhas(2, 55),
+      new Linhas(3, 60),
+      new Linhas(4, 61),
+      new Linhas(5, 70),
     ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
+    var linelinhasdata1 = [
+      new Linhas(0, 35),
+      new Linhas(1, 46),
+      new Linhas(2, 45),
+      new Linhas(3, 50),
+      new Linhas(4, 51),
+      new Linhas(5, 60),
     ];
 
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
+    var linelinhasdata2 = [
+      new Linhas(0, 20),
+      new Linhas(1, 24),
+      new Linhas(2, 25),
+      new Linhas(3, 40),
+      new Linhas(4, 45),
+      new Linhas(5, 60),
     ];
 
     _seriesData.add(
@@ -118,27 +118,27 @@ class _StatsPageState extends State<StatsPage> {
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
         id: 'Meditação',
-        data: linesalesdata,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff3366cc)),
         id: 'Meditação',
-        data: linesalesdata1,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata1,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
         id: 'Meditação',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        data: linelinhasdata2,
+        domainFn: (Linhas linhas, _) => linhas.tempoval,
+        measureFn: (Linhas linhas, _) => linhas.quantval,
       ),
     );
   }
@@ -149,7 +149,7 @@ class _StatsPageState extends State<StatsPage> {
     super.initState();
     _seriesData = List<charts.Series<Colunas, String>>();
     _seriesPieData = List<charts.Series<Emote, String>>();
-    _seriesLineData = List<charts.Series<Sales, int>>();
+    _seriesLineData = List<charts.Series<Linhas, int>>();
     _generateData();
   }
 
@@ -278,17 +278,11 @@ class _StatsPageState extends State<StatsPage> {
                                         charts.BehaviorPosition.bottom,
                                     titleOutsideJustification: charts
                                         .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
+                                new charts.ChartTitle('Quantidade',
                                     behaviorPosition:
                                         charts.BehaviorPosition.start,
                                     titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
+                                        .OutsideJustification.middleDrawArea)
                               ]),
                         ),
                       ],
@@ -319,9 +313,9 @@ class Emote {
   Emote(this.emote, this.emotevalue, this.colorval);
 }
 
-class Sales {
-  int yearval;
-  int salesval;
+class Linhas {
+  int tempoval;
+  int quantval;
 
-  Sales(this.yearval, this.salesval);
+  Linhas(this.tempoval, this.quantval);
 }
