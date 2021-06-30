@@ -7,11 +7,9 @@ import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/games/game_azul.dart';
-import '';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(MaterialApp(
     //Firestore.instance
     //.collection("col")
