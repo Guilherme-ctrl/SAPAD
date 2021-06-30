@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
@@ -8,16 +8,18 @@ import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/games/game_azul.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
   runApp(MaterialApp(
-    //Firestore.instance
-    //.collection("col")
-    //.document("doc")
-    //.setData({"texto": "daniel"}),
     home: ControlPage(),
     debugShowCheckedModeBanner: false,
   ));
+  Firestore.instance.collection("Emotes").document("emotes1").setData({
+    "ansi": true,
+    "med": true,
+    "raiva": true,
+    "stress": true,
+    "triste": true
+  });
 }
 
 class ControlPage extends StatefulWidget {
@@ -28,7 +30,6 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   final List<Widget> _telas = [InfoPage(), HomePage(), StatsPage()];
   int _indiceAtual = 1;
 
