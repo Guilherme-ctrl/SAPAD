@@ -2,17 +2,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sapad_v3/Telas/HomeScreens/acomp.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
+import 'package:sapad_v3/Telas/LoginScreens/google_sign_in.dart';
+import 'package:sapad_v3/Telas/LoginScreens/login.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
+import 'package:sapad_v3/models/user_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase?.initializeApp();
   runApp(MaterialApp(
-    home: ControlPage(),
+    home: LoginPage(),
     debugShowCheckedModeBanner: false,
   ));
 }
@@ -29,7 +33,9 @@ class _ControlPageState extends State<ControlPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  ChangeNotifierProvider(
+      create: (context) => GoogleSignInProvider(),
+      child: Scaffold(
       backgroundColor: Colors.black87,
       body: _telas[_indiceAtual],
       bottomNavigationBar: BottomNavigationBar(
@@ -62,6 +68,7 @@ class _ControlPageState extends State<ControlPage> {
         ],
         onTap: onTabTapped,
       ),
+    )
     );
   }
 
