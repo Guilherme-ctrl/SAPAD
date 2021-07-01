@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +9,7 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
   String? _url;
   final myController = TextEditingController();
   @override
@@ -95,7 +97,12 @@ class _ConfigPageState extends State<ConfigPage> {
           alignment: Alignment.bottomRight,
           child: FloatingActionButton(
             onPressed: () {
-              _url = myController.text;
+              setState(() {
+                _url = myController.text;
+                db.collection("Songs").doc("001").update({
+                  "music": _url,
+                });
+              });
             },
             child: Icon(Icons.save),
           ),

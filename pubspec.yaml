@@ -48,6 +48,10 @@ dependencies:
   firebase_messaging: ^10.0.3
   url_launcher: ^6.0.8
   provider: ^5.0.0
+  #Videos
+  youtube_player_flutter: ^8.0.0
+  another_flushbar: ^1.10.23
+  video_player: ^2.1.6
 
 dev_dependencies:
   flutter_test:

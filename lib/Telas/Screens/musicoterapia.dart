@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MusicPage extends StatefulWidget {
   final bool? medo;
@@ -17,8 +19,10 @@ class MusicPage extends StatefulWidget {
 }
 
 class _MusicPageState extends State<MusicPage> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
+  String _url = "https://www.youtube.com/watch?v=IdGhUk7uJMQ";
 
   AudioPlayer? _player;
   late AudioCache cache;
@@ -100,127 +104,105 @@ class _MusicPageState extends State<MusicPage> {
           //Card 2
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: Colors.black38,
-                shadowColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 60.0),
-                        child: Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Musica Classica",
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
+            child: Card(
+              color: Colors.black38,
+              shadowColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 60.0),
+                      child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Musica Classica",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.purple[300],
-                            borderRadius: BorderRadius.circular(100.0)),
-                        child: IconButton(
-                          iconSize: 50.0,
-                          color: Colors.purple,
-                          onPressed: () {
-                            if (!playing) {
-                              cache.play("Med1.mp3");
-                              setState(() {
-                                playBtn = Icons.pause;
-                                playing = true;
-                              });
-                            } else {
-                              _player!.pause();
-                              setState(() {
-                                playBtn = Icons.play_arrow;
-                                playing = false;
-                              });
-                            }
-                          },
-                          icon: Icon(playBtn),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: IconButton(
+                        iconSize: 50.0,
+                        color: Colors.purple,
+                        onPressed: () {
+                          if (!playing) {
+                            cache.play("Med1.mp3");
+                            setState(() {
+                              playBtn = Icons.pause;
+                              playing = true;
+                            });
+                          } else {
+                            _player!.pause();
+                            setState(() {
+                              playBtn = Icons.play_arrow;
+                              playing = false;
+                            });
+                          }
+                        },
+                        icon: Icon(playBtn),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              onTap: () {
-                _requestPop(context);
-              },
             ),
           ),
-          /* //Card 3
+          //Card 3
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: Colors.black38,
-                shadowColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 103.0),
-                        child: Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Sua Musica",
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
+            child: Card(
+              color: Colors.black38,
+              shadowColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Musica Personalizada",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.purple[300],
-                            borderRadius: BorderRadius.circular(100.0)),
-                        child: IconButton(
-                          iconSize: 50.0,
-                          color: Colors.purple,
-                          onPressed: () {
-                            if (!playing) {
-                              cache.play("Med1.mp3");
-                              setState(() {
-                                playBtn = Icons.pause;
-                                playing = true;
-                              });
-                            } else {
-                              _player.pause();
-                              setState(() {
-                                playBtn = Icons.play_arrow;
-                                playing = false;
-                              });
-                            }
-                          },
-                          icon: Icon(playBtn),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: IconButton(
+                        iconSize: 50.0,
+                        color: Colors.purple,
+                        onPressed: () {
+                          abrirYoutube();
+                        },
+                        icon: Icon(playBtn),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              onTap: () {
-                _requestPop(context);
-              },
             ),
-          ), */
+          ),
         ]));
   }
 
@@ -248,5 +230,13 @@ class _MusicPageState extends State<MusicPage> {
             ],
           );
         });
+  }
+
+  abrirYoutube() async {
+    if (await canLaunch(_url)) {
+      await launch(_url);
+    } else {
+      print('Could not launch $_url');
+    }
   }
 }

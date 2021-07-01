@@ -28,12 +28,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
-    /* db.collection("Emotion").doc("001").update({
-      "med": _med,
-      "ansi": _ansi,
-      "triste": _triste,
-      "stress": _stress,
-      "raiva": _raiva,
+    /* db.collection("Songs").doc("001").set({
+      "medit": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
+      "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
     }); */
   }
 
@@ -780,15 +777,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onTap: () {
                   if (_music == true) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MusicPage(
-                                medo: _med,
-                                ansi: _ansi,
-                                raiva: _raiva,
-                                stress: _stress,
-                                triste: _triste)));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MusicPage()));
                   }
                 },
               ),
