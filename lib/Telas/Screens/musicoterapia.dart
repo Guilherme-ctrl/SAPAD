@@ -2,14 +2,14 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class MusicPage extends StatefulWidget {
-  final bool medo;
-  final bool ansi;
-  final bool triste;
-  final bool stress;
-  final bool raiva;
+  final bool? medo;
+  final bool? ansi;
+  final bool? triste;
+  final bool? stress;
+  final bool? raiva;
 
   MusicPage(
-      {Key key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
+      {Key? key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
       : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class _MusicPageState extends State<MusicPage> {
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
 
-  AudioPlayer _player;
-  AudioCache cache;
+  AudioPlayer? _player;
+  late AudioCache cache;
 
   void initState() {
     super.initState();
@@ -140,7 +140,7 @@ class _MusicPageState extends State<MusicPage> {
                                 playing = true;
                               });
                             } else {
-                              _player.pause();
+                              _player!.pause();
                               setState(() {
                                 playBtn = Icons.play_arrow;
                                 playing = false;

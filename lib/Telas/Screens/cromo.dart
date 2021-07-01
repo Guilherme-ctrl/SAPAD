@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:sapad_v3/games/game_azul.dart';
 
 class CromoPage extends StatefulWidget {
-  final bool medo;
-  final bool ansi;
-  final bool triste;
-  final bool stress;
-  final bool raiva;
-  final bool isMarket;
+  final bool? medo;
+  final bool? ansi;
+  final bool? triste;
+  final bool? stress;
+  final bool? raiva;
+  final bool? isMarket;
 
   const CromoPage(
-      {Key key,
+      {Key? key,
       this.medo,
       this.ansi,
       this.triste,

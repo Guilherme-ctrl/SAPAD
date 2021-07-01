@@ -2,14 +2,14 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class MeditationPage extends StatefulWidget {
-  final bool medo;
-  final bool ansi;
-  final bool triste;
-  final bool stress;
-  final bool raiva;
+  final bool? medo;
+  final bool? ansi;
+  final bool? triste;
+  final bool? stress;
+  final bool? raiva;
 
   MeditationPage(
-      {Key key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
+      {Key? key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
       : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class _MeditationPageState extends State<MeditationPage> {
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
 
-  AudioPlayer _player;
-  AudioCache cache;
+  AudioPlayer? _player;
+  late AudioCache cache;
 
   void initState() {
     super.initState();
@@ -140,7 +140,7 @@ class _MeditationPageState extends State<MeditationPage> {
                                 playing = true;
                               });
                             } else {
-                              _player.pause();
+                              _player!.pause();
                               setState(() {
                                 playBtn = Icons.play_arrow;
                                 playing = false;

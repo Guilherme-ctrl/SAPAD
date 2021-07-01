@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 //import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoPage extends StatefulWidget {
-  const InfoPage({Key key}) : super(key: key);
+  const InfoPage({Key? key}) : super(key: key);
 
   @override
   _InfoPageState createState() => _InfoPageState();
@@ -268,7 +269,7 @@ class _InfoPageState extends State<InfoPage> {
   }
 
   abrirGmail() async {
-    /* final Uri params = Uri(
+    final Uri params = Uri(
       scheme: 'mailto',
       path: 'pi.ifsc.gaspar@gmail.com',
       query: 'subject=Reportar&body=Detalhe aqui qual bug você encontrou: ',
@@ -278,14 +279,14 @@ class _InfoPageState extends State<InfoPage> {
       await launch(url);
     } else {
       print('Could not launch $url');
-    } */
+    }
   }
 
   abrirUrl(String url) async {
-    /*  if (await canLaunch(url)) {
+    if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
-    }*/
+    }
   }
 }

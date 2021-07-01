@@ -17,9 +17,9 @@ class EmoteHelper {
 
   EmoteHelper.internal();
 
-  Database _db;
+  Database? _db;
 
-  Future<Database> get db async {
+  Future<Database?> get db async {
     if (_db != null) {
       return _db;
     } else {
@@ -40,13 +40,14 @@ class EmoteHelper {
   }
 
   Future<Emote> saveEmote(Emote Emote) async {
-    Database dbEmote = await db;
-    Emote.id = await dbEmote.insert(emoteTable, Emote.toMap());
+    Database dbEmote = await (db as FutureOr<Database>);
+    Emote.id =
+        await dbEmote.insert(emoteTable, Emote.toMap() as Map<String, Object?>);
     return Emote;
   }
 
-  Future<Emote> getEmote(int id) async {
-    Database dbemote = await db;
+  Future<Emote?> getEmote(int id) async {
+    Database dbemote = await (db as FutureOr<Database>);
     List<Map> maps = await dbemote.query(emoteTable,
         columns: [
           idColunm,
@@ -66,46 +67,47 @@ class EmoteHelper {
   }
 
   Future<int> deleteEmote(int id) async {
-    Database dbemote = await db;
+    Database dbemote = await (db as FutureOr<Database>);
     return await dbemote
         .delete(emoteTable, where: "$idColunm = ?", whereArgs: [id]);
   }
 
   Future<int> updateemote(Emote Emote) async {
-    Database dbemote = await db;
-    return await dbemote.update(emoteTable, Emote.toMap(),
+    Database dbemote = await (db as FutureOr<Database>);
+    return await dbemote.update(
+        emoteTable, Emote.toMap() as Map<String, Object?>,
         where: "$idColunm = ?", whereArgs: [Emote.id]);
   }
 
   getAllEmotes() async {
-    Database dbemote = await db;
+    Database dbemote = await (db as FutureOr<Database>);
     List listMap = await dbemote.rawQuery("SELECT * FROM $emoteTable");
-    List<Emote> listEmote = List();
-    for (Map m in listMap) {
+    List<Emote> listEmote = [];
+    for (Map m in listMap as Iterable<Map<dynamic, dynamic>>) {
       listEmote.add(Emote.fromMap(m));
     }
     return listEmote;
   }
 
-  Future<int> getNumber() async {
-    Database dbemote = await db;
+  Future<int?> getNumber() async {
+    Database dbemote = await (db as FutureOr<Database>);
     return Sqflite.firstIntValue(
         await dbemote.rawQuery("SELECT COUNT(*) FROM $emoteTable"));
   }
 
   Future close() async {
-    Database dbemote = await db;
+    Database dbemote = await (db as FutureOr<Database>);
     dbemote.close();
   }
 }
 
 class Emote {
-  int id;
-  bool _med = false;
-  bool _ansi = false;
-  bool _triste = false;
-  bool _raiva = false;
-  bool _stress = false;
+  int? id;
+  bool? _med = false;
+  bool? _ansi = false;
+  bool? _triste = false;
+  bool? _raiva = false;
+  bool? _stress = false;
 
   Emote.fromMap(Map map) {
     id = map[idColunm];

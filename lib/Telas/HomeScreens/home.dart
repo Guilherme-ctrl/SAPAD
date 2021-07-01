@@ -12,6 +12,7 @@ import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 import 'package:sapad_v3/helper.dart/setting_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,26 +21,33 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   EmoteHelper helper = EmoteHelper();
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
-  List<Emote> emote = List();
+  List<Emote> emote = [];
   @override
   void initState() {
     _readData();
     super.initState();
-    _getAllEmote;
+    /* db.collection("Emotion").doc("001").update({
+      "med": _med,
+      "ansi": _ansi,
+      "triste": _triste,
+      "stress": _stress,
+      "raiva": _raiva,
+    }); */
   }
 
-  bool _med = false;
-  bool _ansi = false;
-  bool _triste = false;
-  bool _raiva = false;
-  bool _stress = false;
-  bool _isMarked = false;
+  bool? _med = false;
+  bool? _ansi = false;
+  bool? _triste = false;
+  bool? _raiva = false;
+  bool? _stress = false;
+  bool? _isMarked = false;
   bool _lightMode = false;
 
-  bool _music = true;
-  bool _cromo = true;
-  bool _medit = true;
+  bool? _music = true;
+  bool? _cromo = true;
+  bool? _medit = true;
   bool _checkBox = false;
 
   IconData _seta = Icons.keyboard_arrow_up;
@@ -48,8 +56,8 @@ class _HomePageState extends State<HomePage> {
 
   int _currentIndex = 0;
   List cardList = [Item1(), Item2(), Item3(), Item4()];
-  List<T> map<T>(List list, Function handler) {
-    List<T> result = [];
+  List<T?> map<T>(List list, Function handler) {
+    List<T?> result = [];
     for (var i = 0; i < list.length; i++) {
       result.add(handler(i, list[i]));
     }
@@ -74,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   color: _lightMode == false ? Colors.grey : Colors.white10,
                 ),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     //Carousel
                     Padding(
                       padding: EdgeInsets.only(top: 1.0),
@@ -118,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           //CheckBox Card
 
-                          Padding(
+                          /* Padding(
                             padding: EdgeInsets.zero,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -135,9 +143,9 @@ class _HomePageState extends State<HomePage> {
                                         : Colors.black38,
                                   ),
                                 );
-                              }),
+                              }) as List<Widget?>,
                             ),
-                          )
+                          ) */
                         ],
                       ),
                     ),
@@ -182,9 +190,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _medit,
-                          onChanged: (bool _newmed) {
+                          onChanged: (bool? _newmed) {
                             setState(() {
                               _medit = _newmed;
+                              db.collection("Home").doc("001").update({
+                                "medit": _medit,
+                              });
                               _saveData();
                             });
                           },
@@ -200,10 +211,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _cromo,
-                          onChanged: (bool _newcromo) {
+                          onChanged: (bool? _newcromo) {
                             //_edited = true;
                             setState(() {
                               _cromo = _newcromo;
+                              db.collection("Home").doc("001").update({
+                                "cromo": _cromo,
+                              });
                               _saveData();
                             });
                           },
@@ -219,10 +233,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _music,
-                          onChanged: (bool _newmusic) {
+                          onChanged: (bool? _newmusic) {
                             //_edited = true;
                             setState(() {
                               _music = _newmusic;
+                              db.collection("Home").doc("001").update({
+                                "music": _music,
+                              });
                               _saveData();
                             });
                           },
@@ -263,7 +280,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            //DarkMode Card
+            //Setting Card
 
             Padding(
               padding: EdgeInsets.zero,
@@ -281,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                         children: [
                           Text(
-                            'LigthMode',
+                            'Configurações',
                             style: GoogleFonts.merriweather(
                                 textStyle: TextStyle(
                                     fontSize: 25.0,
@@ -290,24 +307,19 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 85.0),
-                            child: Switch(
-                                value: _lightMode,
-                                onChanged: (bool _newMode) {
-                                  setState(() {
-                                    _lightMode = _newMode;
-                                    _saveData();
-                                  });
-                                }),
-                          ),
+                              padding: EdgeInsets.only(left: 85.0),
+                              child: Icon(
+                                Icons.settings,
+                                color: Colors.white,
+                              )),
                         ],
                       )),
                     ),
                   ),
                 ),
                 onTap: () {
-                  const url = 'https://www.google.com';
-                  abrirUrl(url);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ConfigPage()));
                 },
               ),
             ),
@@ -327,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.menu,
                 color: _lightMode == false ? Colors.white : Colors.black,
               ),
-              onPressed: () => _scaffoldState.currentState.openDrawer(),
+              onPressed: () => _scaffoldState.currentState!.openDrawer(),
             ),
           ),
 
@@ -389,16 +401,26 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                setState(() async {
+                setState(() {
                   if (_checkBox == true) {
-                    _seta = Icons.keyboard_arrow_down;
-                    _checkBox = false;
-                    _saveData();
+                    setState(() {
+                      _seta = Icons.keyboard_arrow_down;
+                      _checkBox = false;
+                      db.collection("Home").doc("001").update({
+                        "hide": _checkBox,
+                      });
+                      _saveData();
+                    });
                     // await helper.saveEmote(recEmote);
                   } else {
-                    _seta = Icons.keyboard_arrow_up;
-                    _checkBox = true;
-                    _saveData();
+                    setState(() {
+                      _seta = Icons.keyboard_arrow_up;
+                      _checkBox = true;
+                      db.collection("Home").doc("001").update({
+                        "hide": _checkBox,
+                      });
+                      _saveData();
+                    });
                     //await helper.saveEmote(recEmote);
                   }
                   _getAllEmote();
@@ -432,11 +454,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _med,
-                          onChanged: (bool _newmed) {
+                          onChanged: (bool? _newmed) {
                             setState(() {
                               _med = _newmed;
                               _isMarked = _newmed;
-
+                              db.collection("Emotion").doc("001").update({
+                                "med": _med,
+                              });
                               _saveData();
                             });
                           },
@@ -452,11 +476,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _triste,
-                          onChanged: (bool _newtriste) {
+                          onChanged: (bool? _newtriste) {
                             setState(() {
                               _triste = _newtriste;
                               _isMarked = _newtriste;
-
+                              db.collection("Emotion").doc("001").update({
+                                "triste": _triste,
+                              });
                               _saveData();
                             });
                           },
@@ -472,11 +498,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _ansi,
-                          onChanged: (bool _newansi) {
+                          onChanged: (bool? _newansi) {
                             setState(() {
                               _ansi = _newansi;
                               _isMarked = _newansi;
-
+                              db.collection("Emotion").doc("001").update({
+                                "ansi": _ansi,
+                              });
                               _saveData();
                             });
                           },
@@ -492,10 +520,15 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _stress,
-                          onChanged: (bool _newstress) {
+                          onChanged: (bool? _newstress) {
                             setState(() {
                               _stress = _newstress;
                               _isMarked = _newstress;
+                              setState(() {
+                                db.collection("Emotion").doc("001").update({
+                                  "stress": _stress,
+                                });
+                              });
 
                               _saveData();
                             });
@@ -512,10 +545,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           activeColor: Colors.purple[200],
                           value: _raiva,
-                          onChanged: (bool _newraiva) {
+                          onChanged: (bool? _newraiva) {
                             setState(() {
                               _raiva = _newraiva;
-
+                              db.collection("Emotion").doc("001").update({
+                                "raiva": _raiva,
+                              });
                               _saveData();
                             });
                           },
@@ -773,19 +808,25 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  abrirUrl(String url) async {}
+  abrirUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   _saveData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setBool('_med', _med);
-    _prefs.setBool('_ansi', _ansi);
-    _prefs.setBool('_stress', _stress);
-    _prefs.setBool('_raiva', _raiva);
-    _prefs.setBool('_triste', _triste);
-    _prefs.setBool('_cromo', _cromo);
-    _prefs.setBool('_medit', _medit);
-    _prefs.setBool('_music', _music);
-    _prefs.setBool('_isMarked', _isMarked);
+    _prefs.setBool('_med', _med!);
+    _prefs.setBool('_ansi', _ansi!);
+    _prefs.setBool('_stress', _stress!);
+    _prefs.setBool('_raiva', _raiva!);
+    _prefs.setBool('_triste', _triste!);
+    _prefs.setBool('_cromo', _cromo!);
+    _prefs.setBool('_medit', _medit!);
+    _prefs.setBool('_music', _music!);
+    _prefs.setBool('_isMarked', _isMarked!);
     _prefs.setBool('_checkBox', _checkBox);
     _prefs.setBool('_lightMode', _lightMode);
   }
@@ -809,7 +850,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Item1 extends StatelessWidget {
-  const Item1({Key key}) : super(key: key);
+  const Item1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -837,7 +878,7 @@ class Item1 extends StatelessWidget {
 }
 
 class Item2 extends StatelessWidget {
-  const Item2({Key key}) : super(key: key);
+  const Item2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -861,7 +902,7 @@ class Item2 extends StatelessWidget {
 }
 
 class Item3 extends StatelessWidget {
-  const Item3({Key key}) : super(key: key);
+  const Item3({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -885,7 +926,7 @@ class Item3 extends StatelessWidget {
 }
 
 class Item4 extends StatelessWidget {
-  const Item4({Key key}) : super(key: key);
+  const Item4({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
