@@ -4,6 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:sapad_v3/Telas/HomeScreens/acomp.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
+import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 
@@ -13,7 +14,7 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
-  final List _telas = [InfoPage(), HomePage(), MusicPage(), AcompPage()];
+  final List _telas = [InfoPage(), HomePage(), StatsPage(), AcompPage()];
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   int _indiceAtual = 1;

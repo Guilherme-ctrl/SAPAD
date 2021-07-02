@@ -48,6 +48,7 @@ dependencies:
   firebase_messaging: ^10.0.3
   url_launcher: ^6.0.8
   provider: ^5.0.0
+  syncfusion_flutter_charts: ^19.2.44+1
   #Videos
   youtube_player_flutter: ^8.0.0
   another_flushbar: ^1.10.23
