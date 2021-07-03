@@ -35,7 +35,7 @@ class _AcompPageState extends State<AcompPage> {
                 child: Column(
                   children: [
                     Text(
-                      "Musicoterapia Personalizada",
+                      "Insira o Token:",
                       style: GoogleFonts.merriweather(
                         textStyle: TextStyle(
                             fontSize: 25.0,

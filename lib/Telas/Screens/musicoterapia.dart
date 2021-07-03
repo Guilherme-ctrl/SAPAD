@@ -1,19 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MusicPage extends StatefulWidget {
-  final bool? medo;
-  final bool? ansi;
-  final bool? triste;
-  final bool? stress;
-  final bool? raiva;
-
-  MusicPage(
-      {Key? key, this.medo, this.ansi, this.triste, this.stress, this.raiva})
-      : super(key: key);
-
   @override
   _MusicPageState createState() => _MusicPageState();
 }
@@ -22,7 +13,9 @@ class _MusicPageState extends State<MusicPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
-  String _url = "https://www.youtube.com/watch?v=IdGhUk7uJMQ";
+  var song =
+      FirebaseFirestore.instance.collection('Songs').where('music').snapshots();
+  //DatabaseReference ref = FirebaseDatabase.Instance().getReference("Songs");
 
   AudioPlayer? _player;
   late AudioCache cache;
@@ -233,6 +226,8 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   abrirYoutube() async {
+    //var _url =  song.get().toString();
+    String _url = "https://www.youtube.com/watch?v=w7o_3ME8jHs";
     if (await canLaunch(_url)) {
       await launch(_url);
     } else {
