@@ -32,13 +32,17 @@ class _StatsPageState extends State<StatsPage> {
           text: 'Estatísticas Gerais \n Conforme uso por emoção sentida',
           textStyle: TextStyle(color: Colors.white),
         ),
-        legend:
-            Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
+        legend: Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+            textStyle: TextStyle(color: Colors.white),
+            alignment: ChartAlignment.center,
+            itemPadding: 20),
         tooltipBehavior: _tooltipBehavior,
         series: <CircularSeries>[
           PieSeries<GDPData, String>(
               dataSource: _chartData,
-              xValueMapper: (GDPData data, _) => data.continent,
+              xValueMapper: (GDPData data, _) => data.emote,
               yValueMapper: (GDPData data, _) => data.gpd,
               pointColorMapper: (GDPData data, _) => data.colorgraf,
               dataLabelSettings: DataLabelSettings(isVisible: true),
@@ -61,8 +65,8 @@ class _StatsPageState extends State<StatsPage> {
 }
 
 class GDPData {
-  GDPData(this.continent, this.gpd, this.colorgraf);
-  final String continent;
+  GDPData(this.emote, this.gpd, this.colorgraf);
+  final String emote;
   final double gpd;
   final Color colorgraf;
 }
