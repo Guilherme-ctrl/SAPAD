@@ -10,8 +10,23 @@ class ConfigPage extends StatefulWidget {
 
 class _ConfigPageState extends State<ConfigPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
-  String? _url;
+  String? _urlmusic;
+  String? _urlmedit;
   final myController = TextEditingController();
+  final myController2 = TextEditingController();
+
+  void initState() {
+    super.initState();
+    readFirebase();
+  }
+
+  readFirebase() async {
+    var songs =
+        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    _urlmedit = songs.data()?['video'];
+    _urlmusic = songs.data()?['music'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +65,30 @@ class _ConfigPageState extends State<ConfigPage> {
                       autofocus: true,
                       style: TextStyle(color: Colors.blue, fontSize: 30),
                       decoration: InputDecoration(
-                        labelText: "URL",
+                        labelText: _urlmusic.toString(),
                         labelStyle: TextStyle(color: Colors.black),
                       ),
                       controller: myController,
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.save,
+                          color: Colors.white,
+                          size: 30.0,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _urlmusic = myController.text;
+                            db
+                                .collection("Songs")
+                                .doc("001")
+                                .update({"music": _urlmusic});
+                          });
+                        },
+                      ),
+                    )
                   ],
                 )),
           ),
@@ -68,45 +102,52 @@ class _ConfigPageState extends State<ConfigPage> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
             child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Text(
-                      "Meditação Personalizada",
-                      style: GoogleFonts.merriweather(
-                        textStyle: TextStyle(
-                            fontSize: 25.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Meditação Personalizada",
+                    style: GoogleFonts.merriweather(
+                      textStyle: TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
-                    TextField(
-                      autofocus: true,
-                      style: TextStyle(color: Colors.blue, fontSize: 30),
-                      decoration: InputDecoration(
-                        labelText: "URL",
-                        labelStyle: TextStyle(color: Colors.black),
-                      ),
-                      controller: myController,
+                  ),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: Colors.blue, fontSize: 30),
+                    decoration: InputDecoration(
+                      labelText: _urlmedit.toString(),
+                      labelStyle: TextStyle(color: Colors.black),
                     ),
-                  ],
-                )),
+                    controller: myController2,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5.0),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.save,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _urlmedit = myController2.text;
+
+                          db
+                              .collection("Songs")
+                              .doc("001")
+                              .update({"video": _urlmedit});
+                        });
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-        Container(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                _url = myController.text;
-                db.collection("Songs").doc("001").update({
-                  "music": _url,
-                });
-              });
-            },
-            child: Icon(Icons.save),
-          ),
-        )
       ]),
     );
   }

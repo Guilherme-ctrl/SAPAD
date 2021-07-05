@@ -13,17 +13,22 @@ class _MusicPageState extends State<MusicPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
-  var song =
-      FirebaseFirestore.instance.collection('Songs').where('music').snapshots();
-  //DatabaseReference ref = FirebaseDatabase.Instance().getReference("Songs");
+  late String _url;
 
   AudioPlayer? _player;
   late AudioCache cache;
 
   void initState() {
     super.initState();
+    readFirebase();
     _player = AudioPlayer();
     cache = AudioCache(fixedPlayer: _player);
+  }
+
+  readFirebase() async {
+    var songs =
+        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    _url = songs.data()?['music'];
   }
 
   @override
@@ -225,9 +230,7 @@ class _MusicPageState extends State<MusicPage> {
         });
   }
 
-  abrirYoutube() async {
-    //var _url =  song.get().toString();
-    String _url = "https://www.youtube.com/watch?v=w7o_3ME8jHs";
+  Future<void> abrirYoutube() async {
     if (await canLaunch(_url)) {
       await launch(_url);
     } else {

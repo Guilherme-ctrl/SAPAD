@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MeditationPage extends StatefulWidget {
   final bool? medo;
@@ -19,6 +21,7 @@ class MeditationPage extends StatefulWidget {
 class _MeditationPageState extends State<MeditationPage> {
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
+  late String _url;
 
   AudioPlayer? _player;
   late AudioCache cache;
@@ -27,6 +30,12 @@ class _MeditationPageState extends State<MeditationPage> {
     super.initState();
     _player = AudioPlayer();
     cache = AudioCache(fixedPlayer: _player);
+  }
+
+  readFirebase() async {
+    var songs =
+        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    _url = songs.data()?['video'];
   }
 
   @override
@@ -159,54 +168,51 @@ class _MeditationPageState extends State<MeditationPage> {
               },
             ),
           ),
-          /* //Card 3
+          //Card 3
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: Colors.black38,
-                shadowColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 93.0),
-                        child: Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Sua Meditação",
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
+            child: Card(
+              color: Colors.black38,
+              shadowColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 20.0),
+                      child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Musica Personalizada",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.purple[300],
-                            borderRadius: BorderRadius.circular(100.0)),
-                        child: IconButton(
-                          iconSize: 50.0,
-                          color: Colors.purple,
-                          onPressed: () {},
-                          icon: Icon(Icons.play_arrow),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: IconButton(
+                        iconSize: 50.0,
+                        color: Colors.purple,
+                        onPressed: () {
+                          abrirLink();
+                        },
+                        icon: Icon(playBtn),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              onTap: () {
-                _requestPop(context);
-              },
             ),
-          ), */
+          ),
         ]));
   }
 
@@ -234,5 +240,13 @@ class _MeditationPageState extends State<MeditationPage> {
             ],
           );
         });
+  }
+
+  Future<void> abrirLink() async {
+    if (await canLaunch(_url)) {
+      await launch(_url);
+    } else {
+      print('Could not launch $_url');
+    }
   }
 }

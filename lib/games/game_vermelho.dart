@@ -110,6 +110,7 @@ class _SnakeGameVermelhoState extends State<SnakeGameVermelho> {
                 child: Text('Close'),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 },
               ),
             ],
