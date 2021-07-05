@@ -346,54 +346,51 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(bottom: 5.0),
             child: GestureDetector(
               child: SizedBox(
-                height: 230.0,
+                height: 231.0,
                 width: 100.0,
                 child: Card(
                   color: Colors.black54,
                   shadowColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                          child: Container(
-                              child: Text(
-                            "Clique e informe como você esta hoje!!",
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                    fontSize: 30.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            textAlign: TextAlign.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(),
+                        child: Container(
+                            child: Text(
+                          "Clique e informe como você esta hoje!!",
+                          style: GoogleFonts.merriweather(
+                              textStyle: TextStyle(
+                                  fontSize: 30.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          textAlign: TextAlign.center,
+                        )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: Container(
+                            child: Text(
+                          "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
+                          style: GoogleFonts.merriweather(
+                              textStyle: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
                           )),
+                          textAlign: TextAlign.center,
+                        )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: Container(
+                          child: Icon(_seta,
+                              size: 70.0, color: Colors.greenAccent),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0),
-                          child: Container(
-                              child: Text(
-                            "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
-                            )),
-                            textAlign: TextAlign.center,
-                          )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0),
-                          child: Container(
-                            child: Icon(_seta,
-                                size: 70.0, color: Colors.greenAccent),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
