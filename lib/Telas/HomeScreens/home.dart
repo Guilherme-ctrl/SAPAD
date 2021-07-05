@@ -32,10 +32,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
-    db.collection("Songs").doc("001").set({
-      "video": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
+    /* db.collection("Songs").doc("001").set({
+      "medit": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
       "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
-    });
+    }); */
   }
 
   bool? _med = false;
@@ -128,7 +128,6 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ), */
-
                     SizedBox(height: 5),
                     CircleAvatar(
                       radius: 70,
@@ -361,78 +360,301 @@ class _HomePageState extends State<HomePage> {
                   provider.logout();
                 },
               ),
-            ),
+            )
           ],
         ),
       )),
-      body: LayoutBuilder(builder: (_, constraints) {
-        return ListView(
-          padding:
-              EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
-          children: [
-            //Drawer Button
-            Padding(
-              padding: EdgeInsets.only(top: 15.0),
-              child: IconButton(
-                alignment: Alignment.topLeft,
-                icon: Icon(
-                  Icons.menu,
-                  color: _lightMode == false ? Colors.white : Colors.black,
+      body: ListView(
+        padding:
+            EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
+        children: [
+          //Drawer Button
+          Padding(
+            padding: EdgeInsets.only(top: 15.0),
+            child: IconButton(
+              alignment: Alignment.topLeft,
+              icon: Icon(
+                Icons.menu,
+                color: _lightMode == false ? Colors.white : Colors.black,
+              ),
+              onPressed: () => _scaffoldState.currentState!.openDrawer(),
+            ),
+          ),
+
+          //Card 1
+
+          Padding(
+            padding: EdgeInsets.only(bottom: 5.0),
+            child: GestureDetector(
+              child: SizedBox(
+                height: 231.0,
+                width: 100.0,
+                child: Card(
+                  color: Colors.black54,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(),
+                        child: Container(
+                            child: Text(
+                          "Clique e informe como você esta hoje!!",
+                          style: GoogleFonts.merriweather(
+                              textStyle: TextStyle(
+                                  fontSize: 30.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          textAlign: TextAlign.center,
+                        )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: Container(
+                            child: Text(
+                          "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
+                          style: GoogleFonts.merriweather(
+                              textStyle: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          )),
+                          textAlign: TextAlign.center,
+                        )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: Container(
+                          child: Icon(_seta,
+                              size: 70.0, color: Colors.greenAccent),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                onPressed: () => _scaffoldState.currentState!.openDrawer(),
+              ),
+              onTap: () {
+                setState(() {
+                  if (_checkBox == true) {
+                    setState(() {
+                      _seta = Icons.keyboard_arrow_down;
+                      _checkBox = false;
+                      db.collection("Home").doc("001").update({
+                        "hide": _checkBox,
+                      });
+                      _saveData();
+                    });
+                    // await helper.saveEmote(recEmote);
+                  } else {
+                    setState(() {
+                      _seta = Icons.keyboard_arrow_up;
+                      _checkBox = true;
+                      db.collection("Home").doc("001").update({
+                        "hide": _checkBox,
+                      });
+                      _saveData();
+                    });
+                    //await helper.saveEmote(recEmote);
+                  }
+                  _getAllEmote();
+                });
+              },
+            ),
+          ),
+          //Card 2
+
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 15.0),
+              child: Card(
+                color: Colors.black54,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0, top: 2.0),
+                        child: CheckboxListTile(
+                          title: Text(
+                            'Medo',
+                            style:
+                                TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                          activeColor: Colors.purple[200],
+                          value: _med,
+                          onChanged: (bool? _newmed) {
+                            setState(() {
+                              _med = _newmed;
+                              _isMarked = _newmed;
+                              db.collection("Emotion").doc("001").update({
+                                "med": _med,
+                              });
+                              _saveData();
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: CheckboxListTile(
+                          title: Text(
+                            'Triste',
+                            style:
+                                TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                          activeColor: Colors.purple[200],
+                          value: _triste,
+                          onChanged: (bool? _newtriste) {
+                            setState(() {
+                              _triste = _newtriste;
+                              _isMarked = _newtriste;
+                              db.collection("Emotion").doc("001").update({
+                                "triste": _triste,
+                              });
+                              _saveData();
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: CheckboxListTile(
+                          title: Text(
+                            'Ansioso (a)',
+                            style:
+                                TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                          activeColor: Colors.purple[200],
+                          value: _ansi,
+                          onChanged: (bool? _newansi) {
+                            setState(() {
+                              _ansi = _newansi;
+                              _isMarked = _newansi;
+                              db.collection("Emotion").doc("001").update({
+                                "ansi": _ansi,
+                              });
+                              _saveData();
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 1.0),
+                        child: CheckboxListTile(
+                          title: Text(
+                            'Estressado (a)',
+                            style:
+                                TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                          activeColor: Colors.purple[200],
+                          value: _stress,
+                          onChanged: (bool? _newstress) {
+                            setState(() {
+                              _stress = _newstress;
+                              _isMarked = _newstress;
+                              setState(() {
+                                db.collection("Emotion").doc("001").update({
+                                  "stress": _stress,
+                                });
+                              });
+
+                              _saveData();
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.zero,
+                        child: CheckboxListTile(
+                          title: Text(
+                            'Com Raiva',
+                            style:
+                                TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                          activeColor: Colors.purple[200],
+                          value: _raiva,
+                          onChanged: (bool? _newraiva) {
+                            setState(() {
+                              _raiva = _newraiva;
+                              db.collection("Emotion").doc("001").update({
+                                "raiva": _raiva,
+                              });
+                              _saveData();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
+            visible: _checkBox == false ? false : true,
+          ),
+          //Card 3
 
-            //Card 1
-
-            Padding(
+          Visibility(
+            child: Padding(
               padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
-                  height: constraints.maxHeight * 0.3,
-                  width: constraints.maxWidth,
+                  height: 100.0,
+                  width: 100.0,
                   child: Card(
-                    color: Colors.black54,
+                    color: _medit == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
                     child: Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      padding: EdgeInsets.all(1.0),
+                      child: Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                            child: Container(
-                                child: Text(
-                              "Clique e informe como você esta hoje!!",
-                              style: GoogleFonts.merriweather(
-                                  textStyle: TextStyle(
-                                      fontSize: 30.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              textAlign: TextAlign.center,
-                            )),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 10.0,
+                                    top: 10.0,
+                                    bottom: 10.0,
+                                    right: 35),
+                                child: Container(
+                                  width: 70.0,
+                                  height: 70.0,
+                                  child: Icon(
+                                    MdiIcons.headSnowflakeOutline,
+                                    color: Colors.greenAccent,
+                                    size: 40.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(bottom: 1.0),
-                            child: Container(
-                                child: Text(
-                              "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
-                              style: GoogleFonts.merriweather(
-                                  textStyle: TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              )),
-                              textAlign: TextAlign.center,
-                            )),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 1.0),
-                            child: Container(
-                              child: Icon(_seta,
-                                  size: 70.0, color: Colors.greenAccent),
+                            padding: EdgeInsets.only(left: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "Meditação",
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
+                                          color: Colors.white,
+                                        )),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
+                              ],
                             ),
                           ),
                         ],
@@ -441,397 +663,168 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
-                  setState(() {
-                    if (_checkBox == true) {
-                      setState(() {
-                        _seta = Icons.keyboard_arrow_down;
-                        _checkBox = false;
-                        db.collection("Home").doc("001").update({
-                          "hide": _checkBox,
-                        });
-                        _saveData();
-                      });
-                      // await helper.saveEmote(recEmote);
-                    } else {
-                      setState(() {
-                        _seta = Icons.keyboard_arrow_up;
-                        _checkBox = true;
-                        db.collection("Home").doc("001").update({
-                          "hide": _checkBox,
-                        });
-                        _saveData();
-                      });
-                      //await helper.saveEmote(recEmote);
-                    }
-                    _getAllEmote();
-                  });
+                  if (_medit == true) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MeditationPage(
+                                medo: _med,
+                                ansi: _ansi,
+                                raiva: _raiva,
+                                stress: _stress,
+                                triste: _triste)));
+                  }
                 },
               ),
             ),
-            //Card 2
+            visible: _medit == true ? true : false,
+          ),
+          //Card 4
 
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 15.0),
-                child: Card(
-                  color: Colors.black54,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0, top: 2.0),
-                          child: CheckboxListTile(
-                            title: Text(
-                              'Medo',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white),
-                            ),
-                            activeColor: Colors.purple[200],
-                            value: _med,
-                            onChanged: (bool? _newmed) {
-                              setState(() {
-                                _med = _newmed;
-                                _isMarked = _newmed;
-                                db.collection("Emotion").doc("001").update({
-                                  "med": _med,
-                                });
-                                _saveData();
-                              });
-                            },
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 5.0),
+              child: GestureDetector(
+                child: SizedBox(
+                  height: 100.0,
+                  width: 100.0,
+                  child: Card(
+                    color: _cromo == true ? Colors.black54 : Colors.grey,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: 5, left: 5, right: 35, top: 10),
+                                child: Container(
+                                    width: 55.0,
+                                    height: 55.0,
+                                    child: Icon(Icons.palette,
+                                        color: Colors.greenAccent, size: 40.0)),
+                              ),
+                            ],
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0),
-                          child: CheckboxListTile(
-                            title: Text(
-                              'Triste',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white),
-                            ),
-                            activeColor: Colors.purple[200],
-                            value: _triste,
-                            onChanged: (bool? _newtriste) {
-                              setState(() {
-                                _triste = _newtriste;
-                                _isMarked = _newtriste;
-                                db.collection("Emotion").doc("001").update({
-                                  "triste": _triste,
-                                });
-                                _saveData();
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0),
-                          child: CheckboxListTile(
-                            title: Text(
-                              'Ansioso (a)',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white),
-                            ),
-                            activeColor: Colors.purple[200],
-                            value: _ansi,
-                            onChanged: (bool? _newansi) {
-                              setState(() {
-                                _ansi = _newansi;
-                                _isMarked = _newansi;
-                                db.collection("Emotion").doc("001").update({
-                                  "ansi": _ansi,
-                                });
-                                _saveData();
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.0),
-                          child: CheckboxListTile(
-                            title: Text(
-                              'Estressado (a)',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white),
-                            ),
-                            activeColor: Colors.purple[200],
-                            value: _stress,
-                            onChanged: (bool? _newstress) {
-                              setState(() {
-                                _stress = _newstress;
-                                _isMarked = _newstress;
-                                setState(() {
-                                  db.collection("Emotion").doc("001").update({
-                                    "stress": _stress,
-                                  });
-                                });
-
-                                _saveData();
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: CheckboxListTile(
-                            title: Text(
-                              'Com Raiva',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white),
-                            ),
-                            activeColor: Colors.purple[200],
-                            value: _raiva,
-                            onChanged: (bool? _newraiva) {
-                              setState(() {
-                                _raiva = _newraiva;
-                                db.collection("Emotion").doc("001").update({
-                                  "raiva": _raiva,
-                                });
-                                _saveData();
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              visible: _checkBox == false ? false : true,
-            ),
-            //Card 3
-
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: GestureDetector(
-                  child: SizedBox(
-                    height: 100.0,
-                    width: 100.0,
-                    child: Card(
-                      color: _medit == true ? Colors.black54 : Colors.grey,
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(1.0),
-                        child: Row(
-                          children: [
-                            Column(
+                          Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 10.0,
-                                      top: 10.0,
-                                      bottom: 10.0,
-                                      right: 35),
-                                  child: Container(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    child: Icon(
-                                      MdiIcons.headSnowflakeOutline,
-                                      color: Colors.greenAccent,
-                                      size: 40.0,
-                                    ),
-                                  ),
-                                ),
+                                Container(
+                                  child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "Cromoterapia",
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
+                                          color: Colors.white,
+                                        )),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Text(
-                                          "Meditação",
-                                          style: GoogleFonts.merriweather(
-                                              textStyle: TextStyle(
-                                            fontSize: 30.0,
-                                            color: Colors.white,
-                                          )),
-                                          textAlign: TextAlign.center,
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  onTap: () {
-                    if (_medit == true) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MeditationPage(
+                ),
+                onTap: () {
+                  if (_cromo == true) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CromoPage(
                                   medo: _med,
                                   ansi: _ansi,
                                   raiva: _raiva,
                                   stress: _stress,
-                                  triste: _triste)));
-                    }
-                  },
-                ),
+                                  triste: _triste,
+                                  isMarket: _isMarked,
+                                )));
+                  }
+                },
               ),
-              visible: _medit == true ? true : false,
             ),
-            //Card 4
+            visible: _cromo == true ? true : false,
+          ),
+          //Card 5
 
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: GestureDetector(
-                  child: SizedBox(
-                    height: 100.0,
-                    width: 100.0,
-                    child: Card(
-                      color: _cromo == true ? Colors.black54 : Colors.grey,
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 5, left: 5, right: 35, top: 10),
-                                  child: Container(
-                                      width: 55.0,
-                                      height: 55.0,
-                                      child: Icon(Icons.palette,
-                                          color: Colors.greenAccent,
-                                          size: 40.0)),
+          Visibility(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 5.0),
+              child: GestureDetector(
+                child: SizedBox(
+                  width: 100.0,
+                  height: 100.0,
+                  child: Card(
+                    color: _music == true ? Colors.black54 : Colors.grey,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: 5, left: 5, right: 35, top: 10),
+                                child: Container(
+                                  width: 55.0,
+                                  height: 55.0,
+                                  child: Icon(MdiIcons.guitarPick,
+                                      color: Colors.greenAccent, size: 40.0),
                                 ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "Musicoterapia",
+                                        style: GoogleFonts.merriweather(
+                                            textStyle: TextStyle(
+                                          fontSize: 30.0,
+                                          color: Colors.white,
+                                        )),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 15.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Text(
-                                          "Cromoterapia",
-                                          style: GoogleFonts.merriweather(
-                                              textStyle: TextStyle(
-                                            fontSize: 30.0,
-                                            color: Colors.white,
-                                          )),
-                                          textAlign: TextAlign.center,
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  onTap: () {
-                    if (_cromo == true) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CromoPage(
-                                    medo: _med,
-                                    ansi: _ansi,
-                                    raiva: _raiva,
-                                    stress: _stress,
-                                    triste: _triste,
-                                    isMarket: _isMarked,
-                                  )));
-                    }
-                  },
                 ),
+                onTap: () {
+                  if (_music == true) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MusicPage()));
+                  }
+                },
               ),
-              visible: _cromo == true ? true : false,
             ),
-            //Card 5
-
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: GestureDetector(
-                  child: SizedBox(
-                    width: 100.0,
-                    height: 100.0,
-                    child: Card(
-                      color: _music == true ? Colors.black54 : Colors.grey,
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 5, left: 5, right: 35, top: 10),
-                                  child: Container(
-                                    width: 55.0,
-                                    height: 55.0,
-                                    child: Icon(MdiIcons.guitarPick,
-                                        color: Colors.greenAccent, size: 40.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 15.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Text(
-                                          "Musicoterapia",
-                                          style: GoogleFonts.merriweather(
-                                              textStyle: TextStyle(
-                                            fontSize: 30.0,
-                                            color: Colors.white,
-                                          )),
-                                          textAlign: TextAlign.center,
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    if (_music == true) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MusicPage()));
-                    }
-                  },
-                ),
-              ),
-              visible: _music == true ? true : false,
-            ),
-          ],
-        );
-      }),
+            visible: _music == true ? true : false,
+          ),
+        ],
+      ),
     );
   }
 
