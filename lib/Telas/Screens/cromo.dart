@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapad_v3/games/game_azul.dart';
+import 'package:sapad_v3/games/game_vermelho.dart';
 
 class CromoPage extends StatefulWidget {
   final bool? medo;
@@ -197,7 +198,10 @@ class _CromoPageState extends State<CromoPage> {
                   ),
                 ),
                 onTap: () {
-                  _requestPopVer(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SnakeGameVermelho()));
                 },
               ),
             ),
