@@ -67,6 +67,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var screenHeight = (size.height - MediaQuery.of(context).padding.top);
     return Scaffold(
       key: _scaffoldState,
       backgroundColor: _lightMode == false ? Colors.black87 : Colors.white,
@@ -278,89 +280,54 @@ class _HomePageState extends State<HomePage> {
 
             Padding(
               padding: EdgeInsets.zero,
-              child: GestureDetector(
-                child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
+              child: Card(
+                color: Colors.black38,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Container(
-                          child: Row(
-                        children: [
-                          Text(
-                            'Configurações',
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(left: 85.0),
-                              child: Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                              )),
-                        ],
-                      )),
-                    ),
+                    child: Container(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.settings),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ConfigPage()));
+                              },
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.logout),
+                              onPressed: () {
+                                final provider =
+                                    Provider.of<GoogleSignInProvider>(context,
+                                        listen: false);
+                                provider.logout();
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    )),
                   ),
                 ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ConfigPage()));
-                },
               ),
             ),
             //Logout Card
-
-            Padding(
-              padding: EdgeInsets.zero,
-              child: GestureDetector(
-                child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Container(
-                          child: Row(
-                        children: [
-                          Text(
-                            'Sair da Conta',
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(left: 97.0),
-                              child: Icon(
-                                Icons.logout,
-                                color: Colors.white,
-                              )),
-                        ],
-                      )),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  final provider =
-                      Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.logout();
-                },
-              ),
-            )
           ],
         ),
       )),
@@ -387,8 +354,8 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(bottom: 5.0),
             child: GestureDetector(
               child: SizedBox(
-                height: 231.0,
-                width: 100.0,
+                height: screenHeight * .35,
+                width: MediaQuery.of(context).size.width * .8,
                 child: Card(
                   color: Colors.black54,
                   shadowColor: Colors.white,
@@ -605,8 +572,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
-                  height: 100.0,
-                  width: 100.0,
+                  height: MediaQuery.of(context).size.height * .12,
+                  width: MediaQuery.of(context).size.width * .8,
                   child: Card(
                     color: _medit == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
@@ -617,45 +584,37 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10.0,
-                                    top: 10.0,
-                                    bottom: 10.0,
-                                    right: 35),
-                                child: Container(
-                                  width: 70.0,
-                                  height: 70.0,
-                                  child: Icon(
-                                    MdiIcons.headSnowflakeOutline,
-                                    color: Colors.greenAccent,
-                                    size: 40.0,
-                                  ),
+                              Container(
+                                width: 70.0,
+                                height: 70.0,
+                                child: Icon(
+                                  MdiIcons.headSnowflakeOutline,
+                                  color: Colors.greenAccent,
+                                  size: 40.0,
                                 ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Meditação",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      "Meditação",
+                                      style: GoogleFonts.merriweather(
+                                          textStyle: TextStyle(
+                                        fontSize: 30.0,
+                                        color: Colors.white,
                                       )),
-                                )
-                              ],
-                            ),
+                                      textAlign: TextAlign.center,
+                                    )),
+                              )
+                            ],
                           ),
                         ],
                       ),
@@ -686,8 +645,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
-                  height: 100.0,
-                  width: 100.0,
+                  height: MediaQuery.of(context).size.height * .12,
+                  width: MediaQuery.of(context).size.width * .8,
                   child: Card(
                     color: _cromo == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
@@ -698,38 +657,33 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 5, left: 5, right: 35, top: 10),
-                                child: Container(
-                                    width: 55.0,
-                                    height: 55.0,
-                                    child: Icon(Icons.palette,
-                                        color: Colors.greenAccent, size: 40.0)),
-                              ),
+                              Container(
+                                  width: 55.0,
+                                  height: 55.0,
+                                  child: Icon(Icons.palette,
+                                      color: Colors.greenAccent, size: 40.0)),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Cromoterapia",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      "Cromoterapia",
+                                      style: GoogleFonts.merriweather(
+                                          textStyle: TextStyle(
+                                        fontSize: 30.0,
+                                        color: Colors.white,
                                       )),
-                                )
-                              ],
-                            ),
+                                      textAlign: TextAlign.center,
+                                    )),
+                              )
+                            ],
                           ),
                         ],
                       ),
@@ -762,8 +716,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(bottom: 5.0),
               child: GestureDetector(
                 child: SizedBox(
-                  width: 100.0,
-                  height: 100.0,
+                  height: MediaQuery.of(context).size.height * .12,
+                  width: MediaQuery.of(context).size.width * .8,
                   child: Card(
                     color: _music == true ? Colors.black54 : Colors.grey,
                     shadowColor: Colors.white,
@@ -774,39 +728,34 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 5, left: 5, right: 35, top: 10),
-                                child: Container(
-                                  width: 55.0,
-                                  height: 55.0,
-                                  child: Icon(MdiIcons.guitarPick,
-                                      color: Colors.greenAccent, size: 40.0),
-                                ),
+                              Container(
+                                width: 55.0,
+                                height: 55.0,
+                                child: Icon(MdiIcons.guitarPick,
+                                    color: Colors.greenAccent, size: 40.0),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Text(
-                                        "Musicoterapia",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                child: Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      "Musicoterapia",
+                                      style: GoogleFonts.merriweather(
+                                          textStyle: TextStyle(
+                                        fontSize: 30.0,
+                                        color: Colors.white,
                                       )),
-                                )
-                              ],
-                            ),
+                                      textAlign: TextAlign.center,
+                                    )),
+                              )
+                            ],
                           ),
                         ],
                       ),

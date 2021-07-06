@@ -67,25 +67,22 @@ class _CromoPageState extends State<CromoPage> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text(
-                                    "Saiba sobre\n CROMOTERAPIA",
-                                    style: TextStyle(
-                                        fontSize: 25.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  )),
-                            )
-                          ],
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Text(
+                                  "Saiba sobre\n CROMOTERAPIA",
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                )),
+                          )
+                        ],
                       ),
                     ],
                   ),
