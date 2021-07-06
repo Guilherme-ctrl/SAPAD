@@ -282,90 +282,54 @@ class _HomePageState extends State<HomePage> {
             //Setting Card
 
             Padding(
-              padding: EdgeInsets.zero,
-              child: GestureDetector(
+                padding: EdgeInsets.zero,
                 child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    color: Colors.black38,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                     child: Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: Container(
-                          child: Row(
-                        children: [
-                          Text(
-                            'Configurações',
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(left: 85.0),
-                              child: Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                              )),
-                        ],
-                      )),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ConfigPage()));
-                },
-              ),
-            ),
-            //Logout Card
-
-            Padding(
-              padding: EdgeInsets.zero,
-              child: GestureDetector(
-                child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Container(
-                          child: Row(
-                        children: [
-                          Text(
-                            'Sair da Conta',
-                            style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(left: 97.0),
-                              child: Icon(
-                                Icons.logout,
-                                color: Colors.white,
-                              )),
-                        ],
-                      )),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  final provider =
-                      Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.logout();
-                },
-              ),
-            )
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Container(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.settings),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ConfigPage()));
+                                  },
+                                )
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.logout),
+                                  onPressed: () {
+                                    final provider =
+                                        Provider.of<GoogleSignInProvider>(
+                                            context,
+                                            listen: false);
+                                    provider.logout();
+                                  },
+                                )
+                              ],
+                            ),
+                          ],
+                        )),
+                      ),
+                    ))),
           ],
         ),
       )),
