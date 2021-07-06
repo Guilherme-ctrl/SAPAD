@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,9 +17,9 @@ class _StatsPageState extends State<StatsPage> {
   final user = FirebaseAuth.instance.currentUser!;
   late List<GDPData> _chartData;
   late TooltipBehavior _tooltipBehavior;
-  late int contMedit = 0;
-  late int contCromo = 0;
-  late int contMusic = 0;
+  late int contMedit;
+  late int contCromo;
+  late int contMusic;
 
   @override
   void initState() {
@@ -51,7 +50,7 @@ class _StatsPageState extends State<StatsPage> {
           PieSeries<GDPData, String>(
               dataSource: _chartData,
               xValueMapper: (GDPData data, _) => data.emote,
-              yValueMapper: (GDPData data, _) => data.gpd,
+              yValueMapper: (GDPData data, _) => data._contMedit,
               pointColorMapper: (GDPData data, _) => data.colorgraf,
               dataLabelSettings: DataLabelSettings(isVisible: true),
               enableTooltip: true)
@@ -62,11 +61,11 @@ class _StatsPageState extends State<StatsPage> {
 
   List<GDPData> getChartData() {
     final List<GDPData> chartData = [
-      GDPData('Medo', 35.8, Color(0xff3366cc)),
-      GDPData('Raiva', 8.3, Color(0xFFF06292)),
-      GDPData('Ansiedade', 10.8, Color(0xFF512DA8)),
-      GDPData('Tristeza', 15.6, Color(0xffEF9A9A)),
-      GDPData('Estresse', 29.5, Color(0xffff9900)),
+      GDPData('Medo', 35, Color(0xff3366cc)),
+      GDPData('Raiva', 8, Color(0xFFF06292)),
+      GDPData('Ansiedade', 10, Color(0xFF512DA8)),
+      GDPData('Tristeza', 17, Color(0xffEF9A9A)),
+      GDPData('Estresse', 30, Color(0xffff9900)),
     ];
     return chartData;
   }
@@ -92,7 +91,7 @@ class _StatsPageState extends State<StatsPage> {
 
 class GDPData {
   final String emote;
-  final double gpd;
+  final int _contMedit;
   final Color colorgraf;
-  GDPData(this.emote, this.gpd, this.colorgraf);
+  GDPData(this.emote, this._contMedit, this.colorgraf);
 }
