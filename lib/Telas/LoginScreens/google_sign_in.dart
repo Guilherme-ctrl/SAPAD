@@ -36,6 +36,7 @@ class GoogleSignInProvider extends ChangeNotifier {
         "medit": true,
         "hide": true,
         "music": true,
+        "contMedit": 0,
       });
 
       final googleAuth = await googleUser.authentication;

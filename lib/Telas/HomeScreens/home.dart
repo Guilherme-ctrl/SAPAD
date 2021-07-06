@@ -46,6 +46,9 @@ class _HomePageState extends State<HomePage> {
   bool? _cromo = true;
   bool? _medit = true;
   bool _checkBox = false;
+  bool? isChanged = false;
+
+  late int contMedit = 0;
 
   IconData _seta = Icons.keyboard_arrow_up;
 
@@ -462,6 +465,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _med = _newmed;
                               _isMarked = _newmed;
+                              isChanged = _med!;
                               db
                                   .collection(user.email.toString())
                                   .doc("Emotion")
@@ -487,6 +491,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _triste = _newtriste;
                               _isMarked = _newtriste;
+                              isChanged = _triste!;
                               db
                                   .collection(user.email.toString())
                                   .doc("Emotion")
@@ -512,6 +517,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _ansi = _newansi;
                               _isMarked = _newansi;
+                              isChanged = _ansi!;
                               db
                                   .collection(user.email.toString())
                                   .doc("Emotion")
@@ -537,6 +543,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _stress = _newstress;
                               _isMarked = _newstress;
+                              isChanged = _stress!;
                               setState(() {
                                 db
                                     .collection(user.email.toString())
@@ -564,6 +571,8 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool? _newraiva) {
                             setState(() {
                               _raiva = _newraiva;
+                              isChanged = _raiva!;
+                              print(isChanged);
                               db
                                   .collection(user.email.toString())
                                   .doc("Emotion")
@@ -648,6 +657,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onTap: () {
                   if (_medit == true) {
+                    print(isChanged);
+                    if (isChanged == true) {
+                      contMedit++;
+                      db.collection(user.email.toString()).doc("Home").update({
+                        "contMedit": contMedit,
+                      });
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
