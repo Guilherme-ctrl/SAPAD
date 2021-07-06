@@ -62,7 +62,6 @@ class _MusicPageState extends State<MusicPage> {
                   child: Row(
                     children: [
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             width: 100.0,
@@ -75,22 +74,25 @@ class _MusicPageState extends State<MusicPage> {
                           ),
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(
-                                  "Saiba sobre\n MUSICOTERAPIA",
-                                  style: TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                )),
-                          )
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(
+                                    "Saiba sobre\n MUSICOTERAPIA",
+                                    style: TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  )),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -113,53 +115,45 @@ class _MusicPageState extends State<MusicPage> {
                 padding: EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Musica Classica",
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 60.0),
+                      child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Musica Classica",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.purple[300],
-                              borderRadius: BorderRadius.circular(100.0)),
-                          child: IconButton(
-                            iconSize: 50.0,
-                            color: Colors.purple,
-                            onPressed: () {
-                              if (!playing) {
-                                cache.play("Med1.mp3");
-                                setState(() {
-                                  playBtn = Icons.pause;
-                                  playing = true;
-                                });
-                              } else {
-                                _player!.pause();
-                                setState(() {
-                                  playBtn = Icons.play_arrow;
-                                  playing = false;
-                                });
-                              }
-                            },
-                            icon: Icon(playBtn),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: IconButton(
+                        iconSize: 50.0,
+                        color: Colors.purple,
+                        onPressed: () {
+                          if (!playing) {
+                            cache.play("Med1.mp3");
+                            setState(() {
+                              playBtn = Icons.pause;
+                              playing = true;
+                            });
+                          } else {
+                            _player!.pause();
+                            setState(() {
+                              playBtn = Icons.play_arrow;
+                              playing = false;
+                            });
+                          }
+                        },
+                        icon: Icon(playBtn),
+                      ),
                     )
                   ],
                 ),
@@ -178,40 +172,33 @@ class _MusicPageState extends State<MusicPage> {
                 padding: EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Musica Personalizada",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Musica Personalizada",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.purple[300],
-                              borderRadius: BorderRadius.circular(100.0)),
-                          child: IconButton(
-                            iconSize: 50.0,
-                            color: Colors.purple,
-                            onPressed: () {
-                              abrirYoutube();
-                            },
-                            icon: Icon(playBtn),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: BorderRadius.circular(100.0)),
+                      child: IconButton(
+                        iconSize: 50.0,
+                        color: Colors.purple,
+                        onPressed: () {
+                          abrirYoutube();
+                        },
+                        icon: Icon(playBtn),
+                      ),
                     )
                   ],
                 ),

@@ -70,32 +70,30 @@ class _InfoPageState extends State<InfoPage> {
                     padding: EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 70.0,
-                              height: 70.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage("assets/Logo.png"))),
-                            ),
-                          ],
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 10.0, top: 10.0, bottom: 10.0, right: 35),
+                          child: Container(
+                            width: 70.0,
+                            height: 70.0,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage("assets/Logo.png"))),
+                          ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Instituto Federal de Santa Catarina\nIFSC\nCampus Gaspar",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15.0),
-                              ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 10.0, top: 10.0, bottom: 10.0, right: 35),
+                          child: Container(
+                            child: Text(
+                              "Instituto Federal de Santa Catarina\nIFSC\nCampus Gaspar",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 15.0),
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
