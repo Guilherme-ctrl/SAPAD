@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: EdgeInsets.only(bottom: 20),
                                   child: Container(
                                     child: Text(
-                                      'Sistema de Ajuda a Passientes com Ansiedade e Depressão',
+                                      'Sistema de Ajuda a Pacientes com Ansiedade e Depressão',
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.merriweather(
                                           textStyle: TextStyle(
