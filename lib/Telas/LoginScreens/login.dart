@@ -100,14 +100,14 @@ class _LoginPageState extends State<LoginPage> {
                                             Text('Sign Up with Google')
                                           ],
                                         ),
-                                        onTap: () {
-                                          final provider =
-                                              Provider.of<GoogleSignInProvider>(
-                                                  context,
-                                                  listen: false);
-                                          provider.googleLogin();
-                                        },
                                       ),
+                                      onTap: () {
+                                        final provider =
+                                            Provider.of<GoogleSignInProvider>(
+                                                context,
+                                                listen: false);
+                                        provider.googleLogin();
+                                      },
                                     ),
                                   )),
                             ],
