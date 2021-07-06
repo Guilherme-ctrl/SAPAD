@@ -32,6 +32,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
+    db.collection(user.email.toString()).doc("Home").update({
+      "contMedit": contMedit,
+      "contMusic": contMusic,
+      "contCromo": contCromo
+    });
   }
 
   bool? _med = false;

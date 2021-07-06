@@ -59,16 +59,29 @@ class _StatsPageState extends State<StatsPage> {
     ));
   }
 
+  //Vai ter que criar um cont pra cada emoção ent
+//mas acho que vai ter que fazer um cont pra cada uma msm pra outro tipo de grafico sim
+//grafico de barra?
+  //Aqui é onde eu coloco manualmente no caso
+  //so coloca as variavies aki ent
+  //ele da erro dai
+  // cara o gráfico é só sobre meditação
+  // as infos são sobre meditação e qual o sentimento usado para medita
+  //ou arrumar outra forma de fazer o gráfico eu n sei oq seria melhor no caso
+  //
   List<GDPData> getChartData() {
     final List<GDPData> chartData = [
-      GDPData('Medo', 35, Color(0xff3366cc)),
-      GDPData('Raiva', 8, Color(0xFFF06292)),
-      GDPData('Ansiedade', 10, Color(0xFF512DA8)),
-      GDPData('Tristeza', 17, Color(0xffEF9A9A)),
-      GDPData('Estresse', 30, Color(0xffff9900)),
+      GDPData("Meditação", contMedit, Color(0xff3366cc)),
+      GDPData("Cromaterapia", contCromo, Color(0xFFF06292)),
+      GDPData("Musicoterapia", contMusic, Color(0xFF512DA8)),
     ];
     return chartData;
   }
+/*
+
+  Fala segu meu cursor
+
+*/
 
   readFirebase() async {
     var contMedit = await FirebaseFirestore.instance
@@ -89,9 +102,21 @@ class _StatsPageState extends State<StatsPage> {
   }
 }
 
+/*
+aqui é a classe do gráfico aqui é onde puxa tudo das variáveis e talz
+blz o contMedit vai dar o tanto de medit ok porém eu tenho que colocar variavel
+por variavel tipo medo ansi raiva dentro da classe certo?
+ 
+sim pq o seguinte eu preciso delas ali no GDP data tendeu pra passar lá em cima e eetc
+ ta declarando outras variavies?
+*/
+
 class GDPData {
   final String emote;
   final int _contMedit;
+  final int _contCromo;
+  final int _contMusic;
   final Color colorgraf;
-  GDPData(this.emote, this._contMedit, this.colorgraf);
+  GDPData(this.emote, this._contMedit, this._contCromo, this._contMusic,
+      this.colorgraf);
 }
