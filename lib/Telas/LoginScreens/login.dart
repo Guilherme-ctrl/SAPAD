@@ -68,18 +68,6 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                   padding: const EdgeInsets.only(bottom: 20.0),
                                   child: Container(
-                                    child: Text(
-                                      'Sistema de Ajuda a Pacientes com Ansiedade e Depressão',
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.merriweather(
-                                          textStyle: TextStyle(
-                                              fontSize: 25.0,
-                                              color: Colors.white)),
-                                    ),
-                                  )),
-                              Padding(
-                                  padding: const EdgeInsets.only(bottom: 20.0),
-                                  child: Container(
                                     height:
                                         MediaQuery.of(context).size.width * .2,
                                     width:
