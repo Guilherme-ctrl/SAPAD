@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,6 +20,7 @@ class MeditationPage extends StatefulWidget {
 }
 
 class _MeditationPageState extends State<MeditationPage> {
+  final user = FirebaseAuth.instance.currentUser!;
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
   late String _url;
@@ -33,8 +35,10 @@ class _MeditationPageState extends State<MeditationPage> {
   }
 
   readFirebase() async {
-    var songs =
-        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    var songs = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Songs')
+        .get();
     _url = songs.data()?['video'];
   }
 

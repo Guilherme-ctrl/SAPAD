@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +11,7 @@ class ConfigPage extends StatefulWidget {
 
 class _ConfigPageState extends State<ConfigPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
   String? _urlmusic;
   String? _urlmedit;
   final myController = TextEditingController();
@@ -21,8 +23,10 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   readFirebase() async {
-    var songs =
-        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    var songs = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Songs')
+        .get();
     _urlmedit = songs.data()?['video'];
     _urlmusic = songs.data()?['music'];
   }
@@ -82,8 +86,8 @@ class _ConfigPageState extends State<ConfigPage> {
                           setState(() {
                             _urlmusic = myController.text;
                             db
-                                .collection("Songs")
-                                .doc("001")
+                                .collection(user.email.toString())
+                                .doc("Songs")
                                 .update({"music": _urlmusic});
                           });
                         },
@@ -136,7 +140,7 @@ class _ConfigPageState extends State<ConfigPage> {
                           _urlmedit = myController2.text;
 
                           db
-                              .collection("Songs")
+                              .collection(user.email.toString())
                               .doc("001")
                               .update({"video": _urlmedit});
                         });

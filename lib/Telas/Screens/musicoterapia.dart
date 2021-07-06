@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,6 +12,7 @@ class MusicPage extends StatefulWidget {
 
 class _MusicPageState extends State<MusicPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
   bool playing = false;
   IconData playBtn = Icons.play_arrow;
   late String _url;
@@ -26,8 +28,10 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   readFirebase() async {
-    var songs =
-        await FirebaseFirestore.instance.collection('Songs').doc('001').get();
+    var songs = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Songs')
+        .get();
     _url = songs.data()?['music'];
   }
 

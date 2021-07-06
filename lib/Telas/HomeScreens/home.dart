@@ -32,10 +32,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _readData();
     super.initState();
-    /* db.collection("Songs").doc("001").set({
-      "medit": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
-      "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
-    }); */
   }
 
   bool? _med = false;
@@ -189,7 +185,10 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool? _newmed) {
                             setState(() {
                               _medit = _newmed;
-                              db.collection("Home").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Home")
+                                  .update({
                                 "medit": _medit,
                               });
                               _saveData();
@@ -211,7 +210,10 @@ class _HomePageState extends State<HomePage> {
                             //_edited = true;
                             setState(() {
                               _cromo = _newcromo;
-                              db.collection("Home").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Home")
+                                  .update({
                                 "cromo": _cromo,
                               });
                               _saveData();
@@ -233,7 +235,10 @@ class _HomePageState extends State<HomePage> {
                             //_edited = true;
                             setState(() {
                               _music = _newmusic;
-                              db.collection("Home").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Home")
+                                  .update({
                                 "music": _music,
                               });
                               _saveData();
@@ -408,7 +413,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _seta = Icons.keyboard_arrow_down;
                       _checkBox = false;
-                      db.collection("Home").doc("001").update({
+                      db.collection(user.email.toString()).doc("Home").update({
                         "hide": _checkBox,
                       });
                       _saveData();
@@ -418,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _seta = Icons.keyboard_arrow_up;
                       _checkBox = true;
-                      db.collection("Home").doc("001").update({
+                      db.collection(user.email.toString()).doc("Home").update({
                         "hide": _checkBox,
                       });
                       _saveData();
@@ -460,7 +465,10 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _med = _newmed;
                               _isMarked = _newmed;
-                              db.collection("Emotion").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Emotion")
+                                  .update({
                                 "med": _med,
                               });
                               _saveData();
@@ -482,7 +490,10 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _triste = _newtriste;
                               _isMarked = _newtriste;
-                              db.collection("Emotion").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Emotion")
+                                  .update({
                                 "triste": _triste,
                               });
                               _saveData();
@@ -504,7 +515,10 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               _ansi = _newansi;
                               _isMarked = _newansi;
-                              db.collection("Emotion").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Emotion")
+                                  .update({
                                 "ansi": _ansi,
                               });
                               _saveData();
@@ -527,7 +541,10 @@ class _HomePageState extends State<HomePage> {
                               _stress = _newstress;
                               _isMarked = _newstress;
                               setState(() {
-                                db.collection("Emotion").doc("001").update({
+                                db
+                                    .collection(user.email.toString())
+                                    .doc("Emotion")
+                                    .update({
                                   "stress": _stress,
                                 });
                               });
@@ -550,7 +567,10 @@ class _HomePageState extends State<HomePage> {
                           onChanged: (bool? _newraiva) {
                             setState(() {
                               _raiva = _newraiva;
-                              db.collection("Emotion").doc("001").update({
+                              db
+                                  .collection(user.email.toString())
+                                  .doc("Emotion")
+                                  .update({
                                 "raiva": _raiva,
                               });
                               _saveData();
