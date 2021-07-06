@@ -24,5 +24,7 @@ registerFirebase() {
     "hide": true,
     "music": true,
     "contMedit": 0,
+    "contCromo": 0,
+    "contMusic": 0,
   });
 }

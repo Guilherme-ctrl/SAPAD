@@ -49,6 +49,8 @@ class _HomePageState extends State<HomePage> {
   bool? isChanged = false;
 
   late int contMedit = 0;
+  late int contCromo = 0;
+  late int contMusic = 0;
 
   IconData _seta = Icons.keyboard_arrow_up;
 
@@ -737,6 +739,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
+                  print(isChanged);
+                  if (isChanged == true) {
+                    contMedit++;
+                    db
+                        .collection(user.email.toString())
+                        .doc("Home")
+                        .update({"contCromo": contCromo});
+                  }
                   if (_cromo == true) {
                     Navigator.push(
                         context,
@@ -815,6 +825,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onTap: () {
                   if (_music == true) {
+                    print(isChanged);
+                    if (isChanged == true) {
+                      contMedit++;
+                      db.collection(user.email.toString()).doc("Home").update({
+                        "contMusic": contMusic,
+                      });
+                    }
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => MusicPage()));
                   }
