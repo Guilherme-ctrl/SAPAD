@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +42,11 @@ class _ConfigPageState extends State<ConfigPage> {
         centerTitle: true,
       ),
       backgroundColor: Colors.black87,
-      body: Column(children: [
-        //Card 1
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Card(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          //Card 1
+          Card(
             color: Colors.black38,
             shadowColor: Colors.white,
             shape: RoundedRectangleBorder(
@@ -96,11 +95,9 @@ class _ConfigPageState extends State<ConfigPage> {
                   ],
                 )),
           ),
-        ),
-        //Card 2
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Card(
+          SizedBox(height: 5),
+          //Card 2
+          Card(
             color: Colors.black38,
             shadowColor: Colors.white,
             shape: RoundedRectangleBorder(
@@ -151,8 +148,8 @@ class _ConfigPageState extends State<ConfigPage> {
               ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

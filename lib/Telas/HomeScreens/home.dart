@@ -1,12 +1,11 @@
-import 'dart:math';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sapad_v3/FireBase/register_firebase.dart';
 import 'package:sapad_v3/Telas/LoginScreens/google_sign_in.dart';
 import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
@@ -29,13 +28,18 @@ class _HomePageState extends State<HomePage> {
   late int contMedit = 1;
   late int contCromo = 1;
   late int contMusic = 1;
+  bool? _med = false;
+  bool? _ansi = false;
+  bool? _triste = false;
+  bool? _raiva = false;
+  bool? _stress = false;
 
   List<Emote> emote = [];
   @override
   void initState() {
     _readData();
-    super.initState();
     readFirebase();
+    super.initState();
   }
 
   readFirebase() async {
@@ -48,18 +52,9 @@ class _HomePageState extends State<HomePage> {
     contMusic = tec.data()?['contMusic'];
   }
 
-  bool? _med = false;
-  bool? _ansi = false;
-  bool? _triste = false;
-  bool? _raiva = false;
-  bool? _stress = false;
-  bool? _isMarked = false;
-  bool _lightMode = false;
-
   bool? _music = true;
   bool? _cromo = true;
   bool? _medit = true;
-  bool _checkBox = false;
   bool? isChanged = false;
 
   IconData _seta = Icons.keyboard_arrow_up;
@@ -80,10 +75,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      backgroundColor: _lightMode == false ? Colors.black87 : Colors.white,
+      backgroundColor: Colors.black87,
       drawer: Drawer(
           child: Container(
-        color: _lightMode == false ? Colors.black45 : Colors.white70,
+        color: Colors.black45,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -91,54 +86,10 @@ class _HomePageState extends State<HomePage> {
               height: 302.0,
               child: DrawerHeader(
                 decoration: BoxDecoration(
-                  color: _lightMode == false ? Colors.grey : Colors.white10,
+                  color: Colors.grey,
                 ),
                 child: Column(
                   children: <Widget>[
-                    //Carousel
-                    /* Padding(
-                      padding: EdgeInsets.only(top: 1.0),
-                      child: Column(
-                        children: <Widget>[
-                          Stack(
-                            children: [
-                              CarouselSlider(
-                                options: CarouselOptions(
-                                  height: 200.0,
-                                  autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
-                                  autoPlayAnimationDuration:
-                                      Duration(milliseconds: 800),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  pauseAutoPlayOnTouch: true,
-                                  aspectRatio: 2.0,
-                                  enlargeCenterPage: false,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                ),
-                                items: cardList.map((card) {
-                                  return Builder(
-                                      builder: (BuildContext context) {
-                                    return Container(
-                                        child: Stack(
-                                      children: [
-                                        Card(
-                                          color: Colors.transparent,
-                                          child: card,
-                                        ),
-                                      ],
-                                    ));
-                                  });
-                                }).toList(),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ), */
                     SizedBox(height: 5),
                     CircleAvatar(
                       radius: 70,
@@ -359,496 +310,228 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.topLeft,
               icon: Icon(
                 Icons.menu,
-                color: _lightMode == false ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
               onPressed: () => _scaffoldState.currentState!.openDrawer(),
             ),
           ),
 
-          //Card 1
-
-          Padding(
-            padding: EdgeInsets.only(bottom: 5.0),
-            child: GestureDetector(
-              child: SizedBox(
-                height: 231.0,
-                width: 100.0,
-                child: Card(
-                  color: Colors.black54,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(),
-                        child: Container(
-                            child: Text(
-                          "Clique e informe como você esta hoje!!",
-                          style: GoogleFonts.merriweather(
-                              textStyle: TextStyle(
-                                  fontSize: 30.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
-                        child: Container(
-                            child: Text(
-                          "Selecione o seu estado atual,\nentão escolha uma das terapias indicadas",
-                          style: GoogleFonts.merriweather(
-                              textStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          )),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
-                        child: Container(
-                          child: Icon(_seta,
-                              size: 70.0, color: Colors.greenAccent),
-                        ),
-                      ),
-                    ],
-                  ),
+          //Card Como você está hoje
+          Card(
+              color: Colors.black54,
+              shadowColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Como você esta hoje?",
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.white,
+                      )),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
+              )),
+
+          //CheckBox Emoções
+          Card(
+            color: Colors.black54,
+            shadowColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  //Medo
+                  CheckboxListTile(
+                    title: Text(
+                      'Medo',
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      )),
+                    ),
+                    activeColor: Colors.red,
+                    value: _med,
+                    onChanged: (bool? _newmed) {
+                      setState(() {
+                        _med = _newmed;
+                        isChanged = _med;
+                        updateFirebase("Emotion", "med", _med);
+                      });
+                      _saveData();
+                    },
+                  ),
+                  //Ansiedade
+                  CheckboxListTile(
+                    title: Text(
+                      'Ansiedade',
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      )),
+                    ),
+                    activeColor: Colors.red,
+                    value: _ansi,
+                    onChanged: (bool? _newansi) {
+                      setState(() {
+                        _ansi = _newansi!;
+                        isChanged = _ansi;
+                        updateFirebase("Emotion", "ansi", _ansi);
+                      });
+                      _saveData();
+                    },
+                  ),
+                  //Tristeza
+                  CheckboxListTile(
+                    title: Text(
+                      'Tristeza',
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      )),
+                    ),
+                    activeColor: Colors.red,
+                    value: _triste,
+                    onChanged: (bool? _newtriste) {
+                      setState(() {
+                        _triste = _newtriste;
+                        isChanged = _triste;
+                        updateFirebase("Emotion", "triste", _triste);
+                      });
+                      _saveData();
+                    },
+                  ),
+                  //Raiva
+                  CheckboxListTile(
+                    title: Text(
+                      'Raiva',
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      )),
+                    ),
+                    activeColor: Colors.red,
+                    value: _raiva,
+                    onChanged: (bool? _newraiva) {
+                      setState(() {
+                        _raiva = _newraiva;
+                        isChanged = _raiva;
+                        updateFirebase("Emotion", "raiva", _raiva);
+                      });
+                      _saveData();
+                    },
+                  ),
+                  //Estresse
+                  CheckboxListTile(
+                    title: Text(
+                      'Estresse',
+                      style: GoogleFonts.lora(
+                          textStyle: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                      )),
+                    ),
+                    activeColor: Colors.red,
+                    value: _stress,
+                    onChanged: (bool? _newstress) {
+                      setState(() {
+                        _stress = _newstress;
+                        isChanged = _stress;
+                        updateFirebase("Emotion", "stress", _stress);
+                      });
+                      _saveData();
+                    },
+                  ),
+                ],
               ),
-              onTap: () {
-                setState(() {
-                  if (_checkBox == true) {
-                    setState(() {
-                      _seta = Icons.keyboard_arrow_down;
-                      _checkBox = false;
-                      db.collection(user.email.toString()).doc("Home").update({
-                        "hide": _checkBox,
-                      });
-                      _saveData();
-                    });
-                    // await helper.saveEmote(recEmote);
-                  } else {
-                    setState(() {
-                      _seta = Icons.keyboard_arrow_up;
-                      _checkBox = true;
-                      db.collection(user.email.toString()).doc("Home").update({
-                        "hide": _checkBox,
-                      });
-                      _saveData();
-                    });
-                    //await helper.saveEmote(recEmote);
-                  }
-                  _getAllEmote();
-                });
-              },
             ),
           ),
-          //Card 2
 
-          Visibility(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
-              child: Card(
+          //Card Terapias
+          GestureDetector(
+            child: Card(
                 color: Colors.black54,
                 shadowColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
+                    borderRadius: BorderRadius.circular(20)),
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0, top: 2.0),
-                        child: CheckboxListTile(
-                          title: Text(
-                            'Medo',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.white),
-                          ),
-                          activeColor: Colors.purple[200],
-                          value: _med,
-                          onChanged: (bool? _newmed) {
-                            setState(() {
-                              _med = _newmed;
-                              _isMarked = _newmed;
-                              isChanged = _med!;
-                              db
-                                  .collection(user.email.toString())
-                                  .doc("Emotion")
-                                  .update({
-                                "med": _med,
-                              });
-                              _saveData();
-                            });
-                          },
-                        ),
+                      Text(
+                        "Clique aqui para iescolher uma terapia!!",
+                        style: GoogleFonts.lora(
+                            textStyle: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.white,
+                        )),
+                        textAlign: TextAlign.center,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
-                        child: CheckboxListTile(
-                          title: Text(
-                            'Triste',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.white),
-                          ),
-                          activeColor: Colors.purple[200],
-                          value: _triste,
-                          onChanged: (bool? _newtriste) {
-                            setState(() {
-                              _triste = _newtriste;
-                              _isMarked = _newtriste;
-                              isChanged = _triste!;
-                              db
-                                  .collection(user.email.toString())
-                                  .doc("Emotion")
-                                  .update({
-                                "triste": _triste,
-                              });
-                              _saveData();
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
-                        child: CheckboxListTile(
-                          title: Text(
-                            'Ansioso (a)',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.white),
-                          ),
-                          activeColor: Colors.purple[200],
-                          value: _ansi,
-                          onChanged: (bool? _newansi) {
-                            setState(() {
-                              _ansi = _newansi;
-                              _isMarked = _newansi;
-                              isChanged = _ansi!;
-                              db
-                                  .collection(user.email.toString())
-                                  .doc("Emotion")
-                                  .update({
-                                "ansi": _ansi,
-                              });
-                              _saveData();
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 1.0),
-                        child: CheckboxListTile(
-                          title: Text(
-                            'Estressado (a)',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.white),
-                          ),
-                          activeColor: Colors.purple[200],
-                          value: _stress,
-                          onChanged: (bool? _newstress) {
-                            setState(() {
-                              _stress = _newstress;
-                              _isMarked = _newstress;
-                              isChanged = _stress!;
-                              setState(() {
-                                db
-                                    .collection(user.email.toString())
-                                    .doc("Emotion")
-                                    .update({
-                                  "stress": _stress,
-                                });
-                              });
-
-                              _saveData();
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.zero,
-                        child: CheckboxListTile(
-                          title: Text(
-                            'Com Raiva',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.white),
-                          ),
-                          activeColor: Colors.purple[200],
-                          value: _raiva,
-                          onChanged: (bool? _newraiva) {
-                            setState(() {
-                              _raiva = _newraiva;
-                              isChanged = _raiva!;
-                              print(isChanged);
-                              db
-                                  .collection(user.email.toString())
-                                  .doc("Emotion")
-                                  .update({
-                                "raiva": _raiva,
-                              });
-                              _saveData();
-                            });
-                          },
-                        ),
-                      ),
+                      SizedBox(height: 3),
+                      Container(child: Icon(_seta, size: 70, color: Colors.red))
                     ],
                   ),
-                ),
-              ),
-            ),
-            visible: _checkBox == false ? false : true,
+                )),
+            onTap: () {
+              Future.delayed(Duration.zero, () {
+                _showEmotion(context);
+              });
+            },
           ),
-          //Card 3
 
-          Visibility(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 5.0),
-              child: GestureDetector(
-                child: SizedBox(
-                  height: 100.0,
-                  width: 100.0,
-                  child: Card(
-                    color: _medit == true ? Colors.black54 : Colors.grey,
-                    shadowColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(1.0),
-                      child: Row(
-                        children: [
-                          Column(
+          //Carousel
+          Padding(
+            padding: EdgeInsets.only(top: 1.0),
+            child: Column(
+              children: <Widget>[
+                Stack(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200.0,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        pauseAutoPlayOnTouch: true,
+                        aspectRatio: 2.0,
+                        enlargeCenterPage: false,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                      ),
+                      items: cardList.map((card) {
+                        return Builder(builder: (BuildContext context) {
+                          return Container(
+                              child: Stack(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10.0,
-                                    top: 10.0,
-                                    bottom: 10.0,
-                                    right: 35),
-                                child: Container(
-                                  width: 70.0,
-                                  height: 70.0,
-                                  child: Icon(
-                                    MdiIcons.headSnowflakeOutline,
-                                    color: Colors.greenAccent,
-                                    size: 40.0,
-                                  ),
-                                ),
+                              Card(
+                                color: Colors.transparent,
+                                child: card,
                               ),
                             ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Meditação",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          ));
+                        });
+                      }).toList(),
                     ),
-                  ),
+                  ],
                 ),
-                onTap: () {
-                  if (_medit == true) {
-                    print(isChanged);
-                    if (isChanged == true) {
-                      contMedit++;
-                      db.collection(user.email.toString()).doc("Stats").update({
-                        "contMedit": contMedit,
-                      });
-                    }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MeditationPage(
-                                medo: _med,
-                                ansi: _ansi,
-                                raiva: _raiva,
-                                stress: _stress,
-                                triste: _triste)));
-                  }
-                },
-              ),
+              ],
             ),
-            visible: _medit == true ? true : false,
-          ),
-          //Card 4
-
-          Visibility(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 5.0),
-              child: GestureDetector(
-                child: SizedBox(
-                  height: 100.0,
-                  width: 100.0,
-                  child: Card(
-                    color: _cromo == true ? Colors.black54 : Colors.grey,
-                    shadowColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 5, left: 5, right: 35, top: 10),
-                                child: Container(
-                                    width: 55.0,
-                                    height: 55.0,
-                                    child: Icon(Icons.palette,
-                                        color: Colors.greenAccent, size: 40.0)),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "Cromoterapia",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  if (_cromo == true) {
-                    print(isChanged);
-                    if (isChanged == true) {
-                      contCromo++;
-                      db
-                          .collection(user.email.toString())
-                          .doc("Stats")
-                          .update({"contCromo": contCromo});
-                    }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CromoPage(
-                                  medo: _med,
-                                  ansi: _ansi,
-                                  raiva: _raiva,
-                                  stress: _stress,
-                                  triste: _triste,
-                                  isMarket: _isMarked,
-                                )));
-                  }
-                },
-              ),
-            ),
-            visible: _cromo == true ? true : false,
-          ),
-          //Card 5
-
-          Visibility(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 5.0),
-              child: GestureDetector(
-                child: SizedBox(
-                  width: 100.0,
-                  height: 100.0,
-                  child: Card(
-                    color: _music == true ? Colors.black54 : Colors.grey,
-                    shadowColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 5, left: 5, right: 35, top: 10),
-                                child: Container(
-                                  width: 55.0,
-                                  height: 55.0,
-                                  child: Icon(MdiIcons.guitarPick,
-                                      color: Colors.greenAccent, size: 40.0),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Text(
-                                        "Musicoterapia",
-                                        style: GoogleFonts.merriweather(
-                                            textStyle: TextStyle(
-                                          fontSize: 30.0,
-                                          color: Colors.white,
-                                        )),
-                                        textAlign: TextAlign.center,
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  if (_music == true) {
-                    print(isChanged);
-                    if (isChanged == true) {
-                      contMedit++;
-                      db.collection(user.email.toString()).doc("Stats").update({
-                        "contMusic": contMusic,
-                      });
-                    }
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MusicPage()));
-                  }
-                },
-              ),
-            ),
-            visible: _music == true ? true : false,
           ),
         ],
       ),
@@ -881,9 +564,7 @@ class _HomePageState extends State<HomePage> {
     _prefs.setBool('_cromo', _cromo!);
     _prefs.setBool('_medit', _medit!);
     _prefs.setBool('_music', _music!);
-    _prefs.setBool('_isMarked', _isMarked!);
-    _prefs.setBool('_checkBox', _checkBox);
-    _prefs.setBool('_lightMode', _lightMode);
+    _prefs.setBool('_isChanged', isChanged!);
   }
 
   _readData() async {
@@ -894,13 +575,139 @@ class _HomePageState extends State<HomePage> {
       _stress = _prefs.getBool('_stress') ?? false;
       _raiva = _prefs.getBool('_raiva') ?? false;
       _triste = _prefs.getBool('_triste') ?? false;
-      _isMarked = _prefs.getBool('_isMarked') ?? false;
-      _checkBox = _prefs.getBool('_checkBox') ?? false;
+      isChanged = _prefs.getBool('_isChanged') ?? false;
       _music = _prefs.getBool('_music') ?? true;
       _medit = _prefs.getBool('_medit') ?? true;
       _cromo = _prefs.getBool('_cromo') ?? true;
-      _lightMode = _prefs.getBool('_lightMode') ?? false;
     });
+  }
+
+  _showEmotion(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+            backgroundColor: Colors.black87,
+            onClosing: () {},
+            builder: (context) {
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: new BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(40.0),
+                        topRight: const Radius.circular(40.0))),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    children: [
+                      //Meditação
+                      Visibility(
+                        child: ListTile(
+                            leading: Icon(MdiIcons.headHeart,
+                                size: 50, color: Colors.red),
+                            title: Text(
+                              "Meditação",
+                              style: GoogleFonts.lora(
+                                  textStyle: TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
+                              )),
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () {
+                              if (isChanged == true) {
+                                contMedit++;
+                                updateFirebase("Stats", "contMedit", contMedit);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MeditationPage()));
+                              }
+                            }),
+                        visible:
+                            _medit == true && isChanged == true ? true : false,
+                      ),
+
+                      //Cromoterapia
+                      Visibility(
+                        child: ListTile(
+                            leading: Icon(MdiIcons.palette,
+                                size: 50, color: Colors.red),
+                            title: Text(
+                              "Cromoterapia",
+                              style: GoogleFonts.lora(
+                                  textStyle: TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
+                              )),
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () {
+                              if (isChanged == true) {
+                                contCromo++;
+                                updateFirebase("Stats", "contCromo", contCromo);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CromoPage()));
+                              }
+                            }),
+                        visible:
+                            _cromo == true && isChanged == true ? true : false,
+                      ),
+                      //Musicoterapia
+                      Visibility(
+                        child: ListTile(
+                            leading: Icon(MdiIcons.musicBox,
+                                size: 50, color: Colors.red),
+                            title: Text(
+                              "Musicoterapia",
+                              style: GoogleFonts.lora(
+                                  textStyle: TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
+                              )),
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () {
+                              if (isChanged == true) {
+                                contMusic++;
+                                updateFirebase("Stats", "contMusic", contMusic);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MusicPage()));
+                              }
+                            }),
+                        visible:
+                            _music == true && isChanged == true ? true : false,
+                      ),
+                      //Card Alerta
+                      Visibility(
+                        child: ListTile(
+                          leading:
+                              Icon(MdiIcons.alert, size: 50, color: Colors.red),
+                          title: Text(
+                            "Você precisa selecionar uma emoção",
+                            style: GoogleFonts.lora(
+                                textStyle: TextStyle(
+                              fontSize: 30.0,
+                              color: Colors.white,
+                            )),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        visible: isChanged == true ? false : true,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        });
   }
 }
 

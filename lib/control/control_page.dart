@@ -5,8 +5,6 @@ import 'package:sapad_v3/Telas/HomeScreens/acomp.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
-import 'package:sapad_v3/Telas/Screens/cromo.dart';
-import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
 
 class ControlPage extends StatefulWidget {
   @override
@@ -34,23 +32,21 @@ class _ControlPageState extends State<ControlPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.info, size: 20.0),
             activeIcon: Icon(Icons.info, size: 30.0),
-            title: Text("Info"),
+            label: 'Info',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_max, size: 20.0),
-            activeIcon: Icon(Icons.home_filled, size: 30.0),
-            title: Text("Home"),
-          ),
+              icon: Icon(Icons.home_max, size: 20.0),
+              activeIcon: Icon(Icons.home_filled, size: 30.0),
+              label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, size: 20.0),
             activeIcon: Icon(MdiIcons.chartBellCurveCumulative, size: 30.0),
-            title: Text("Estatísticas "),
+            label: 'Estatísticas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.remove_red_eye, size: 20.0),
-            activeIcon: Icon(MdiIcons.handHeart, size: 30.0),
-            title: Text("Acompanhamento"),
-          )
+              icon: Icon(Icons.remove_red_eye, size: 20.0),
+              activeIcon: Icon(MdiIcons.handHeart, size: 30.0),
+              label: 'Acompanhamento')
         ],
         onTap: onTabTapped,
       ),

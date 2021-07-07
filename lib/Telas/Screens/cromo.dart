@@ -370,7 +370,7 @@ class _CromoPageState extends State<CromoPage> {
         });
   }
 
-  _requestPopAzul(context) {
+  /*  _requestPopAzul(context) {
     showDialog(
         context: context,
         builder: (context) {
@@ -421,7 +421,7 @@ class _CromoPageState extends State<CromoPage> {
           );
         });
   }
-
+ */
   _requestPopAma(context) {
     showDialog(
         context: context,

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AcompPage extends StatefulWidget {
   @override
@@ -15,6 +14,10 @@ class _AcompPageState extends State<AcompPage> {
   late int medit = 1;
   late int music = 1;
   late int cromo = 1;
+
+  void initState() {
+    super.initState();
+  }
 
   final myController = TextEditingController();
 
@@ -197,7 +200,8 @@ class _AcompPageState extends State<AcompPage> {
                     ),
                     onPressed: () {
                       setState(() {
-                        emailParceiro = myController.text;
+                        if (emailParceiro.isEmpty)
+                          emailParceiro = myController.text;
                         readFirebase();
                       });
                     },

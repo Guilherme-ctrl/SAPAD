@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String? _email, _password;
   final auth = FirebaseAuth.instance;
 
   @override

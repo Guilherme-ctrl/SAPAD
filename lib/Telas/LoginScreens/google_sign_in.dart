@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:sapad_v3/Telas/LoginScreens/register_firebase.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
@@ -23,6 +21,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       db.collection(user.email.toString()).doc("Songs").set({
         "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
         "video": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
+        "emailAcomp": '',
       });
 
       db.collection(user.email.toString()).doc("Emotion").set({
@@ -36,7 +35,6 @@ class GoogleSignInProvider extends ChangeNotifier {
       db.collection(user.email.toString()).doc("Home").set({
         "cromo": true,
         "medit": true,
-        "hide": true,
         "music": true,
       });
 
