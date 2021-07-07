@@ -20,7 +20,31 @@ class GoogleSignInProvider extends ChangeNotifier {
       if (googleUser == null) return;
       _user = googleUser;
 
-      registerFirebase();
+      db.collection(user.email.toString()).doc("Songs").set({
+        "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
+        "video": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
+      });
+
+      db.collection(user.email.toString()).doc("Emotion").set({
+        "anti": false,
+        "med": false,
+        "raiva": false,
+        "stress": false,
+        "triste": false
+      });
+
+      db.collection(user.email.toString()).doc("Home").set({
+        "cromo": true,
+        "medit": true,
+        "hide": true,
+        "music": true,
+      });
+
+      db.collection(user.email.toString()).doc("Stats").set({
+        "contMedit": 1,
+        "contCromo": 1,
+        "contMusic": 1,
+      });
 
       final googleAuth = await googleUser.authentication;
 

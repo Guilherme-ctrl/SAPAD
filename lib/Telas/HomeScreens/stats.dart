@@ -23,7 +23,7 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   void initState() {
-    _chartData = getChartData();
+    //_chartData = getChartData();
     _tooltipBehavior = TooltipBehavior(enable: true);
     readFirebase();
     super.initState();
@@ -59,29 +59,14 @@ class _StatsPageState extends State<StatsPage> {
     ));
   }
 
-  //Vai ter que criar um cont pra cada emoção ent
-//mas acho que vai ter que fazer um cont pra cada uma msm pra outro tipo de grafico sim
-//grafico de barra?
-  //Aqui é onde eu coloco manualmente no caso
-  //so coloca as variavies aki ent
-  //ele da erro dai
-  // cara o gráfico é só sobre meditação
-  // as infos são sobre meditação e qual o sentimento usado para medita
-  //ou arrumar outra forma de fazer o gráfico eu n sei oq seria melhor no caso
-  //
-  List<GDPData> getChartData() {
+  /* List<GDPData> getChartData() {
     final List<GDPData> chartData = [
       GDPData("Meditação", contMedit, Color(0xff3366cc)),
       GDPData("Cromaterapia", contCromo, Color(0xFFF06292)),
       GDPData("Musicoterapia", contMusic, Color(0xFF512DA8)),
     ];
     return chartData;
-  }
-/*
-
-  Fala segu meu cursor
-
-*/
+  } */
 
   readFirebase() async {
     var contMedit = await FirebaseFirestore.instance
@@ -101,15 +86,6 @@ class _StatsPageState extends State<StatsPage> {
     contMusic = contMusic.data()?['contMusic'];
   }
 }
-
-/*
-aqui é a classe do gráfico aqui é onde puxa tudo das variáveis e talz
-blz o contMedit vai dar o tanto de medit ok porém eu tenho que colocar variavel
-por variavel tipo medo ansi raiva dentro da classe certo?
- 
-sim pq o seguinte eu preciso delas ali no GDP data tendeu pra passar lá em cima e eetc
- ta declarando outras variavies?
-*/
 
 class GDPData {
   final String emote;

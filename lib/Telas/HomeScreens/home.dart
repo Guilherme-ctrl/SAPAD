@@ -26,17 +26,26 @@ class _HomePageState extends State<HomePage> {
   EmoteHelper helper = EmoteHelper();
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
+  late int contMedit = 1;
+  late int contCromo = 1;
+  late int contMusic = 1;
 
   List<Emote> emote = [];
   @override
   void initState() {
     _readData();
     super.initState();
-    db.collection(user.email.toString()).doc("Home").update({
-      "contMedit": contMedit,
-      "contMusic": contMusic,
-      "contCromo": contCromo
-    });
+    readFirebase();
+  }
+
+  readFirebase() async {
+    var tec = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Stats')
+        .get();
+    contCromo = tec.data()?['contCromo'];
+    contMedit = tec.data()?['contMedit'];
+    contMusic = tec.data()?['contMusic'];
   }
 
   bool? _med = false;
@@ -52,10 +61,6 @@ class _HomePageState extends State<HomePage> {
   bool? _medit = true;
   bool _checkBox = false;
   bool? isChanged = false;
-
-  late int contMedit = 0;
-  late int contCromo = 0;
-  late int contMusic = 0;
 
   IconData _seta = Icons.keyboard_arrow_up;
 
@@ -667,7 +672,7 @@ class _HomePageState extends State<HomePage> {
                     print(isChanged);
                     if (isChanged == true) {
                       contMedit++;
-                      db.collection(user.email.toString()).doc("Home").update({
+                      db.collection(user.email.toString()).doc("Stats").update({
                         "contMedit": contMedit,
                       });
                     }
@@ -744,15 +749,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
-                  print(isChanged);
-                  if (isChanged == true) {
-                    contMedit++;
-                    db
-                        .collection(user.email.toString())
-                        .doc("Home")
-                        .update({"contCromo": contCromo});
-                  }
                   if (_cromo == true) {
+                    print(isChanged);
+                    if (isChanged == true) {
+                      contCromo++;
+                      db
+                          .collection(user.email.toString())
+                          .doc("Stats")
+                          .update({"contCromo": contCromo});
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -833,7 +838,7 @@ class _HomePageState extends State<HomePage> {
                     print(isChanged);
                     if (isChanged == true) {
                       contMedit++;
-                      db.collection(user.email.toString()).doc("Home").update({
+                      db.collection(user.email.toString()).doc("Stats").update({
                         "contMusic": contMusic,
                       });
                     }
