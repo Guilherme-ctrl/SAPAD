@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sapad_v3/helper.dart/setting_helper.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,6 +21,9 @@ class _StatsPageState extends State<StatsPage> {
   late int contMedit;
   late int contCromo;
   late int contMusic;
+  late String emote;
+  late String emoteBase;
+  late int i;
 
   @override
   void initState() {
@@ -59,14 +63,40 @@ class _StatsPageState extends State<StatsPage> {
     ));
   }
 
-  /* List<GDPData> getChartData() {
+  List<GDPData> getChartData() {
     final List<GDPData> chartData = [
-      GDPData("Meditação", contMedit, Color(0xff3366cc)),
-      GDPData("Cromaterapia", contCromo, Color(0xFFF06292)),
-      GDPData("Musicoterapia", contMusic, Color(0xFF512DA8)),
+      /* for (i = 0; i < 5; i++)
+        {
+          if (emote == 'Medo')
+            {
+              emoteBase = emote,
+              //será feito um cont para cada
+              GDPData(emoteBase, contMedit, Color(0xff3366cc)),
+            }
+          else if (emote == 'Raiva')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xFFF06292)),
+            }
+          else if (emote == 'Ansiedade')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xFF512DA8)),
+            }
+          else if (emote == 'Tristeza')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xffEF9A9A)),
+            }
+          else if (emote == 'Estresse')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xffff9900)),
+            }
+        } */
     ];
     return chartData;
-  } */
+  }
 
   readFirebase() async {
     var contMedit = await FirebaseFirestore.instance
@@ -84,15 +114,16 @@ class _StatsPageState extends State<StatsPage> {
         .doc('Home')
         .get();
     contMusic = contMusic.data()?['contMusic'];
+    var emote = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Home')
+        .get();
   }
 }
 
 class GDPData {
   final String emote;
   final int _contMedit;
-  final int _contCromo;
-  final int _contMusic;
   final Color colorgraf;
-  GDPData(this.emote, this._contMedit, this._contCromo, this._contMusic,
-      this.colorgraf);
+  GDPData(this.emote, this._contMedit, this.colorgraf);
 }
