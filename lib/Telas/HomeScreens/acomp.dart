@@ -34,7 +34,7 @@ class _AcompPageState extends State<AcompPage> {
           child: Column(children: [
             //Card 1
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(0),
               child: Card(
                 color: Colors.black38,
                 shadowColor: Colors.white,
