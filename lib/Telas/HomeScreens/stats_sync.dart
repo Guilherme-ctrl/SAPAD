@@ -47,7 +47,7 @@ class _StatsPageState extends State<StatsPage> {
             itemPadding: 20),
         tooltipBehavior: _tooltipBehavior,
         series: <CircularSeries>[
-          PieSeries<GDPData, String>(
+          DoughnutSeries<GDPData, String>(
               dataSource: _chartData,
               xValueMapper: (GDPData data, _) => data.emote,
               yValueMapper: (GDPData data, _) => data._contMedit,
@@ -69,6 +69,35 @@ class _StatsPageState extends State<StatsPage> {
     ];
     return chartData;
   }
+  /*for (i = 0; i < 5; i++)
+        {
+          if (emote == 'Medo')
+            {
+              emoteBase = emote,
+              //será feito um cont para cada
+              GDPData(emoteBase, contMedit, Color(0xff3366cc)),
+            }
+          else if (emote == 'Raiva')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xFFF06292)),
+            }
+          else if (emote == 'Ansiedade')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xFF512DA8)),
+            }
+          else if (emote == 'Tristeza')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xffEF9A9A)),
+            }
+          else if (emote == 'Estresse')
+            {
+              emoteBase = emote,
+              GDPData(emoteBase, contMedit, Color(0xffff9900)),
+            }
+      }*/
 
   readFirebase() async {
     var contMedit = await FirebaseFirestore.instance
@@ -86,6 +115,10 @@ class _StatsPageState extends State<StatsPage> {
         .doc('Home')
         .get();
     contMusic = contMusic.data()?['contMusic'];
+    /*var emote = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Home')
+        .get();*/
   }
 }
 
