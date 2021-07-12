@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+// ignore: unused_import
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,20 +17,19 @@ class StatsPage extends StatefulWidget {
 class _StatsPageState extends State<StatsPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
-  late List<GDPData> _chartData;
+  late List<GDPData> _chartData = [];
   late TooltipBehavior _tooltipBehavior;
   late int contMedit;
   late int contCromo;
   late int contMusic;
   late int i;
-  late String emotea = '';
+  late List<String> emotea = []; 
   late String emoteBase;
 
   @override
-  void initState() {
-    _chartData = getChartData();
-    _tooltipBehavior = TooltipBehavior(enable: true);
-    readFirebase();
+  void initState(){
+     readFirebase();
+    _tooltipBehavior = TooltipBehavior(enable: true);  
     super.initState();
   }
 
@@ -52,7 +53,7 @@ class _StatsPageState extends State<StatsPage> {
         series: <CircularSeries>[
           DoughnutSeries<GDPData, String>(
               dataSource: _chartData,
-              xValueMapper: (GDPData data, _) => data.emote,
+              xValueMapper: (GDPData data, _) => data.emoteBase,
               yValueMapper: (GDPData data, _) => data._contMedit,
               pointColorMapper: (GDPData data, _) => data.colorgraf,
               dataLabelSettings: DataLabelSettings(isVisible: true),
@@ -62,29 +63,26 @@ class _StatsPageState extends State<StatsPage> {
     ));
   }
 
-  List<GDPData> getChartData() {
-    final List<GDPData> chartData = [];
-    for (i = 0; i < emotea.length; i++) {
-      if (emotea == 'Medo') {
-        print("123");
-        emoteBase = emotea;
-        //será feito um cont para cada
-        chartData.add(GDPData(emoteBase, contMedit, Colors.blue));
-      } else if (emotea == 'Raiva') {
-        emoteBase = emotea;
-        GDPData(emoteBase, contMedit, Color(0xFFF06292));
-      } else if (emotea == 'Ansiedade') {
-        emoteBase = emotea;
-        GDPData(emoteBase, contMedit, Color(0xFF512DA8));
-      } else if (emotea == 'Tristeza') {
-        emoteBase = emotea;
-        GDPData(emoteBase, contMedit, Color(0xffEF9A9A));
-      } else if (emotea == 'Estresse') {
-        emoteBase = emotea;
-        GDPData(emoteBase, contMedit, Color(0xffff9900));
+  List<GDPData> getChartData(){
+    print(emotea);
+    print('CEBOLACEBOLACEBOLACEBOLACEBOLACEBOLACEBOLACEBOLACEBOLACEBOLACEBOLA');
+    final List<GDPData> chartData = [];  
+    //for (String emoteBase in emotea){
+    this.emotea.forEach((emoteBase) => {
+      if (emoteBase == 'Medo') {
+        print("123"),
+        chartData.add (new GDPData(emoteBase, contMedit, Colors.blue)),
+        print(chartData),
+      } else if (emoteBase == 'Raiva') {
+        chartData.add(new GDPData(emoteBase, contMedit, Color(0xFFF06292))),       
+      } else if (emoteBase == 'Ansiedade') {
+        chartData.add(new GDPData(emoteBase, contMedit, Color(0xFF512DA8))),
+      } else if (emoteBase == 'Tristeza') {
+        chartData.add(new GDPData(emoteBase, contMedit, Color(0xffEF9A9A))),
+      } else if (emoteBase == 'Estresse') {
+        chartData.add(new GDPData(emoteBase, contMedit, Color(0xffff9900))),
       }
-    }
-
+    });  
     return chartData;
   }
 
@@ -93,7 +91,6 @@ class _StatsPageState extends State<StatsPage> {
         .collection(user.email.toString())
         .doc('Stats')
         .get();
-
     print(contMedit1.data());
     contMedit = await contMedit1.data()?['contMedit'];
     var contCromo1 = await FirebaseFirestore.instance
@@ -111,25 +108,32 @@ class _StatsPageState extends State<StatsPage> {
         .doc('Emotion')
         .get();
     print(emote.data());
-    emotea = emote.data()?[''];
-    List<String> listEmote = [];
-    if (emote.data()?['med']) {
-      listEmote.add('Medo');
-    } else if (emote.data()?['ansi']) {
-      listEmote.add('Ansiedade');
-    } else if (emote.data()?['raiva']) {
-      listEmote.add('Raiva');
-    } else if (emote.data()?['stress']) {
-      listEmote.add('Estresse');
-    } else if (emote.data()?['triste']) {
-      listEmote.add('Triste');
+    List<String> emotea = [];
+    if ((emote.data()?['med'])==true) {
+      emotea.add('Medo');
+    } if ((emote.data()?['ansi'])==true) {
+      emotea.add('Ansiedade');
+    } if ((emote.data()?['raiva'])==true) {
+      emotea.add('Raiva');
+    } if ((emote.data()?['stress'])==true) {
+      emotea.add('Estresse');
+    } if ((emote.data()?['triste'])==true) {
+      emotea.add('Triste');
     }
+    print(emotea);
+    this.emotea = emotea;
+    this._chartData = getChartData();
   }
+  /*emote123(emote);
+    Future<void> emote123(DocumentSnapshot<Map<String, dynamic>> emote) async {
+      String _emote = emote.data()?[];
+    }*/
 }
 
+
 class GDPData {
-  final String emote;
+  String emoteBase;
   final int _contMedit;
   final Color colorgraf;
-  GDPData(this.emote, this._contMedit, this.colorgraf);
+  GDPData(this.emoteBase, this._contMedit, this.colorgraf);
 }
