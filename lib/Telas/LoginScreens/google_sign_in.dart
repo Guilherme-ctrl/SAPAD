@@ -8,6 +8,8 @@ class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
   FirebaseFirestore db = FirebaseFirestore.instance;
 
+  readFirebase() async {}
+
   GoogleSignInAccount? _user;
 
   GoogleSignInAccount get user => _user!;
@@ -18,31 +20,38 @@ class GoogleSignInProvider extends ChangeNotifier {
       if (googleUser == null) return;
       _user = googleUser;
 
-      db.collection(user.email.toString()).doc("Songs").set({
-        "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
-        "video": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
-        "emailAcomp": '',
-      });
+      var tec = await FirebaseFirestore.instance
+          .collection(user.email.toString())
+          .doc('Stats')
+          .get();
 
-      db.collection(user.email.toString()).doc("Emotion").set({
-        "anti": false,
-        "med": false,
-        "raiva": false,
-        "stress": false,
-        "triste": false
-      });
+      if (tec.data() == null) {
+        db.collection(user.email.toString()).doc("Songs").set({
+          "music": 'https://www.youtube.com/watch?v=w7o_3ME8jHs',
+          "video": 'https://www.youtube.com/watch?v=IdGhUk7uJMQ',
+          "emailAcomp": '',
+        });
 
-      db.collection(user.email.toString()).doc("Home").set({
-        "cromo": true,
-        "medit": true,
-        "music": true,
-      });
+        db.collection(user.email.toString()).doc("Emotion").set({
+          "ansi": false,
+          "med": false,
+          "raiva": false,
+          "stress": false,
+          "triste": false
+        });
 
-      db.collection(user.email.toString()).doc("Stats").set({
-        "contMedit": 1,
-        "contCromo": 1,
-        "contMusic": 1,
-      });
+        db.collection(user.email.toString()).doc("Home").set({
+          "cromo": true,
+          "medit": true,
+          "music": true,
+        });
+
+        db.collection(user.email.toString()).doc("Stats").set({
+          "contMedit": 1,
+          "contCromo": 1,
+          "contMusic": 1,
+        });
+      }
 
       final googleAuth = await googleUser.authentication;
 

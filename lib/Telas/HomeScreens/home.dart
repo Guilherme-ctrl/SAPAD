@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
+  // ignore: unused_field
   int _currentIndex = 0;
   List cardList = [Item1(), Item2(), Item3(), Item4()];
   List<T?> map<T>(List list, Function handler) {
@@ -538,14 +539,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _getAllEmote() {
-    helper.getAllEmotes().then((list) {
-      setState(() {
-        emote = list;
-      });
-    });
-  }
-
   abrirUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -651,7 +644,13 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CromoPage()));
+                                        builder: (context) => CromoPage(
+                                            ansi: _ansi,
+                                            medo: _med,
+                                            raiva: _raiva,
+                                            stress: _stress,
+                                            triste: _triste,
+                                            isMarket: isChanged)));
                               }
                             }),
                         visible:

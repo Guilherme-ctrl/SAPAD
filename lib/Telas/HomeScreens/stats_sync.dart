@@ -17,9 +17,9 @@ class _StatsPageState extends State<StatsPage> {
   final user = FirebaseAuth.instance.currentUser!;
   late List<GDPData> _chartData;
   late TooltipBehavior _tooltipBehavior;
-  late int contMedit;
-  late int contCromo;
-  late int contMusic;
+  late int contMedit = 1;
+  late int contCromo = 1;
+  late int contMusic = 1;
 
   @override
   void initState() {
@@ -100,25 +100,15 @@ class _StatsPageState extends State<StatsPage> {
       }*/
 
   readFirebase() async {
-    var contMedit = await FirebaseFirestore.instance
+    var stats = await FirebaseFirestore.instance
         .collection(user.email.toString())
-        .doc('Home')
+        .doc('Stats')
         .get();
-    contMedit = contMedit.data()?['contMedit'];
-    var contCromo = await FirebaseFirestore.instance
-        .collection(user.email.toString())
-        .doc('Home')
-        .get();
-    contCromo = contCromo.data()?['contCromo'];
-    var contMusic = await FirebaseFirestore.instance
-        .collection(user.email.toString())
-        .doc('Home')
-        .get();
-    contMusic = contMusic.data()?['contMusic'];
-    /*var emote = await FirebaseFirestore.instance
-        .collection(user.email.toString())
-        .doc('Home')
-        .get();*/
+    contMedit = stats.data()?['contMedit'];
+
+    contCromo = stats.data()?['contCromo'];
+
+    contMusic = stats.data()?['contMusic'];
   }
 }
 
