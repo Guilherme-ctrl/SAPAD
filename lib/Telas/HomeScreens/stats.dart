@@ -13,6 +13,7 @@ class StatsPage extends StatefulWidget {
   _StatsPageState createState() => _StatsPageState();
 }
 
+//
 class _StatsPageState extends State<StatsPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
