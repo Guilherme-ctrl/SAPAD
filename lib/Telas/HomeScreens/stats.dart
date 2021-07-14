@@ -1,6 +1,9 @@
-/* import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+// ignore: unused_import
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StatsPage extends StatefulWidget {
   /* final Widget child;
@@ -11,312 +14,142 @@ class StatsPage extends StatefulWidget {
 }
 
 class _StatsPageState extends State<StatsPage> {
-  late List<charts.Series<Pollution, String>> _seriesData;
-  late List<charts.Series<Task, String>> _seriesPieData;
-  late List<charts.Series<Sales, int>> _seriesLineData;
-
-  _generateData() {
-    var data1 = [
-      new Pollution(1980, 'USA', 30),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
-    ];
-    var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
-    ];
-    var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
-    ];
-
-    var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
-    ];
-
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
-    ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
-    ];
-
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
-    ];
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2017',
-        data: data1,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff990099)),
-      ),
-    );
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2018',
-        data: data2,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
-      ),
-    );
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2019',
-        data: data3,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-      ),
-    );
-
-    _seriesPieData.add(
-      charts.Series(
-        domainFn: (Task task, _) => task.task,
-        measureFn: (Task task, _) => task.taskvalue,
-        colorFn: (Task task, _) =>
-            charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
-        data: piedata,
-        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
-      ),
-    );
-
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
-        data: linesalesdata,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-        id: 'Air Pollution',
-        data: linesalesdata1,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
-  }
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
+  List<GDPData> _chartData = [];
+  late TooltipBehavior _tooltipBehavior;
+  late int contMedit;
+  late int contCromo;
+  late int contMusic;
+  late List<String> emotea = [];
+  late String emoteBase;
 
   @override
   void initState() {
-    // TODO: implement initState
+    readFirebase();
+    _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
-    _seriesData = <charts.Series<Pollution, String>>[];
-    _seriesPieData = <charts.Series<Task, String>>[];
-    _seriesLineData = <charts.Series<Sales, int>>[];
-    _generateData();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xff1976d2),
-            //backgroundColor: Color(0xff308e1c),
-            bottom: TabBar(
-              indicatorColor: Color(0xff9962D0),
-              tabs: [
-                Tab(
-                  icon: Icon(FontAwesomeIcons.solidChartBar),
-                ),
-                Tab(icon: Icon(FontAwesomeIcons.chartPie)),
-                Tab(icon: Icon(FontAwesomeIcons.chartLine)),
-              ],
-            ),
-            title: Text('Flutter Charts'),
+  Widget build(BuildContext context) => SafeArea(
+          child: Scaffold(
+        backgroundColor: Colors.black87,
+        body: SfCircularChart(
+          title: ChartTitle(
+            text:
+                'Estatísticas da Meditação \n Conforme uso por emoção sentida',
+            textStyle: TextStyle(color: Colors.white),
           ),
-          body: TabBarView(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'SO₂ emissions, by world region (in million tonnes)',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: charts.BarChart(
-                            _seriesData,
-                            animate: true,
-                            barGroupingType: charts.BarGroupingType.grouped,
-                            //behaviors: [new charts.SeriesLegend()],
-                            animationDuration: Duration(seconds: 5),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Time spent on daily tasks',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Expanded(
-                          child: charts.PieChart(_seriesPieData,
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.DatumLegend(
-                                  outsideJustification:
-                                      charts.OutsideJustification.endDrawArea,
-                                  horizontalFirst: false,
-                                  desiredMaxRows: 2,
-                                  cellPadding: new EdgeInsets.only(
-                                      right: 4.0, bottom: 4.0),
-                                  entryTextStyle: charts.TextStyleSpec(
-                                      color: charts
-                                          .MaterialPalette.purple.shadeDefault,
-                                      fontFamily: 'Georgia',
-                                      fontSize: 11),
-                                )
-                              ],
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                  arcWidth: 100,
-                                  arcRendererDecorators: [
-                                    new charts.ArcLabelDecorator(
-                                        labelPosition:
-                                            charts.ArcLabelPosition.inside)
-                                  ])),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Sales for the first 5 years',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: charts.LineChart(_seriesLineData,
-                              defaultRenderer: new charts.LineRendererConfig(
-                                  includeArea: true, stacked: true),
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.ChartTitle('Years',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.bottom,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.start,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          legend: Legend(
+              isVisible: true,
+              overflowMode: LegendItemOverflowMode.wrap,
+              textStyle: TextStyle(color: Colors.white),
+              alignment: ChartAlignment.center,
+              itemPadding: 20),
+          tooltipBehavior: _tooltipBehavior,
+          series: <CircularSeries>[
+            DoughnutSeries<GDPData, dynamic>(
+                dataSource: _chartData,
+                xValueMapper: (GDPData data, _) => data.emoteBase,
+                yValueMapper: (GDPData data, _) => data.contMedit,
+                pointColorMapper: (GDPData data, _) => data.colorgraf,
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+                enableTooltip: true),
+          ],
         ),
-      ),
-    );
+      ));
+
+  List<GDPData> getChartData() {
+    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
+    final List<GDPData> chartData = [];
+    this.emotea.forEach((emoteBase) => {
+          print(emoteBase),
+          if (emoteBase == 'Medo')
+            {
+              chartData.add(GDPData('Medo', contMedit, Colors.cyan)),
+              print(chartData),
+              print(contMedit),
+            }
+          else if (emoteBase == 'Raiva')
+            {
+              chartData
+                  .add(GDPData('Raiva', contMedit, Colors.lightGreenAccent)),
+              print(chartData),
+              print(contMedit),
+            }
+          else if (emoteBase == 'Ansiedade')
+            {
+              chartData.add(GDPData('Ansiedade', contMedit, Colors.white60)),
+              print(chartData),
+              print(contMedit),
+            }
+          else if (emoteBase == 'Triste')
+            {
+              chartData.add(GDPData('Triste', contMedit, Colors.orangeAccent)),
+              print(chartData),
+              print(contMedit),
+            }
+          else if (emoteBase == 'Estresse')
+            {
+              chartData.add(GDPData('Estresse', contMedit, Colors.deepPurple)),
+              print(chartData),
+              print(contMedit),
+            }
+        });
+    return chartData;
+  }
+
+  readFirebase() async {
+    var contMedit1 = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Stats')
+        .get();
+    contMedit = await contMedit1.data()?['contMedit'];
+    print(contMedit);
+    var contCromo1 = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Stats')
+        .get();
+    contCromo = await contCromo1.data()?['contCromo'];
+    print(contCromo);
+    var contMusic1 = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Stats')
+        .get();
+    contMusic = await contMusic1.data()?['contMusic'];
+    print(contMusic);
+    var emote = await FirebaseFirestore.instance
+        .collection(user.email.toString())
+        .doc('Emotion')
+        .get();
+    print(emote.data());
+    List<String> emotea = [];
+    if ((emote.data()?['med']) == true) {
+      emotea.add('Medo');
+    }
+    if ((emote.data()?['ansi']) == true) {
+      emotea.add('Ansiedade');
+    }
+    if ((emote.data()?['raiva']) == true) {
+      emotea.add('Raiva');
+    }
+    if ((emote.data()?['stress']) == true) {
+      emotea.add('Estresse');
+    }
+    if ((emote.data()?['triste']) == true) {
+      emotea.add('Triste');
+    }
+    print(emotea);
+    this.emotea = emotea;
+    _chartData = getChartData();
+    print("testetestetestetestetestetestetestetestetesteteste, $_chartData");
   }
 }
 
-class Pollution {
-  String place;
-  int year;
-  int quantity;
-
-  Pollution(this.year, this.place, this.quantity);
+class GDPData {
+  final String emoteBase;
+  final int contMedit;
+  final Color colorgraf;
+  GDPData(this.emoteBase, this.contMedit, this.colorgraf);
 }
-
-class Task {
-  String task;
-  double taskvalue;
-  Color colorval;
-
-  Task(this.task, this.taskvalue, this.colorval);
-}
-
-class Sales {
-  int yearval;
-  int salesval;
-
-  Sales(this.yearval, this.salesval);
-}
- */
