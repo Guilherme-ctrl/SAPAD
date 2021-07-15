@@ -18,19 +18,19 @@ class _StatsPageState extends State<StatsPage> {
   final user = FirebaseAuth.instance.currentUser!;
   late List<GDPData> _chartData = [];
   late TooltipBehavior _tooltipBehavior;
-  late int contMedit;
+  late int contMedit = 0;
   late int contMeditmed = 0;
   late int contMeditansi = 0;
   late int contMeditraiva = 0;
   late int contMeditstress = 0;
   late int contMedittriste = 0;
-  late int contCromo;
+  late int contCromo = 0;
   late int contCromomed = 0;
   late int contCromoansi = 0;
   late int contCromoraiva = 0;
   late int contCromostress = 0;
   late int contCromotriste = 0;
-  late int contMusic;
+  late int contMusic = 0;
   late int contMusicmed = 0;
   late int contMusicansi = 0;
   late int contMusicraiva = 0;
@@ -59,11 +59,12 @@ class _StatsPageState extends State<StatsPage> {
           textStyle: TextStyle(color: Colors.white),
         ),
         legend: Legend(
-            isVisible: true,
-            overflowMode: LegendItemOverflowMode.wrap,
-            textStyle: TextStyle(color: Colors.white),
-            alignment: ChartAlignment.center,
-            itemPadding: 20),
+          isVisible: true,
+          overflowMode: LegendItemOverflowMode.wrap,
+          textStyle: TextStyle(color: Colors.white),
+          alignment: ChartAlignment.center,
+          itemPadding: 20,
+        ),
         tooltipBehavior: _tooltipBehavior,
         series: <CircularSeries>[
           DoughnutSeries<GDPData, dynamic>(
@@ -85,35 +86,34 @@ class _StatsPageState extends State<StatsPage> {
           print(emoteBase),
           if (emoteBase == 'Medo')
             {
-              chartData.add(new GDPData('Medo', contMedit, Colors.cyan)),
+              chartData.add(new GDPData('Medo', contMedit, Color(0xff3366cc))),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Raiva')
             {
-              chartData.add(
-                  new GDPData('Raiva', contMedit, Colors.lightGreenAccent)),
+              chartData.add(new GDPData('Raiva', contMedit, Color(0xFFF06292))),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Ansiedade')
             {
               chartData
-                  .add(new GDPData('Ansiedade', contMedit, Colors.white60)),
+                  .add(new GDPData('Ansiedade', contMedit, Color(0xFF512DA8))),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Triste')
             {
               chartData
-                  .add(new GDPData('Triste', contMedit, Colors.orangeAccent)),
+                  .add(new GDPData('Triste', contMedit, Color(0xffEF9A9A))),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Estresse')
             {
               chartData
-                  .add(new GDPData('Estresse', contMedit, Colors.deepPurple)),
+                  .add(new GDPData('Estresse', contMedit, Color(0xffff9900))),
               print(chartData),
               print(contMedit),
             }
