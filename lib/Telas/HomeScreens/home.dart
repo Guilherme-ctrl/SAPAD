@@ -25,9 +25,24 @@ class _HomePageState extends State<HomePage> {
   EmoteHelper helper = EmoteHelper();
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
-  late int contMedit = 1;
-  late int contCromo = 1;
-  late int contMusic = 1;
+  late int contMedit = 0;
+  late int contMeditmed = 0;
+  late int contMeditansi = 0;
+  late int contMeditraiva = 0;
+  late int contMeditstress = 0;
+  late int contMedittriste = 0;
+  late int contCromo = 0;
+  late int contCromomed = 0;
+  late int contCromoansi = 0;
+  late int contCromoraiva = 0;
+  late int contCromostress = 0;
+  late int contCromotriste = 0;
+  late int contMusic = 0;
+  late int contMusicmed = 0;
+  late int contMusicansi = 0;
+  late int contMusicraiva = 0;
+  late int contMusicstress = 0;
+  late int contMusictriste = 0;
   bool? _med = false;
   bool? _ansi = false;
   bool? _triste = false;
@@ -50,6 +65,21 @@ class _HomePageState extends State<HomePage> {
     contCromo = tec.data()?['contCromo'];
     contMedit = tec.data()?['contMedit'];
     contMusic = tec.data()?['contMusic'];
+    contMeditansi = tec.data()?['contMeditansi'];
+    contMeditmed = tec.data()?['contMeditmed'];
+    contMeditraiva = tec.data()?['contMeditraiva'];
+    contMeditstress = tec.data()?['contMeditstress'];
+    contMedittriste = tec.data()?['contMedittriste'];
+    contCromoansi = tec.data()?['contCromoansi'];
+    contCromomed = tec.data()?['contCromomed'];
+    contCromoraiva = tec.data()?['contCromoraiva'];
+    contCromostress = tec.data()?['contCromostress'];
+    contCromotriste = tec.data()?['contCromotriste'];
+    contMusicansi = tec.data()?['contMusicansi'];
+    contMusicmed = tec.data()?['contMusicmed'];
+    contMusicraiva = tec.data()?['contMusicraiva'];
+    contMusicstress = tec.data()?['contMusicstress'];
+    contMusictriste = tec.data()?['contMusictriste'];
   }
 
   bool? _music = true;
@@ -610,6 +640,51 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
+                                if (_med == true &&
+                                    _raiva == true &&
+                                    _triste == true &&
+                                    _ansi == true &&
+                                    _stress == true) {
+                                  contMeditansi++;
+                                  contMeditmed++;
+                                  contMeditraiva++;
+                                  contMeditstress++;
+                                  contMedittriste++;
+                                  updateFirebase("Stats", "contMeditraiva",
+                                      contMeditraiva);
+                                  updateFirebase(
+                                      "Stats", "contMeditmed", contMeditmed);
+                                  updateFirebase("Stats", "contMeditstress",
+                                      contMeditstress);
+                                  updateFirebase(
+                                      "Stats", "contMeditansi", contMeditansi);
+                                  updateFirebase("Stats", "contMedittriste",
+                                      contMedittriste);
+                                } else if (_med == true) {
+                                  contMeditmed++;
+                                  updateFirebase(
+                                      "Stats", "contMeditmed", contMeditmed);
+                                }
+                                if (_raiva == true) {
+                                  contMeditraiva++;
+                                  updateFirebase("Stats", "contMeditraiva",
+                                      contMeditraiva);
+                                }
+                                if (_triste == true) {
+                                  contMedittriste++;
+                                  updateFirebase("Stats", "contMedittriste",
+                                      contMedittriste);
+                                }
+                                if (_stress == true) {
+                                  contMeditstress++;
+                                  updateFirebase("Stats", "contMeditstress",
+                                      contMeditstress);
+                                }
+                                if (_ansi == true) {
+                                  contMeditansi++;
+                                  updateFirebase(
+                                      "Stats", "contMeditansi", contMeditansi);
+                                }
                                 contMedit++;
                                 updateFirebase("Stats", "contMedit", contMedit);
                                 Navigator.push(
@@ -639,6 +714,51 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
+                                if (_med == true &&
+                                    _raiva == true &&
+                                    _triste == true &&
+                                    _ansi == true &&
+                                    _stress == true) {
+                                  contCromoansi++;
+                                  contCromomed++;
+                                  contCromoraiva++;
+                                  contCromostress++;
+                                  contCromotriste++;
+                                  updateFirebase("Stats", "contCromoraiva",
+                                      contCromoraiva);
+                                  updateFirebase(
+                                      "Stats", "contCromomed", contCromomed);
+                                  updateFirebase("Stats", "contCromostress",
+                                      contCromostress);
+                                  updateFirebase(
+                                      "Stats", "contCromoansi", contCromoansi);
+                                  updateFirebase("Stats", "contCromotriste",
+                                      contCromotriste);
+                                } else if (_med == true) {
+                                  contCromomed++;
+                                  updateFirebase(
+                                      "Stats", "contCromomed", contCromomed);
+                                }
+                                if (_raiva == true) {
+                                  contCromoraiva++;
+                                  updateFirebase("Stats", "contCromoraiva",
+                                      contCromoraiva);
+                                }
+                                if (_triste == true) {
+                                  contCromotriste++;
+                                  updateFirebase("Stats", "contCromotriste",
+                                      contCromotriste);
+                                }
+                                if (_stress == true) {
+                                  contCromostress++;
+                                  updateFirebase("Stats", "contCromostress",
+                                      contCromostress);
+                                }
+                                if (_ansi == true) {
+                                  contCromoansi++;
+                                  updateFirebase(
+                                      "Stats", "contCromoansi", contCromoansi);
+                                }
                                 contCromo++;
                                 updateFirebase("Stats", "contCromo", contCromo);
                                 Navigator.push(
@@ -672,6 +792,51 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
+                                if (_med == true &&
+                                    _raiva == true &&
+                                    _triste == true &&
+                                    _ansi == true &&
+                                    _stress == true) {
+                                  contMusicansi++;
+                                  contMusicmed++;
+                                  contMusicraiva++;
+                                  contMusicstress++;
+                                  contMedittriste++;
+                                  updateFirebase("Stats", "contMusicraiva",
+                                      contMusicraiva);
+                                  updateFirebase(
+                                      "Stats", "contMusicmed", contMusicmed);
+                                  updateFirebase("Stats", "contMusicstress",
+                                      contMusicstress);
+                                  updateFirebase(
+                                      "Stats", "contMusicansi", contMusicansi);
+                                  updateFirebase("Stats", "contMusictriste",
+                                      contMusictriste);
+                                } else if (_med == true) {
+                                  contMusicmed++;
+                                  updateFirebase(
+                                      "Stats", "contMusicmed", contMusicmed);
+                                }
+                                if (_raiva == true) {
+                                  contMusicraiva++;
+                                  updateFirebase("Stats", "contMusicraiva",
+                                      contMusicraiva);
+                                }
+                                if (_triste == true) {
+                                  contMusictriste++;
+                                  updateFirebase("Stats", "contMusictriste",
+                                      contMusictriste);
+                                }
+                                if (_stress == true) {
+                                  contMusicstress++;
+                                  updateFirebase("Stats", "contMusicstress",
+                                      contMusicstress);
+                                }
+                                if (_ansi == true) {
+                                  contMusicansi++;
+                                  updateFirebase(
+                                      "Stats", "contMusicansi", contMusicansi);
+                                }
                                 contMusic++;
                                 updateFirebase("Stats", "contMusic", contMusic);
                                 Navigator.push(

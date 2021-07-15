@@ -5,8 +5,6 @@ import 'package:sapad_v3/Telas/HomeScreens/acomp.dart';
 import 'package:sapad_v3/Telas/HomeScreens/home.dart';
 import 'package:sapad_v3/Telas/HomeScreens/info.dart';
 import 'package:sapad_v3/Telas/HomeScreens/stats.dart';
-import 'package:sapad_v3/Telas/HomeScreens/stats_copy.dart';
-import 'package:sapad_v3/Telas/HomeScreens/stats_sync.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 
 class ControlPage extends StatefulWidget {
@@ -15,7 +13,7 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
-  final List _telas = [InfoPage(), HomePage(), StatsPageCopy(), AcompPage()];
+  final List _telas = [InfoPage(), HomePage(), StatsPage(), AcompPage()];
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   int _indiceAtual = 1;

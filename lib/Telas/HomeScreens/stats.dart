@@ -6,22 +6,36 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StatsPage extends StatefulWidget {
-  /* final Widget child;
+  final Widget? child;
 
-  StatsPage({required Key key, required this.child}) : super(key: key); */
+  StatsPage({Key? key, this.child}) : super(key: key);
 
   _StatsPageState createState() => _StatsPageState();
 }
 
-//
 class _StatsPageState extends State<StatsPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
-  List<GDPData> _chartData = [];
+  late List<GDPData> _chartData = [];
   late TooltipBehavior _tooltipBehavior;
   late int contMedit;
+  late int contMeditmed = 0;
+  late int contMeditansi = 0;
+  late int contMeditraiva = 0;
+  late int contMeditstress = 0;
+  late int contMedittriste = 0;
   late int contCromo;
+  late int contCromomed = 0;
+  late int contCromoansi = 0;
+  late int contCromoraiva = 0;
+  late int contCromostress = 0;
+  late int contCromotriste = 0;
   late int contMusic;
+  late int contMusicmed = 0;
+  late int contMusicansi = 0;
+  late int contMusicraiva = 0;
+  late int contMusicstress = 0;
+  late int contMusictriste = 0;
   late List<String> emotea = [];
   late String emoteBase;
 
@@ -33,33 +47,36 @@ class _StatsPageState extends State<StatsPage> {
   }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-          child: Scaffold(
-        backgroundColor: Colors.black87,
-        body: SfCircularChart(
-          title: ChartTitle(
-            text:
-                'Estatísticas da Meditação \n Conforme uso por emoção sentida',
-            textStyle: TextStyle(color: Colors.white),
-          ),
-          legend: Legend(
-              isVisible: true,
-              overflowMode: LegendItemOverflowMode.wrap,
-              textStyle: TextStyle(color: Colors.white),
-              alignment: ChartAlignment.center,
-              itemPadding: 20),
-          tooltipBehavior: _tooltipBehavior,
-          series: <CircularSeries>[
-            DoughnutSeries<GDPData, dynamic>(
-                dataSource: _chartData,
-                xValueMapper: (GDPData data, _) => data.emoteBase,
-                yValueMapper: (GDPData data, _) => data.contMedit,
-                pointColorMapper: (GDPData data, _) => data.colorgraf,
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-                enableTooltip: true),
-          ],
+  Widget build(BuildContext context) {
+    print('hhhhhhhhhhhhhhhhhhhhhhhhhhh $_chartData');
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: Colors.black87,
+      body: SfCircularChart(
+        title: ChartTitle(
+          text:
+              'Estatísticas da Meditação \n Conforme uso por emoção sentida \n\n\n Total de Meditações realizadas $contMedit',
+          textStyle: TextStyle(color: Colors.white),
         ),
-      ));
+        legend: Legend(
+            isVisible: true,
+            overflowMode: LegendItemOverflowMode.wrap,
+            textStyle: TextStyle(color: Colors.white),
+            alignment: ChartAlignment.center,
+            itemPadding: 20),
+        tooltipBehavior: _tooltipBehavior,
+        series: <CircularSeries>[
+          DoughnutSeries<GDPData, dynamic>(
+              dataSource: _chartData,
+              xValueMapper: (GDPData data, _) => data.emoteBase,
+              yValueMapper: (GDPData data, _) => data.contMedit,
+              pointColorMapper: (GDPData data, _) => data.colorgraf,
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+              enableTooltip: true),
+        ],
+      ),
+    ));
+  }
 
   List<GDPData> getChartData() {
     print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
@@ -68,32 +85,35 @@ class _StatsPageState extends State<StatsPage> {
           print(emoteBase),
           if (emoteBase == 'Medo')
             {
-              chartData.add(GDPData('Medo', contMedit, Colors.cyan)),
+              chartData.add(new GDPData('Medo', contMedit, Colors.cyan)),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Raiva')
             {
-              chartData
-                  .add(GDPData('Raiva', contMedit, Colors.lightGreenAccent)),
+              chartData.add(
+                  new GDPData('Raiva', contMedit, Colors.lightGreenAccent)),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Ansiedade')
             {
-              chartData.add(GDPData('Ansiedade', contMedit, Colors.white60)),
+              chartData
+                  .add(new GDPData('Ansiedade', contMedit, Colors.white60)),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Triste')
             {
-              chartData.add(GDPData('Triste', contMedit, Colors.orangeAccent)),
+              chartData
+                  .add(new GDPData('Triste', contMedit, Colors.orangeAccent)),
               print(chartData),
               print(contMedit),
             }
           else if (emoteBase == 'Estresse')
             {
-              chartData.add(GDPData('Estresse', contMedit, Colors.deepPurple)),
+              chartData
+                  .add(new GDPData('Estresse', contMedit, Colors.deepPurple)),
               print(chartData),
               print(contMedit),
             }
@@ -141,9 +161,10 @@ class _StatsPageState extends State<StatsPage> {
     if ((emote.data()?['triste']) == true) {
       emotea.add('Triste');
     }
-    print(emotea);
     this.emotea = emotea;
+    print(' flgmdflkgmdopmkpdfg $emotea');
     _chartData = getChartData();
+    setState(() {});
     print("testetestetestetestetestetestetestetestetesteteste, $_chartData");
   }
 }
@@ -153,4 +174,9 @@ class GDPData {
   final int contMedit;
   final Color colorgraf;
   GDPData(this.emoteBase, this.contMedit, this.colorgraf);
+
+  @override
+  String toString() {
+    return emoteBase + contMedit.toString();
+  }
 }
