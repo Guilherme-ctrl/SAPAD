@@ -52,39 +52,100 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('hhhhhhhhhhhhhhhhhhhhhhhhhhh $_chartDatamedit');
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.black87,
-      body: SfCircularChart(
-        title: ChartTitle(
-          text:
-              'Estatísticas da Meditação \n Conforme uso por emoção sentida \n\n\n Total de Meditações realizadas: $contMedit',
-          textStyle: TextStyle(color: Colors.white),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: SfCircularChart(
+                title: ChartTitle(
+                  text:
+                      'Estatísticas da Meditação \n Conforme uso por emoção sentida \n\n\n Total de Meditações realizadas: $contMedit',
+                  textStyle: TextStyle(color: Colors.white),
+                ),
+                legend: Legend(
+                  isVisible: true,
+                  overflowMode: LegendItemOverflowMode.wrap,
+                  textStyle: TextStyle(color: Colors.white),
+                  alignment: ChartAlignment.center,
+                  itemPadding: 20,
+                ),
+                tooltipBehavior: _tooltipBehavior,
+                series: <CircularSeries>[
+                  DoughnutSeries<GDPDatamedit, dynamic>(
+                      dataSource: _chartDatamedit,
+                      xValueMapper: (GDPDatamedit data, _) => data.emoteBase,
+                      yValueMapper: (GDPDatamedit data, _) => data.contMedit,
+                      pointColorMapper: (GDPDatamedit data, _) =>
+                          data.colorgraf,
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                      enableTooltip: true),
+                ],
+              ),
+            ),
+            Container(
+              child: SfCircularChart(
+                title: ChartTitle(
+                  text:
+                      'Estatísticas da Cromaterapia \n Conforme uso por emoção sentida \n\n\n Total de Cromaterapias realizadas: $contCromo',
+                  textStyle: TextStyle(color: Colors.white),
+                ),
+                legend: Legend(
+                  isVisible: true,
+                  overflowMode: LegendItemOverflowMode.wrap,
+                  textStyle: TextStyle(color: Colors.white),
+                  alignment: ChartAlignment.center,
+                  itemPadding: 20,
+                ),
+                tooltipBehavior: _tooltipBehavior,
+                series: <CircularSeries>[
+                  DoughnutSeries<GDPDatacromo, dynamic>(
+                      dataSource: _chartDatacromo,
+                      xValueMapper: (GDPDatacromo data, _) => data.emoteBaseC,
+                      yValueMapper: (GDPDatacromo data, _) => data.contCromo,
+                      pointColorMapper: (GDPDatacromo data, _) =>
+                          data.colorgraf,
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                      enableTooltip: true),
+                ],
+              ),
+            ),
+            Container(
+              child: SfCircularChart(
+                title: ChartTitle(
+                  text:
+                      'Estatísticas da Musicoterapia \n Conforme uso por emoção sentida \n\n\n Total de Musicoterapia realizadas: $contMusic',
+                  textStyle: TextStyle(color: Colors.white),
+                ),
+                legend: Legend(
+                  isVisible: true,
+                  overflowMode: LegendItemOverflowMode.wrap,
+                  textStyle: TextStyle(color: Colors.white),
+                  alignment: ChartAlignment.center,
+                  itemPadding: 20,
+                ),
+                tooltipBehavior: _tooltipBehavior,
+                series: <CircularSeries>[
+                  DoughnutSeries<GDPDatamusic, dynamic>(
+                      dataSource: _chartDatamusic,
+                      xValueMapper: (GDPDatamusic data, _) => data.emoteBaseM,
+                      yValueMapper: (GDPDatamusic data, _) => data.contMusic,
+                      pointColorMapper: (GDPDatamusic data, _) =>
+                          data.colorgraf,
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                      enableTooltip: true),
+                ],
+              ),
+            ),
+          ],
         ),
-        legend: Legend(
-          isVisible: true,
-          overflowMode: LegendItemOverflowMode.wrap,
-          textStyle: TextStyle(color: Colors.white),
-          alignment: ChartAlignment.center,
-          itemPadding: 20,
-        ),
-        tooltipBehavior: _tooltipBehavior,
-        series: <CircularSeries>[
-          DoughnutSeries<GDPDatamedit, dynamic>(
-              dataSource: _chartDatamedit,
-              xValueMapper: (GDPDatamedit data, _) => data.emoteBase,
-              yValueMapper: (GDPDatamedit data, _) => data.contMedit,
-              pointColorMapper: (GDPDatamedit data, _) => data.colorgraf,
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-              enableTooltip: true),
-        ],
       ),
     ));
   }
 
   List<GDPDatamedit> getChartDatamedit() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatamedit> chartData = [];
     this.emotea.forEach((emoteBase) => {
           print(emoteBase),
@@ -97,7 +158,6 @@ class _StatsPageState extends State<StatsPage> {
           else if (emoteBase == 'Raiva')
             {
               contMedit = contMeditraiva,
-              print(contMedit),
               chartData
                   .add(new GDPDatamedit('Raiva', contMedit, Color(0xFFF06292))),
             }
@@ -124,7 +184,6 @@ class _StatsPageState extends State<StatsPage> {
   }
 
   List<GDPDatacromo> getChartDatacromo() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatacromo> chartData = [];
     this.emotea.forEach((emoteBaseC) => {
           print(emoteBaseC),
@@ -137,7 +196,6 @@ class _StatsPageState extends State<StatsPage> {
           else if (emoteBaseC == 'Raiva')
             {
               contCromo = contCromoraiva,
-              print(contMedit),
               chartData
                   .add(new GDPDatacromo('Raiva', contCromo, Color(0xFFF06292))),
             }
@@ -164,7 +222,6 @@ class _StatsPageState extends State<StatsPage> {
   }
 
   List<GDPDatamusic> getChartDatamusic() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatamusic> chartData = [];
     this.emotea.forEach((emoteBaseM) => {
           print(emoteBaseM),
@@ -177,7 +234,6 @@ class _StatsPageState extends State<StatsPage> {
           else if (emoteBaseM == 'Raiva')
             {
               contMusic = contMusicraiva,
-              print(contMusic),
               chartData
                   .add(new GDPDatamusic('Raiva', contMusic, Color(0xFFF06292))),
             }
@@ -227,31 +283,18 @@ class _StatsPageState extends State<StatsPage> {
     contMusicraiva = tec.data()?['contMusicraiva'];
     contMusicstress = tec.data()?['contMusicstress'];
     contMusictriste = tec.data()?['contMusictriste'];
-    var emote = await FirebaseFirestore.instance
-        .collection(user.email.toString())
-        .doc('Emotion')
-        .get();
-    print(emote.data());
+
     List<String> emotea = [];
-
     emotea.add('Medo');
-
     emotea.add('Ansiedade');
-
     emotea.add('Raiva');
-
     emotea.add('Estresse');
-
     emotea.add('Triste');
-
     this.emotea = emotea;
-    print(' flgmdflkgmdopmkpdfg $emotea');
     _chartDatamedit = getChartDatamedit();
     _chartDatacromo = getChartDatacromo();
     _chartDatamusic = getChartDatamusic();
     setState(() {});
-    print(
-        "testetestetestetestetestetestetestetestetesteteste, $_chartDatamedit");
   }
 }
 
