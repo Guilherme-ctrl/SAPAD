@@ -16,7 +16,9 @@ class StatsPage extends StatefulWidget {
 class _StatsPageState extends State<StatsPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
-  late List<GDPData> _chartData = [];
+  late List<GDPDatamedit> _chartDatamedit = [];
+  late List<GDPDatacromo> _chartDatacromo = [];
+  late List<GDPDatamusic> _chartDatamusic = [];
   late TooltipBehavior _tooltipBehavior;
   late int contMedit = 0;
   late int contMeditmed = 0;
@@ -38,6 +40,8 @@ class _StatsPageState extends State<StatsPage> {
   late int contMusictriste = 0;
   late List<String> emotea = [];
   late String emoteBase;
+  late String emoteBaseC;
+  late String emoteBaseM;
 
   @override
   void initState() {
@@ -48,14 +52,14 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('hhhhhhhhhhhhhhhhhhhhhhhhhhh $_chartData');
+    print('hhhhhhhhhhhhhhhhhhhhhhhhhhh $_chartDatamedit');
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.black87,
       body: SfCircularChart(
         title: ChartTitle(
           text:
-              'Estatísticas da Meditação \n Conforme uso por emoção sentida \n\n\n Total de Meditações realizadas $contMedit',
+              'Estatísticas da Meditação \n Conforme uso por emoção sentida \n\n\n Total de Meditações realizadas: $contMedit',
           textStyle: TextStyle(color: Colors.white),
         ),
         legend: Legend(
@@ -67,11 +71,11 @@ class _StatsPageState extends State<StatsPage> {
         ),
         tooltipBehavior: _tooltipBehavior,
         series: <CircularSeries>[
-          DoughnutSeries<GDPData, dynamic>(
-              dataSource: _chartData,
-              xValueMapper: (GDPData data, _) => data.emoteBase,
-              yValueMapper: (GDPData data, _) => data.contMedit,
-              pointColorMapper: (GDPData data, _) => data.colorgraf,
+          DoughnutSeries<GDPDatamedit, dynamic>(
+              dataSource: _chartDatamedit,
+              xValueMapper: (GDPDatamedit data, _) => data.emoteBase,
+              yValueMapper: (GDPDatamedit data, _) => data.contMedit,
+              pointColorMapper: (GDPDatamedit data, _) => data.colorgraf,
               dataLabelSettings: DataLabelSettings(isVisible: true),
               enableTooltip: true),
         ],
@@ -79,39 +83,121 @@ class _StatsPageState extends State<StatsPage> {
     ));
   }
 
-  List<GDPData> getChartData() {
+  List<GDPDatamedit> getChartDatamedit() {
     print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
-    final List<GDPData> chartData = [];
+    final List<GDPDatamedit> chartData = [];
     this.emotea.forEach((emoteBase) => {
           print(emoteBase),
           if (emoteBase == 'Medo')
             {
               contMedit = contMeditmed,
-              chartData.add(new GDPData('Medo', contMedit, Color(0xff3366cc))),
+              chartData
+                  .add(new GDPDatamedit('Medo', contMedit, Color(0xff3366cc))),
             }
           else if (emoteBase == 'Raiva')
             {
               contMedit = contMeditraiva,
               print(contMedit),
-              chartData.add(new GDPData('Raiva', contMedit, Color(0xFFF06292))),
+              chartData
+                  .add(new GDPDatamedit('Raiva', contMedit, Color(0xFFF06292))),
             }
           else if (emoteBase == 'Ansiedade')
             {
               contMedit = contMeditansi,
-              chartData
-                  .add(new GDPData('Ansiedade', contMedit, Color(0xFF512DA8))),
+              chartData.add(
+                  new GDPDatamedit('Ansiedade', contMedit, Color(0xFF512DA8))),
             }
           else if (emoteBase == 'Triste')
             {
               contMedit = contMedittriste,
-              chartData
-                  .add(new GDPData('Triste', contMedit, Color(0xffEF9A9A))),
+              chartData.add(
+                  new GDPDatamedit('Triste', contMedit, Color(0xffEF9A9A))),
             }
           else if (emoteBase == 'Estresse')
             {
               contMedit = contMeditstress,
+              chartData.add(
+                  new GDPDatamedit('Estresse', contMedit, Color(0xffff9900))),
+            }
+        });
+    return chartData;
+  }
+
+  List<GDPDatacromo> getChartDatacromo() {
+    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
+    final List<GDPDatacromo> chartData = [];
+    this.emotea.forEach((emoteBaseC) => {
+          print(emoteBaseC),
+          if (emoteBaseC == 'Medo')
+            {
+              contCromo = contCromomed,
               chartData
-                  .add(new GDPData('Estresse', contMedit, Color(0xffff9900))),
+                  .add(new GDPDatacromo('Medo', contCromo, Color(0xff3366cc))),
+            }
+          else if (emoteBaseC == 'Raiva')
+            {
+              contCromo = contCromoraiva,
+              print(contMedit),
+              chartData
+                  .add(new GDPDatacromo('Raiva', contCromo, Color(0xFFF06292))),
+            }
+          else if (emoteBaseC == 'Ansiedade')
+            {
+              contCromo = contCromoansi,
+              chartData.add(
+                  new GDPDatacromo('Ansiedade', contCromo, Color(0xFF512DA8))),
+            }
+          else if (emoteBaseC == 'Triste')
+            {
+              contCromo = contCromotriste,
+              chartData.add(
+                  new GDPDatacromo('Triste', contCromo, Color(0xffEF9A9A))),
+            }
+          else if (emoteBaseC == 'Estresse')
+            {
+              contCromo = contCromostress,
+              chartData.add(
+                  new GDPDatacromo('Estresse', contCromo, Color(0xffff9900))),
+            }
+        });
+    return chartData;
+  }
+
+  List<GDPDatamusic> getChartDatamusic() {
+    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
+    final List<GDPDatamusic> chartData = [];
+    this.emotea.forEach((emoteBaseM) => {
+          print(emoteBaseM),
+          if (emoteBaseM == 'Medo')
+            {
+              contMusic = contMusicmed,
+              chartData
+                  .add(new GDPDatamusic('Medo', contMusic, Color(0xff3366cc))),
+            }
+          else if (emoteBaseM == 'Raiva')
+            {
+              contMusic = contMusicraiva,
+              print(contMusic),
+              chartData
+                  .add(new GDPDatamusic('Raiva', contMusic, Color(0xFFF06292))),
+            }
+          else if (emoteBaseM == 'Ansiedade')
+            {
+              contMusic = contMusicansi,
+              chartData.add(
+                  new GDPDatamusic('Ansiedade', contMusic, Color(0xFF512DA8))),
+            }
+          else if (emoteBaseM == 'Triste')
+            {
+              contMusic = contMusictriste,
+              chartData.add(
+                  new GDPDatamusic('Triste', contMusic, Color(0xffEF9A9A))),
+            }
+          else if (emoteBaseM == 'Estresse')
+            {
+              contMusic = contMusicstress,
+              chartData.add(
+                  new GDPDatamusic('Estresse', contMusic, Color(0xffff9900))),
             }
         });
     return chartData;
@@ -159,20 +245,47 @@ class _StatsPageState extends State<StatsPage> {
 
     this.emotea = emotea;
     print(' flgmdflkgmdopmkpdfg $emotea');
-    _chartData = getChartData();
+    _chartDatamedit = getChartDatamedit();
+    _chartDatacromo = getChartDatacromo();
+    _chartDatamusic = getChartDatamusic();
     setState(() {});
-    print("testetestetestetestetestetestetestetestetesteteste, $_chartData");
+    print(
+        "testetestetestetestetestetestetestetestetesteteste, $_chartDatamedit");
   }
 }
 
-class GDPData {
+class GDPDatamedit {
   final String emoteBase;
   final int contMedit;
   final Color colorgraf;
-  GDPData(this.emoteBase, this.contMedit, this.colorgraf);
+  GDPDatamedit(this.emoteBase, this.contMedit, this.colorgraf);
 
   @override
   String toString() {
     return emoteBase + contMedit.toString();
+  }
+}
+
+class GDPDatacromo {
+  final String emoteBaseC;
+  final int contCromo;
+  final Color colorgraf;
+
+  GDPDatacromo(this.emoteBaseC, this.contCromo, this.colorgraf);
+  @override
+  String toString() {
+    return emoteBaseC + contCromo.toString();
+  }
+}
+
+class GDPDatamusic {
+  final String emoteBaseM;
+  final int contMusic;
+  final Color colorgraf;
+
+  GDPDatamusic(this.emoteBaseM, this.contMusic, this.colorgraf);
+  @override
+  String toString() {
+    return emoteBaseM + contMusic.toString();
   }
 }
