@@ -50,6 +50,21 @@ class GoogleSignInProvider extends ChangeNotifier {
           "contMedit": 1,
           "contCromo": 1,
           "contMusic": 1,
+          "contCromoansi": 1,
+          "contCromomed": 1,
+          "contCromoraiva": 1,
+          "contCromostress": 1,
+          "contCromotriste": 1,
+          "contMeditansi": 1,
+          "contMeditmed": 1,
+          "contMeditraiva": 1,
+          "contMeditstress": 1,
+          "contMedittriste": 1,
+          "contMusicansi": 1,
+          "contMusicmed": 1,
+          "contMusicraiva": 1,
+          "contMusicstress": 1,
+          "contMusictriste": 1,
         });
       }
 

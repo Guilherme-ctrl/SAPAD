@@ -640,27 +640,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
-                                if (_med == true &&
-                                    _raiva == true &&
-                                    _triste == true &&
-                                    _ansi == true &&
-                                    _stress == true) {
-                                  contMeditansi++;
-                                  contMeditmed++;
-                                  contMeditraiva++;
-                                  contMeditstress++;
-                                  contMedittriste++;
-                                  updateFirebase("Stats", "contMeditraiva",
-                                      contMeditraiva);
-                                  updateFirebase(
-                                      "Stats", "contMeditmed", contMeditmed);
-                                  updateFirebase("Stats", "contMeditstress",
-                                      contMeditstress);
-                                  updateFirebase(
-                                      "Stats", "contMeditansi", contMeditansi);
-                                  updateFirebase("Stats", "contMedittriste",
-                                      contMedittriste);
-                                } else if (_med == true) {
+                                if (_med == true) {
                                   contMeditmed++;
                                   updateFirebase(
                                       "Stats", "contMeditmed", contMeditmed);
@@ -715,50 +695,30 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
-                                if (_med == true &&
-                                    _raiva == true &&
-                                    _triste == true &&
-                                    _ansi == true &&
-                                    _stress == true) {
-                                  contCromoansi++;
-                                  contCromomed++;
-                                  contCromoraiva++;
-                                  contCromostress++;
-                                  contCromotriste++;
-                                  updateFirebase("Stats", "contCromoraiva",
-                                      contCromoraiva);
-                                  updateFirebase(
-                                      "Stats", "contCromomed", contCromomed);
-                                  updateFirebase("Stats", "contCromostress",
-                                      contCromostress);
-                                  updateFirebase(
-                                      "Stats", "contCromoansi", contCromoansi);
-                                  updateFirebase("Stats", "contCromotriste",
-                                      contCromotriste);
-                                } else if (_med == true) {
+                                if (_med == true) {
                                   contCromomed++;
                                   updateFirebase(
                                       "Stats", "contCromomed", contCromomed);
-                                }
-                                if (_raiva == true) {
-                                  contCromoraiva++;
-                                  updateFirebase("Stats", "contCromoraiva",
-                                      contCromoraiva);
-                                }
-                                if (_triste == true) {
-                                  contCromotriste++;
-                                  updateFirebase("Stats", "contCromotriste",
-                                      contCromotriste);
-                                }
-                                if (_stress == true) {
-                                  contCromostress++;
-                                  updateFirebase("Stats", "contCromostress",
-                                      contCromostress);
-                                }
-                                if (_ansi == true) {
-                                  contCromoansi++;
-                                  updateFirebase(
-                                      "Stats", "contCromoansi", contCromoansi);
+                                  if (_raiva == true) {
+                                    contCromoraiva++;
+                                    updateFirebase("Stats", "contCromoraiva",
+                                        contCromoraiva);
+                                  }
+                                  if (_triste == true) {
+                                    contCromotriste++;
+                                    updateFirebase("Stats", "contCromotriste",
+                                        contCromotriste);
+                                  }
+                                  if (_stress == true) {
+                                    contCromostress++;
+                                    updateFirebase("Stats", "contCromostress",
+                                        contCromostress);
+                                  }
+                                  if (_ansi == true) {
+                                    contCromoansi++;
+                                    updateFirebase("Stats", "contCromoansi",
+                                        contCromoansi);
+                                  }
                                 }
 
                                 contCromo++;
@@ -794,27 +754,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onTap: () {
                               if (isChanged == true) {
-                                if (_med == true &&
-                                    _raiva == true &&
-                                    _triste == true &&
-                                    _ansi == true &&
-                                    _stress == true) {
-                                  contMusicansi++;
-                                  contMusicmed++;
-                                  contMusicraiva++;
-                                  contMusicstress++;
-                                  contMedittriste++;
-                                  updateFirebase("Stats", "contMusicraiva",
-                                      contMusicraiva);
-                                  updateFirebase(
-                                      "Stats", "contMusicmed", contMusicmed);
-                                  updateFirebase("Stats", "contMusicstress",
-                                      contMusicstress);
-                                  updateFirebase(
-                                      "Stats", "contMusicansi", contMusicansi);
-                                  updateFirebase("Stats", "contMusictriste",
-                                      contMusictriste);
-                                } else if (_med == true) {
+                                if (_med == true) {
                                   contMusicmed++;
                                   updateFirebase(
                                       "Stats", "contMusicmed", contMusicmed);
