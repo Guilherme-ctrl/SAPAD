@@ -665,7 +665,6 @@ class _HomePageState extends State<HomePage> {
                                   updateFirebase(
                                       "Stats", "contMeditansi", contMeditansi);
                                 }
-
                                 contMedit++;
                                 updateFirebase("Stats", "contMedit", contMedit);
                                 Navigator.push(
@@ -720,7 +719,6 @@ class _HomePageState extends State<HomePage> {
                                         contCromoansi);
                                   }
                                 }
-
                                 contCromo++;
                                 updateFirebase("Stats", "contCromo", contCromo);
                                 Navigator.push(
@@ -779,7 +777,6 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   }
                                 }
-
                                 contMusic++;
                                 updateFirebase("Stats", "contMusic", contMusic);
                                 Navigator.push(

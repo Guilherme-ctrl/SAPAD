@@ -86,12 +86,23 @@ class _StatsPageState extends State<StatsPage> {
           print(emoteBase),
           if (emoteBase == 'Medo')
             {
+<<<<<<< HEAD
               contMedit = contMeditmed,
               chartData.add(new GDPData('Medo', contMedit, Color(0xff3366cc))),
             }
           else if (emoteBase == 'Raiva')
             {
               contMedit = contMeditraiva,
+=======
+              chartData.add(new GDPData('Medo', contMedit, Color(0xff3366cc))),
+              print(chartData),
+              print(contMedit),
+            }
+          else if (emoteBase == 'Raiva')
+            {
+              chartData.add(new GDPData('Raiva', contMedit, Color(0xFFF06292))),
+              print(chartData),
+>>>>>>> 1c2443fe1d3814b44717f30405e870a52ebbe2e4
               print(contMedit),
               chartData.add(new GDPData('Raiva', contMedit, Color(0xFFF06292))),
             }
@@ -100,18 +111,33 @@ class _StatsPageState extends State<StatsPage> {
               contMedit = contMeditansi,
               chartData
                   .add(new GDPData('Ansiedade', contMedit, Color(0xFF512DA8))),
+<<<<<<< HEAD
+=======
+              print(chartData),
+              print(contMedit),
+>>>>>>> 1c2443fe1d3814b44717f30405e870a52ebbe2e4
             }
           else if (emoteBase == 'Triste')
             {
               contMedit = contMedittriste,
               chartData
                   .add(new GDPData('Triste', contMedit, Color(0xffEF9A9A))),
+<<<<<<< HEAD
+=======
+              print(chartData),
+              print(contMedit),
+>>>>>>> 1c2443fe1d3814b44717f30405e870a52ebbe2e4
             }
           else if (emoteBase == 'Estresse')
             {
               contMedit = contMeditstress,
               chartData
                   .add(new GDPData('Estresse', contMedit, Color(0xffff9900))),
+<<<<<<< HEAD
+=======
+              print(chartData),
+              print(contMedit),
+>>>>>>> 1c2443fe1d3814b44717f30405e870a52ebbe2e4
             }
         });
     return chartData;
