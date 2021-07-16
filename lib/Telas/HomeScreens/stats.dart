@@ -203,6 +203,7 @@ class _StatsPageState extends State<StatsPage> {
     return chartData;
   }
 
+//
   readFirebase() async {
     var tec = await FirebaseFirestore.instance
         .collection(user.email.toString())
