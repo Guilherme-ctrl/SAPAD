@@ -11,7 +11,6 @@ import 'package:sapad_v3/Telas/Screens/config.dart';
 import 'package:sapad_v3/Telas/Screens/cromo.dart';
 import 'package:sapad_v3/Telas/Screens/meditation.dart';
 import 'package:sapad_v3/Telas/Screens/musicoterapia.dart';
-import 'package:sapad_v3/helper.dart/setting_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,7 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  EmoteHelper helper = EmoteHelper();
   FirebaseFirestore db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
   late int contMedit = 0;
@@ -49,7 +47,6 @@ class _HomePageState extends State<HomePage> {
   bool? _raiva = false;
   bool? _stress = false;
 
-  List<Emote> emote = [];
   @override
   void initState() {
     _readData();
@@ -502,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Text(
-                        "Clique aqui para iescolher uma terapia!!",
+                        "Clique aqui para escolher uma terapia!!",
                         style: GoogleFonts.lora(
                             textStyle: TextStyle(
                           fontSize: 30.0,
@@ -905,7 +902,7 @@ class Item4 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/meditacao.jpg',
+            'assets/cardInfoMedit.png',
             height: 180.0,
             fit: BoxFit.cover,
           )

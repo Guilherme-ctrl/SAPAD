@@ -106,7 +106,7 @@ class _SnakeGameVermelhoState extends State<SnakeGameVermelho> {
               style: TextStyle(fontSize: 20),
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text('Close'),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -186,8 +186,7 @@ class _SnakeGameVermelhoState extends State<SnakeGameVermelho> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  FlatButton(
-                      color: isPlaying ? Colors.blueAccent : Colors.blue,
+                  TextButton(
                       child: Text(
                         isPlaying ? 'End' : 'Start',
                         style: fontStyle,

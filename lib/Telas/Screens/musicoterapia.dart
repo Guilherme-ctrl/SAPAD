@@ -2,6 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MusicPage extends StatefulWidget {
@@ -46,12 +48,38 @@ class _MusicPageState extends State<MusicPage> {
           centerTitle: true,
         ),
         backgroundColor: Colors.black87,
-        body: Column(children: [
-          //Card 1
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
+        body: ListView(
+            padding: EdgeInsets.only(
+                left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
+            children: [
+              //Card 1
+              GestureDetector(
+                child: Card(
+                    color: Colors.black54,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(MdiIcons.bookmarkMusic,
+                                size: 50, color: Colors.red),
+                            Text("Saiba mais sobre musicoterapia!!",
+                                style: GoogleFonts.lora(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)))
+                          ],
+                        ))),
+                onTap: () {
+                  _requestPop(context);
+                },
+              ),
+              SizedBox(height: 20),
+
+              //Card 2
+              Card(
                 color: Colors.black38,
                 shadowColor: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -60,151 +88,93 @@ class _MusicPageState extends State<MusicPage> {
                   padding: EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Column(
-                        children: [
-                          Container(
-                            width: 100.0,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage("assets/Guitar.png"))),
-                          ),
-                        ],
-                      ),
                       Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text(
-                                    "Saiba sobre\n MUSICOTERAPIA",
-                                    style: TextStyle(
-                                        fontSize: 25.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  )),
-                            )
-                          ],
+                        padding: EdgeInsets.only(left: 10.0, right: 60.0),
+                        child: Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Musica Classica",
+                                style: GoogleFonts.lora(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)),
+                                textAlign: TextAlign.center,
+                              )),
                         ),
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.circular(100.0)),
+                        child: IconButton(
+                          iconSize: 50.0,
+                          color: Colors.purple,
+                          onPressed: () {
+                            if (!playing) {
+                              cache.play("Med1.mp3");
+                              setState(() {
+                                playBtn = Icons.pause;
+                                playing = true;
+                              });
+                            } else {
+                              _player!.pause();
+                              setState(() {
+                                playBtn = Icons.play_arrow;
+                                playing = false;
+                              });
+                            }
+                          },
+                          icon: Icon(playBtn),
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
-              onTap: () {
-                _requestPop(context);
-              },
-            ),
-          ),
-          //Card 2
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Card(
-              color: Colors.black38,
-              shadowColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0, right: 60.0),
-                      child: Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Musica Classica",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
+              SizedBox(height: 20),
+
+              //Card 3
+              Card(
+                color: Colors.black38,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        child: Container(
+                          child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "Musica Personalizada",
+                                style: GoogleFonts.lora(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)),
+                                textAlign: TextAlign.center,
+                              )),
+                        ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.purple[300],
-                          borderRadius: BorderRadius.circular(100.0)),
-                      child: IconButton(
-                        iconSize: 50.0,
-                        color: Colors.purple,
-                        onPressed: () {
-                          if (!playing) {
-                            cache.play("Med1.mp3");
-                            setState(() {
-                              playBtn = Icons.pause;
-                              playing = true;
-                            });
-                          } else {
-                            _player!.pause();
-                            setState(() {
-                              playBtn = Icons.play_arrow;
-                              playing = false;
-                            });
-                          }
-                        },
-                        icon: Icon(playBtn),
-                      ),
-                    )
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.circular(100.0)),
+                        child: IconButton(
+                          iconSize: 50.0,
+                          color: Colors.purple,
+                          onPressed: () {
+                            abrirYoutube();
+                          },
+                          icon: Icon(Icons.play_arrow),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          //Card 3
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Card(
-              color: Colors.black38,
-              shadowColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Musica Personalizada",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.purple[300],
-                          borderRadius: BorderRadius.circular(100.0)),
-                      child: IconButton(
-                        iconSize: 50.0,
-                        color: Colors.purple,
-                        onPressed: () {
-                          abrirYoutube();
-                        },
-                        icon: Icon(playBtn),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ]));
+            ]));
   }
 
   _requestPop(context) {
@@ -219,7 +189,12 @@ class _MusicPageState extends State<MusicPage> {
             content: Padding(
               padding: EdgeInsets.all(10.0),
               child: Container(
-                child: Text("Explicação sobre musicoterapia"),
+                child: Text(
+                  " Podendo ser utilizada como forma de reabilitação, prevenção ou para melhorar a qualidade de vida. Ela pode ser praticada de forma individual ou comunitária.\n\nA música age na mesma região do cérebro que é responsável pelas emoções. Assim, dependo da música que escutamos, podemos nos sentir mais motivados e alegres ou mais introspectivos. Sendo assim, é importante procurar um musicoterapeuta para que ele indique as músicas a serem ouvidas e por quanto tempo deve ser feita a prática.",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lora(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                ),
               ),
             ),
             actions: [

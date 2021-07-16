@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoPage extends StatefulWidget {
@@ -225,7 +226,12 @@ class _InfoPageState extends State<InfoPage> {
             content: Padding(
               padding: EdgeInsets.all(10.0),
               child: Container(
-                child: Text("Ajudou na elaboração da ideia"),
+                child: Text(
+                    "Equipe de robotica de Blumenau - Santa Catarina - Brasil, teve total involvimento na elaboração da ideia deste projeto, o qual foi apresentado em competições de robotica levando no ano de 2019 o premio de ¨lugar em melhor projeto do mundo",
+                    style: GoogleFonts.lora(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 25)),
+                    textAlign: TextAlign.center),
               ),
             ),
             actions: [
@@ -252,7 +258,11 @@ class _InfoPageState extends State<InfoPage> {
               padding: EdgeInsets.all(10.0),
               child: Container(
                 child: Text(
-                    "Elaborou os codigos, e aprofundou a pesquisa cientifica"),
+                    "Um grupo de alunos do Instituto Federal de Santa Catarina Campus Gaspar, desenvolveu este projeto em um periodo de um ano",
+                    style: GoogleFonts.lora(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                    textAlign: TextAlign.center),
               ),
             ),
             actions: [

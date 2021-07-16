@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sapad_v3/FireBase/register_firebase.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -53,6 +54,12 @@ class _AcompPageState extends State<AcompPage> {
   }
 
   final myController = TextEditingController();
+  static final List<String> items = <String>[
+    'Meditação',
+    'Cromoterapia',
+    'Musicoterapia'
+  ];
+  late String value = items.first;
 
   @override
   Widget build(BuildContext context) {
@@ -99,8 +106,10 @@ class _AcompPageState extends State<AcompPage> {
                                       decoration: InputDecoration(
                                         labelText:
                                             "Insira o E-mail de seu parceiro:",
-                                        labelStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20),
+                                        labelStyle: GoogleFonts.lora(
+                                            textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                       ),
                                       controller: myController,
                                     ),
@@ -112,6 +121,8 @@ class _AcompPageState extends State<AcompPage> {
                     )),
               ),
             ),
+
+            //Card Meditação
             Visibility(
               child: Padding(
                 padding: EdgeInsets.all(10.0),
@@ -136,80 +147,16 @@ class _AcompPageState extends State<AcompPage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("Meditação:"),
-                                      Text(medit.toString()),
-                                    ],
-                                  )),
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-              visible: emailParceiro.isEmpty ? false : true,
-            ),
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Card(
-                              color: Colors.black38,
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Cromoterapia:"),
-                                      Text(cromo.toString()),
-                                    ],
-                                  )),
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-              visible: emailParceiro.isEmpty ? false : true,
-            ),
-            Visibility(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Card(
-                  color: Colors.black38,
-                  shadowColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Card(
-                              color: Colors.black38,
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Musicoterapia:"),
-                                      Text(music.toString()),
+                                      Text("Meditação:",
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
+                                      Text(medit.toString(),
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
                                     ],
                                   )),
                             ),
@@ -221,6 +168,133 @@ class _AcompPageState extends State<AcompPage> {
               visible: emailParceiro.isEmpty ? false : true,
             ),
 
+            //Card Cromoterapia
+            Visibility(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Card(
+                              color: Colors.black38,
+                              shadowColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Cromoterapia:",
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
+                                      Text(cromo.toString(),
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+              visible: emailParceiro.isEmpty ? false : true,
+            ),
+
+            //Card Musicoterapia
+            Visibility(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Card(
+                              color: Colors.black38,
+                              shadowColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Musicoterapia:",
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
+                                      Text(music.toString(),
+                                          style: GoogleFonts.lora(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20))),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+              visible: emailParceiro.isEmpty ? false : true,
+            ),
+
+            //Dropdown Button
+            Visibility(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.red,
+                    border: Border.all(color: Colors.white24)),
+                child: DropdownButton<String>(
+                  focusColor: Colors.black,
+                  dropdownColor: Colors.red,
+                  value: value,
+                  items: items
+                      .map((item) => DropdownMenuItem<String>(
+                            child: Text(
+                              item,
+                              style: GoogleFonts.lora(
+                                  textStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white)),
+                            ),
+                            value: item,
+                          ))
+                      .toList(),
+                  onChanged: (value) => setState(() {
+                    this.value = value!;
+                  }),
+                ),
+              ),
+              visible: emailParceiro.isEmpty ? false : true,
+            ),
+
+            //Grafico Meditação
             Visibility(
               child: SfCircularChart(
                 title: ChartTitle(
@@ -247,9 +321,82 @@ class _AcompPageState extends State<AcompPage> {
                       enableTooltip: true),
                 ],
               ),
-              visible: emailParceiro.isEmpty ? false : true,
+              visible: value.contains("Meditação") && emailParceiro.isNotEmpty
+                  ? true
+                  : false,
             ),
 
+            //Grafico Cromoterapia
+            Visibility(
+              child: Container(
+                child: SfCircularChart(
+                  title: ChartTitle(
+                    text:
+                        'Estatísticas da Cromaterapia \n Conforme uso por emoção sentida \n\n\n Total de Cromaterapias realizadas: $contCromo',
+                    textStyle: TextStyle(color: Colors.white),
+                  ),
+                  legend: Legend(
+                    isVisible: true,
+                    overflowMode: LegendItemOverflowMode.wrap,
+                    textStyle: TextStyle(color: Colors.white),
+                    alignment: ChartAlignment.center,
+                    itemPadding: 20,
+                  ),
+                  tooltipBehavior: _tooltipBehavior,
+                  series: <CircularSeries>[
+                    DoughnutSeries<GDPDatacromo, dynamic>(
+                        dataSource: _chartDatacromo,
+                        xValueMapper: (GDPDatacromo data, _) => data.emoteBaseC,
+                        yValueMapper: (GDPDatacromo data, _) => data.contCromo,
+                        pointColorMapper: (GDPDatacromo data, _) =>
+                            data.colorgraf,
+                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                        enableTooltip: true),
+                  ],
+                ),
+              ),
+              visible:
+                  value.contains("Cromoterapia") && emailParceiro.isNotEmpty
+                      ? true
+                      : false,
+            ),
+
+            //Grafico Musicoterapia
+            Visibility(
+              child: Container(
+                child: SfCircularChart(
+                  title: ChartTitle(
+                    text:
+                        'Estatísticas da Musicoterapia \n Conforme uso por emoção sentida \n\n\n Total de Musicoterapia realizadas: $contMusic',
+                    textStyle: TextStyle(color: Colors.white),
+                  ),
+                  legend: Legend(
+                    isVisible: true,
+                    overflowMode: LegendItemOverflowMode.wrap,
+                    textStyle: TextStyle(color: Colors.white),
+                    alignment: ChartAlignment.center,
+                    itemPadding: 20,
+                  ),
+                  tooltipBehavior: _tooltipBehavior,
+                  series: <CircularSeries>[
+                    DoughnutSeries<GDPDatamusic, dynamic>(
+                        dataSource: _chartDatamusic,
+                        xValueMapper: (GDPDatamusic data, _) => data.emoteBaseM,
+                        yValueMapper: (GDPDatamusic data, _) => data.contMusic,
+                        pointColorMapper: (GDPDatamusic data, _) =>
+                            data.colorgraf,
+                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                        enableTooltip: true),
+                  ],
+                ),
+              ),
+              visible:
+                  value.contains("Musicoterapia") && emailParceiro.isNotEmpty
+                      ? true
+                      : false,
+            ),
+
+            //Botão
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -278,10 +425,8 @@ class _AcompPageState extends State<AcompPage> {
   }
 
   List<GDPDatamedit> getChartDatamedit() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatamedit> chartData = [];
     this.emotea.forEach((emoteBase) => {
-          print(emoteBase),
           if (emoteBase == 'Medo')
             {
               contMedit = contMeditmed,
@@ -291,7 +436,6 @@ class _AcompPageState extends State<AcompPage> {
           else if (emoteBase == 'Raiva')
             {
               contMedit = contMeditraiva,
-              print(contMedit),
               chartData
                   .add(new GDPDatamedit('Raiva', contMedit, Color(0xFFF06292))),
             }
@@ -318,10 +462,8 @@ class _AcompPageState extends State<AcompPage> {
   }
 
   List<GDPDatacromo> getChartDatacromo() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatacromo> chartData = [];
     this.emotea.forEach((emoteBaseC) => {
-          print(emoteBaseC),
           if (emoteBaseC == 'Medo')
             {
               contCromo = contCromomed,
@@ -331,7 +473,6 @@ class _AcompPageState extends State<AcompPage> {
           else if (emoteBaseC == 'Raiva')
             {
               contCromo = contCromoraiva,
-              print(contMedit),
               chartData
                   .add(new GDPDatacromo('Raiva', contCromo, Color(0xFFF06292))),
             }
@@ -358,10 +499,8 @@ class _AcompPageState extends State<AcompPage> {
   }
 
   List<GDPDatamusic> getChartDatamusic() {
-    print('TESTETESTETESTETESTETESTETESTETESTETESTETESTE');
     final List<GDPDatamusic> chartData = [];
     this.emotea.forEach((emoteBaseM) => {
-          print(emoteBaseM),
           if (emoteBaseM == 'Medo')
             {
               contMusic = contMusicmed,
@@ -371,7 +510,6 @@ class _AcompPageState extends State<AcompPage> {
           else if (emoteBaseM == 'Raiva')
             {
               contMusic = contMusicraiva,
-              print(contMusic),
               chartData
                   .add(new GDPDatamusic('Raiva', contMusic, Color(0xFFF06292))),
             }
@@ -424,11 +562,7 @@ class _AcompPageState extends State<AcompPage> {
     contMusicraiva = tec.data()?['contMusicraiva'];
     contMusicstress = tec.data()?['contMusicstress'];
     contMusictriste = tec.data()?['contMusictriste'];
-    var emote = await FirebaseFirestore.instance
-        .collection(emailParceiro)
-        .doc('Emotion')
-        .get();
-    print(emote.data());
+
     List<String> emotea = [];
 
     emotea.add('Medo');
@@ -442,13 +576,11 @@ class _AcompPageState extends State<AcompPage> {
     emotea.add('Triste');
 
     this.emotea = emotea;
-    print(' flgmdflkgmdopmkpdfg $emotea');
+
     _chartDatamedit = getChartDatamedit();
     _chartDatacromo = getChartDatacromo();
     _chartDatamusic = getChartDatamusic();
     setState(() {});
-    print(
-        "testetestetestetestetestetestetestetestetesteteste, $_chartDatamedit");
   }
 }
 

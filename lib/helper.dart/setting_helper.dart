@@ -1,4 +1,4 @@
-import 'dart:async';
+/* import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -137,3 +137,4 @@ class Emote {
     return "Emote(id: $id, _med: $_med, _ansi: $_ansi, _triste: $_triste, _raiva: $_raiva)";
   }
 }
+ */

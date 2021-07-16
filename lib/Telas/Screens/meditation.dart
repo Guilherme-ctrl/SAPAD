@@ -2,6 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MeditationPage extends StatefulWidget {
@@ -54,170 +56,136 @@ class _MeditationPageState extends State<MeditationPage> {
           centerTitle: true,
         ),
         backgroundColor: Colors.black87,
-        body: Column(children: [
-          //Card 1
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: Colors.black38,
-                shadowColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            width: 100.0,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage("assets/Guitar.png"))),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+        body: ListView(
+            padding: EdgeInsets.only(
+                left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
+            children: [
+              //Card 1
+              GestureDetector(
+                child: Card(
+                    color: Colors.black54,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text(
-                                    "Saiba sobre\n MUSICOTERAPIA",
-                                    style: TextStyle(
-                                        fontSize: 25.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  )),
-                            )
+                            Icon(MdiIcons.emoticonExcited,
+                                size: 50, color: Colors.red),
+                            SizedBox(width: 10),
+                            Text("Saiba mais sobre Meditação!!",
+                                style: GoogleFonts.lora(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)))
                           ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                        ))),
+                onTap: () {
+                  _requestPop(context);
+                },
               ),
-              onTap: () {
-                _requestPop(context);
-              },
-            ),
-          ),
-          //Card 2
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: GestureDetector(
-              child: Card(
-                color: Colors.black38,
-                shadowColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 60.0),
-                        child: Container(
+              SizedBox(height: 20),
+
+              //Card 2
+              GestureDetector(
+                child: Card(
+                  color: Colors.black38,
+                  shadowColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
                           child: Padding(
                               padding: EdgeInsets.all(20.0),
                               child: Text(
                                 "Meditação Guiada",
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lora(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 25)),
                                 textAlign: TextAlign.center,
                               )),
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.purple[300],
-                            borderRadius: BorderRadius.circular(100.0)),
-                        child: IconButton(
-                          iconSize: 50.0,
-                          color: Colors.purple,
-                          onPressed: () {
-                            if (!playing) {
-                              cache.play("Med1.mp3");
-                              setState(() {
-                                playBtn = Icons.pause;
-                                playing = true;
-                              });
-                            } else {
-                              _player!.pause();
-                              setState(() {
-                                playBtn = Icons.play_arrow;
-                                playing = false;
-                              });
-                            }
-                          },
-                          icon: Icon(playBtn),
+                        SizedBox(width: 40),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.purple[300],
+                              borderRadius: BorderRadius.circular(100.0)),
+                          child: IconButton(
+                            iconSize: 50.0,
+                            color: Colors.purple,
+                            onPressed: () {
+                              if (!playing) {
+                                cache.play("Med1.mp3");
+                                setState(() {
+                                  playBtn = Icons.pause;
+                                  playing = true;
+                                });
+                              } else {
+                                _player!.pause();
+                                setState(() {
+                                  playBtn = Icons.play_arrow;
+                                  playing = false;
+                                });
+                              }
+                            },
+                            icon: Icon(playBtn),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  _requestPop(context);
+                },
+              ),
+              SizedBox(height: 20),
+
+              //Card 3
+              Card(
+                color: Colors.black38,
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Text(
+                            "Musica Personalizada",
+                            style: GoogleFonts.lora(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 25)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      )
-                    ],
+                        SizedBox(width: 40),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.purple[300],
+                              borderRadius: BorderRadius.circular(100.0)),
+                          child: IconButton(
+                            iconSize: 50.0,
+                            color: Colors.purple,
+                            onPressed: () {
+                              abrirLink();
+                            },
+                            icon: Icon(Icons.play_arrow),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-              onTap: () {
-                _requestPop(context);
-              },
-            ),
-          ),
-          //Card 3
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Card(
-              color: Colors.black38,
-              shadowColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: Container(
-                        child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "Musica Personalizada",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.purple[300],
-                          borderRadius: BorderRadius.circular(100.0)),
-                      child: IconButton(
-                        iconSize: 50.0,
-                        color: Colors.purple,
-                        onPressed: () {
-                          abrirLink();
-                        },
-                        icon: Icon(playBtn),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ]));
+            ]));
   }
 
   _requestPop(context) {
@@ -232,7 +200,12 @@ class _MeditationPageState extends State<MeditationPage> {
             content: Padding(
               padding: EdgeInsets.all(10.0),
               child: Container(
-                child: Text("Explicação sobre musicoterapia"),
+                child: Text(
+                  "Uma prática que engloba relaxamento corporal, diminuição da respiração, levando a um estado de paz, calma e tranquilidade, tanto física como mentalmente. É das condições básicas para se meditar é concentração e a atenção em algum foco, seja interno como a observação nos músculos da respiração, seja externo na concentração em algum som ou cheiro.\n\nEssa prática pode ser induzida por um facilitador, onde ele guia com as palavras o tipo de foco que o praticante terá, quais os músculos que ele deve relaxar assim por diante, ou todo o processo pode ser feito de forma autônoma pelo próprio praticante.",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lora(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                ),
               ),
             ),
             actions: [

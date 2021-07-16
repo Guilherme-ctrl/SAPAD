@@ -79,25 +79,16 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/Fundo.jpg
     - assets/Logo.png
-    - assets/FundoTeste.jpg
     - assets/Med1.png
-    - assets/Cromoterapia.png
-    - assets/Music.png
-    - assets/Med1.mp3
-    - assets/Chakra.jpg
-    - assets/Guitar.png
-    - assets/Circulo.png
-    - assets/Amarelo.jpg
-    - assets/Vermelho.jpg
-    - assets/Azul.jpg
-    - assets/roxo.jpg
-    - assets/Verde.jpg
+    - assets/Med1.mp3 
     - assets/TechMaker.jpg
-    - assets/cromoterapia.jpg
+    - assets/Cromoterapia.png
     - assets/meditacao.jpg
     - assets/musicoterapia.jpg
+    - assets/Guitar.png
+    - assets/meditFundo.jpg
+    - assets/cardInfoMedit.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
