@@ -66,10 +66,12 @@ class _MusicPageState extends State<MusicPage> {
                           children: [
                             Icon(MdiIcons.bookmarkMusic,
                                 size: 50, color: Colors.red),
-                            Text("Saiba mais sobre musicoterapia!!",
-                                style: GoogleFonts.lora(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)))
+                            Expanded(
+                              child: Text("Saiba mais sobre musicoterapia!!",
+                                  style: GoogleFonts.lora(
+                                      textStyle: TextStyle(
+                                          color: Colors.white, fontSize: 25))),
+                            )
                           ],
                         ))),
                 onTap: () {
@@ -88,18 +90,15 @@ class _MusicPageState extends State<MusicPage> {
                   padding: EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 60.0),
-                        child: Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Musica Classica",
-                                style: GoogleFonts.lora(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)),
-                                textAlign: TextAlign.center,
-                              )),
+                      Container(
+                        child: Expanded(
+                          child: Text(
+                            "Musica Classica",
+                            style: GoogleFonts.lora(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 25)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Container(
@@ -143,18 +142,15 @@ class _MusicPageState extends State<MusicPage> {
                   padding: EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Musica Personalizada",
-                                style: GoogleFonts.lora(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)),
-                                textAlign: TextAlign.center,
-                              )),
+                      Container(
+                        child: Expanded(
+                          child: Text(
+                            "Musica Personalizada",
+                            style: GoogleFonts.lora(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 25)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Container(

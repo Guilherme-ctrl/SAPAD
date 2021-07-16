@@ -58,10 +58,12 @@ class _CromoPageState extends State<CromoPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(MdiIcons.lavaLamp, size: 50, color: Colors.red),
-                        Text("Saiba mais sobre Cromoterapia!!",
-                            style: GoogleFonts.lora(
-                                textStyle: TextStyle(
-                                    color: Colors.white, fontSize: 25)))
+                        Expanded(
+                          child: Text("Saiba mais sobre Cromoterapia!!",
+                              style: GoogleFonts.lora(
+                                  textStyle: TextStyle(
+                                      color: Colors.white, fontSize: 25))),
+                        )
                       ],
                     ))),
             onTap: () {

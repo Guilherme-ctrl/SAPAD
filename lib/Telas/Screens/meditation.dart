@@ -72,13 +72,17 @@ class _MeditationPageState extends State<MeditationPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(MdiIcons.emoticonExcited,
-                                size: 50, color: Colors.red),
+                            Expanded(
+                              child: Icon(MdiIcons.emoticonExcited,
+                                  size: 50, color: Colors.red),
+                            ),
                             SizedBox(width: 10),
-                            Text("Saiba mais sobre Meditação!!",
-                                style: GoogleFonts.lora(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)))
+                            Expanded(
+                              child: Text("Saiba mais sobre Meditação!!",
+                                  style: GoogleFonts.lora(
+                                      textStyle: TextStyle(
+                                          color: Colors.white, fontSize: 25))),
+                            )
                           ],
                         ))),
                 onTap: () {
@@ -98,16 +102,18 @@ class _MeditationPageState extends State<MeditationPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "Meditação Guiada",
-                                style: GoogleFonts.lora(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 25)),
-                                textAlign: TextAlign.center,
-                              )),
+                        Expanded(
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Text(
+                                  "Meditação Guiada",
+                                  style: GoogleFonts.lora(
+                                      textStyle: TextStyle(
+                                          color: Colors.white, fontSize: 25)),
+                                  textAlign: TextAlign.center,
+                                )),
+                          ),
                         ),
                         SizedBox(width: 40),
                         Container(
@@ -152,12 +158,11 @@ class _MeditationPageState extends State<MeditationPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
                           child: Text(
                             "Musica Personalizada",
                             style: GoogleFonts.lora(
@@ -166,22 +171,22 @@ class _MeditationPageState extends State<MeditationPage> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        SizedBox(width: 40),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.purple[300],
-                              borderRadius: BorderRadius.circular(100.0)),
-                          child: IconButton(
-                            iconSize: 50.0,
-                            color: Colors.purple,
-                            onPressed: () {
-                              abrirLink();
-                            },
-                            icon: Icon(Icons.play_arrow),
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 40),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.circular(100.0)),
+                        child: IconButton(
+                          iconSize: 50.0,
+                          color: Colors.purple,
+                          onPressed: () {
+                            abrirLink();
+                          },
+                          icon: Icon(Icons.play_arrow),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),

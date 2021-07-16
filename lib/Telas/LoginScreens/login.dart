@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.height * 0.20,
+                            height: MediaQuery.of(context).size.height * 0.35,
                             width: MediaQuery.of(context).size.width * 0.9,
                             decoration: new BoxDecoration(
                                 color: Colors.grey.withOpacity(0),
@@ -50,23 +50,27 @@ class _LoginPageState extends State<LoginPage> {
                             child: Column(
                               children: [
                                 SizedBox(height: 30),
-                                Text(
-                                  "Sistema de Ajuda a Pacientes com Ansiedade e Depressão",
-                                  style: GoogleFonts.lora(
-                                      textStyle: TextStyle(
-                                          color: Colors.white, fontSize: 30)),
-                                  textAlign: TextAlign.center,
+                                Expanded(
+                                  child: Text(
+                                    "Sistema de Ajuda a Pacientes com Ansiedade e Depressão",
+                                    style: GoogleFonts.lora(
+                                        textStyle: TextStyle(
+                                            color: Colors.white, fontSize: 30)),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                                 SizedBox(height: 10),
-                                Text(
-                                  "S.A.P.A.D.",
-                                  style: GoogleFonts.lora(
-                                      textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  textAlign: TextAlign.center,
+                                Expanded(
+                                  child: Text(
+                                    "S.A.P.A.D.",
+                                    style: GoogleFonts.lora(
+                                        textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ],
                             ),
