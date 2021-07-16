@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sapad_v3/games/game_amarelo.dart';
 import 'package:sapad_v3/games/game_azul.dart';
+import 'package:sapad_v3/games/game_roxo.dart';
+import 'package:sapad_v3/games/game_verde.dart';
 import 'package:sapad_v3/games/game_vermelho.dart';
 
 class CromoPage extends StatefulWidget {
@@ -243,7 +246,8 @@ class _CromoPageState extends State<CromoPage> {
                   ),
                 ),
                 onTap: () {
-                  _requestPopAma(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SnakeGameAmarelo()));
                 },
               ),
             ),
@@ -287,7 +291,8 @@ class _CromoPageState extends State<CromoPage> {
                   ),
                 ),
                 onTap: () {
-                  _requestPopRx(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SnakeGameRoxo()));
                 },
               ),
             ),
@@ -329,7 +334,8 @@ class _CromoPageState extends State<CromoPage> {
                   ),
                 ),
                 onTap: () {
-                  _requestPopVe(context);
+ Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SnakeGameVerde()));
                 },
               ),
             ),
